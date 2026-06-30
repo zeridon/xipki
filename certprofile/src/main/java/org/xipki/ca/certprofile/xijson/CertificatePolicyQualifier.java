@@ -7,7 +7,6 @@ import org.xipki.util.codec.Args;
 
 /**
  * Certificate Policy Qualifier.
- * CertificatePolicies).
  *
  * @author Lijun Liao (xipki)
  */

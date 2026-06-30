@@ -35,11 +35,6 @@ public class CborTaggedObject implements CborEncodable {
   @Override
   public void encode(CborEncoder encoder) throws CodecException {
     encoder.writeTag(tag);
-    unwrappedEncode(encoder);
-  }
-
-  @Override
-  public void unwrappedEncode(CborEncoder encoder) throws CodecException {
     encoder.writeAnyObject(value);
   }
 

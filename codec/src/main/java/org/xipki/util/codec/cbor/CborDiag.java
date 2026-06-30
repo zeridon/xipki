@@ -270,8 +270,6 @@ public class CborDiag {
 
   private final MyInputStream is;
 
-  private final boolean cborseq;
-
   private final boolean printEofOffset;
 
   protected final int offsetLen;
@@ -284,15 +282,11 @@ public class CborDiag {
    * @param encoded the CBOR-encoded data form.
    */
   public CborDiag(byte[] encoded) {
-    this(encoded, true, false);
+    this(encoded, true);
   }
 
   public CborDiag(byte[] encoded, boolean printEofOffset) {
-    this(new ByteArrayInputStream(encoded), printEofOffset, false);
-  }
-
-  public CborDiag(byte[] encoded, boolean printEofOffset, boolean cborseq) {
-    this(new ByteArrayInputStream(encoded), printEofOffset, cborseq);
+    this(new ByteArrayInputStream(encoded), printEofOffset);
   }
 
   /**
@@ -302,16 +296,11 @@ public class CborDiag {
    *          cannot be <code>null</code>.
    */
   public CborDiag(InputStream is) {
-    this(is, true, false);
+    this(is, true);
   }
 
   public CborDiag(InputStream is, boolean printEofOffset) {
-    this(is, printEofOffset, false);
-  }
-
-  public CborDiag(InputStream is, boolean printEofOffset, boolean cborseq) {
     Args.notNull(is, "is");
-    this.cborseq = cborseq;
     if (is instanceof PushbackInputStream) {
       this.is = new MyInputStream((PushbackInputStream) is);
     } else {
@@ -326,9 +315,8 @@ public class CborDiag {
         : size < 100000 ? 5 : 6;
   }
 
-  public CborDiag(MyInputStream is, boolean cborseq, int offsetLen, boolean printEofOffset) {
+  public CborDiag(MyInputStream is, int offsetLen, boolean printEofOffset) {
     Args.notNull(is, "is");
-    this.cborseq = cborseq;
     this.is = is;
     this.printEofOffset = printEofOffset;
     this.offsetLen = offsetLen;
@@ -386,13 +374,13 @@ public class CborDiag {
     print(new IndentOutStream(Args.notNull(out, "out"), indentPrefix));
   }
 
-  protected int print0(IndentOutStream out) throws CodecException {
+  protected void print0(IndentOutStream out) throws CodecException {
     this.out = Args.notNull(out, "out");
-    return print0();
+    print0();
   }
 
   protected void print(IndentOutStream out) throws CodecException {
-    int numElements = print0(out);
+    print0(out);
 
     ByteArrayOutputStream bout = new ByteArrayOutputStream(32);
     int read;
@@ -407,10 +395,6 @@ public class CborDiag {
       writeNewLine();
     }
 
-    if (cborseq) {
-      writeLine("# CBOR sequence with " + numElements + " elements");
-    }
-
     if (size > 0) {
       writeLine("## " + size + " unused bytes:");
       byte[] remainingBytes = bout.toByteArray();
@@ -418,18 +402,8 @@ public class CborDiag {
     }
   }
 
-  protected int print0() throws CodecException {
-    if (cborseq) {
-      int n = 0;
-      while (getOffset() < this.is.totalSize) {
-        output(0, "");
-        n++;
-      }
-      return n;
-    } else {
-      output(0, "");
-      return 1;
-    }
+  protected void print0() throws CodecException {
+    output(0, "");
   }
 
   protected void output(int level, String prefix) throws CodecException {
@@ -906,18 +880,34 @@ public class CborDiag {
 
     // we need to split the long lines
     List<String> ret =  new ArrayList<>(lines.size() + 1);
-    for (String line : lines) {
+    for (int i = 0; i < lines.size(); i++) {
+      String line = lines.get(i);
       int len = line.length();
       if (len <= numPerLine) {
+        // short line
         ret.add(line);
       } else {
+        // long line
         int numBlocks = (len + numPerLine - 1) / numPerLine;
         int start = 0;
-        for (int i = 0; i < numBlocks - 1; i++) {
+        for (int j = 0; j < numBlocks - 1; j++) {
           ret.add(line.substring(start, start + numPerLine));
           start += numPerLine;
         }
-        ret.add(line.substring(start));
+
+        String lastBlock = line.substring(start);
+        if (i < lines.size() - 1) {
+          // try to merge the last block with next line
+          String nextLine = lines.get(i + 1);
+          if (lastBlock.length() + 1 + nextLine.length() < numPerLine) {
+            ret.add(lastBlock + " " + nextLine);
+            i++;
+          } else {
+            ret.add(lastBlock);
+          }
+        } else {
+          ret.add(lastBlock);
+        }
       }
     }
 
