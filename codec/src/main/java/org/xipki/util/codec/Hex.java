@@ -234,7 +234,7 @@ public class Hex {
 
     char[] digits = uppercase ? UPPER_DIGITS : DIGITS;
     int lastOffset = offset + len;
-    Args.max(data.length, "data.length", lastOffset);
+    Args.min(data.length, "data.length", lastOffset);
 
     buf.append(indent);
     for (int i = 0; i < len; i++) {

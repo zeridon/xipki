@@ -184,6 +184,12 @@ public class Args {
     return argument;
   }
 
+  public static byte[] variableLen(byte[] argument, String name, int min, int max) {
+    Objects.requireNonNull(argument, name + " may not be null");
+    range(argument.length, name + ".length", min, max);
+    return argument;
+  }
+
   public static <T> T notNull(T argument, String name) {
     return Objects.requireNonNull(argument, name + " may not be null");
   }

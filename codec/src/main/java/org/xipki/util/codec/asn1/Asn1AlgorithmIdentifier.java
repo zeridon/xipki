@@ -33,8 +33,8 @@ public class Asn1AlgorithmIdentifier {
     return params;
   }
 
-  public static Asn1AlgorithmIdentifier getInstance(byte[] encoded
-  ) throws InvalidKeySpecException {
+  public static Asn1AlgorithmIdentifier getInstance(byte[] encoded)
+      throws InvalidKeySpecException {
     return getInstance(encoded, new AtomicInteger());
   }
 

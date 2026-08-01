@@ -817,11 +817,10 @@ public class CborDiag {
         writeText(Hex.encodeUpper(data[0]));
         writeText(" ");
         writeText(Hex.encodeUpper(Arrays.copyOfRange(data, 1, len)));
+        numSpaces--;
       } else {
-        writeText(" ");
         writeText(Hex.encodeUpper(data));
       }
-      numSpaces--;
     }
 
     numSpaces = Math.max(1, numSpaces - 2 * data.length);
@@ -847,7 +846,7 @@ public class CborDiag {
         }
       }
 
-      int numPerLine = Math.max(1, maxCharsPerLine - lineOffset - 2 - leading.length());
+      int numPerLine = maxCharsPerLine - lineOffset - 2 - leading.length();
       List<String> splitTexts = splitText(text, numPerLine);
       boolean firstLine = true;
       for (String line0 : splitTexts) {
