@@ -11,10 +11,9 @@ import org.xipki.util.codec.Args;
 import org.xipki.util.codec.CodecException;
 import org.xipki.util.codec.json.JsonMap;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 /**
  * V1 General Name Type type definition.
@@ -34,7 +33,7 @@ public class V1GeneralNameType {
   }
 
   public GeneralNameType toV2() {
-    Set<GeneralNameTag> v2Modes = new HashSet<>(modes.size());
+    List<GeneralNameTag> v2Modes = new ArrayList<>(modes.size());
     for (String mode : modes) {
       if ("uniformResourceIdentifier".equalsIgnoreCase(mode) || "uri".equalsIgnoreCase(mode)) {
         v2Modes.add(GeneralNameTag.uri);
@@ -61,7 +60,7 @@ public class V1GeneralNameType {
       }
     }
 
-    return new GeneralNameType(v2Modes);
+    return new GeneralNameType(v2Modes, null);
   }
 
   public static V1GeneralNameType parse(JsonMap json) throws CodecException {

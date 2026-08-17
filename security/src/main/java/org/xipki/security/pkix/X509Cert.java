@@ -19,13 +19,14 @@ import org.xipki.security.HashAlgo;
 import org.xipki.security.KeySpec;
 import org.xipki.security.OIDs;
 import org.xipki.security.SignAlgo;
-import org.xipki.security.asn1.ASIdOrRange;
-import org.xipki.security.asn1.ASIdentifierChoice;
-import org.xipki.security.asn1.ASIdentifiers;
-import org.xipki.security.asn1.ASN1IPAddressFamily;
-import org.xipki.security.asn1.IPAddrBlocks;
-import org.xipki.security.asn1.IPAddressChoice;
-import org.xipki.security.asn1.IPAddressOrRange;
+import org.xipki.security.asn1.rfc4108.HardwareModuleName;
+import org.xipki.security.asn1.rpki.ASIdOrRange;
+import org.xipki.security.asn1.rpki.ASIdentifierChoice;
+import org.xipki.security.asn1.rpki.ASIdentifiers;
+import org.xipki.security.asn1.rpki.ASN1IPAddressFamily;
+import org.xipki.security.asn1.rpki.IPAddrBlocks;
+import org.xipki.security.asn1.rpki.IPAddressChoice;
+import org.xipki.security.asn1.rpki.IPAddressOrRange;
 import org.xipki.security.composite.CompositeMLDSAPublicKey;
 import org.xipki.security.composite.CompositeSigUtil;
 import org.xipki.security.util.Asn1Util;
@@ -442,7 +443,6 @@ public class X509Cert {
     return sb.toString();
   }
 
-
   static void printSignature(StringBuilder sb, int level,
                             AlgorithmIdentifier sigAlg, byte[] sigValue) {
     boolean ecdhPop = false;
@@ -813,8 +813,7 @@ public class X509Cert {
           addIndent(sb, level2).append("Signature:  ").append(sigAlgText).append("\n");
           Hex.append(sb, sigValue, 16, "  ".repeat(level + 3));
         }
-      } else if (OIDs.Extn.autonomousSysIds.equals(oid) ||
-          OIDs.Extn.autonomousSysIdsV2.equals(oid)) {
+      } else if (OIDs.Extn.ASIdentifiers.equals(oid) || OIDs.Extn.ASIdentifiersV2.equals(oid)) {
         ASIdentifiers asIdentifiers = ASIdentifiers.getInstance(extnValue);
         ASIdentifierChoice asNum = asIdentifiers.asnum();
         ASIdentifierChoice rdi = asIdentifiers.rdi();
@@ -843,7 +842,7 @@ public class X509Cert {
             }
           }
         }
-      } else if (OIDs.Extn.ipAddrBlocks.equals(oid) || OIDs.Extn.ipAddrBlocksV2.equals(oid)) {
+      } else if (OIDs.Extn.IPAddrBlocks.equals(oid) || OIDs.Extn.IPAddrBlocksV2.equals(oid)) {
         IPAddrBlocks blocks = IPAddrBlocks.getInstance(extnValue);
         for (ASN1IPAddressFamily block : blocks.blocks()) {
           int afi = block.afi();
@@ -967,11 +966,17 @@ public class X509Cert {
         if (onId.equals(OIDs.X509.id_on_SmtpUTF8Mailbox)) {
           sb.append("SmtpUTF8Mailbox:").append(value);
         } else if (onId.equals(OIDs.X509.id_on_hardwareModuleName)) {
-          sb.append("hardwareModuleName:");
-          ASN1Sequence seq = ASN1Sequence.getInstance(value);
-          sb.append(seq.getObjectAt(0)).append(" = ").append("\n"); // OID
+          sb.append("hardwareModuleName:\n");
+          HardwareModuleName moduleName = HardwareModuleName.getInstance(value);
+
           addIndent(sb, level + 1);
-          appendASN1(sb, seq.getObjectAt(1)); // value
+          sb.append("hwType: ").append(moduleName.hwType()).append("\n");
+
+          addIndent(sb, level + 1);
+          sb.append("hwSerialNum:\n");
+          byte[] snBytes = moduleName.hwSerialNum();
+          Hex.append(sb, snBytes, 0, snBytes.length, ":", 69, "  ".repeat(level + 2));
+          sb.deleteCharAt(sb.length() - 1); // removing the end LF,
         } else if (onId.equals(OIDs.X509.id_on_MACAddress)) {
           sb.append("MACAddress:");
           byte[] macValue = ASN1OctetString.getInstance(on.getValue()).getOctets();

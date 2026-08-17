@@ -78,7 +78,22 @@
       "tls-compkem",
       "tls-sm2",
       "microsoft",
-      "gmt0015"
+      "gmt0015",
+      "rpki",
+      "spdm",
+      "stir",
+      "ccc-e",
+      "ccc-h",
+      "ccc-k",
+      "ccc-t",
+      "rfc9608",
+      "brski",
+      "matter",
+      "mrtd",
+      "dice",
+      "rfc3739",
+      "tcg",
+      "othernames"
     ],
     "publishers":[
       "ocsp-publisher"

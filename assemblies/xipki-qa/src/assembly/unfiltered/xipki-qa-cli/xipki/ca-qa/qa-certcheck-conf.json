@@ -107,6 +107,54 @@
     "name":"gmt0015",
     "file":"qa/certprofile/certprofile-gmt0015.json"
   },{
+    "name":"rpki",
+    "file":"qa/certprofile/certprofile-rpki.json"
+  },{
+    "name":"spdm",
+    "file":"qa/certprofile/certprofile-spdm.json"
+  },{
+    "name":"rfc3739",
+    "file":"qa/certprofile/certprofile-rfc3739.json"
+  },{
+    "name":"tcg",
+    "file":"qa/certprofile/certprofile-tcg.json"
+  },{
+    "name":"othernames",
+    "file":"qa/certprofile/certprofile-othernames.json"
+  },{
+    "name":"stir",
+    "file":"qa/certprofile/certprofile-stir.json"
+  },{
+    "name":"ccc-e",
+    "file":"qa/certprofile/certprofile-ccc-e.json"
+  },{
+    "name":"ccc-h",
+    "file":"qa/certprofile/certprofile-ccc-h.json"
+  },{
+    "name":"ccc-k",
+    "file":"qa/certprofile/certprofile-ccc-k.json"
+  },{
+    "name":"ccc-t",
+    "file":"qa/certprofile/certprofile-ccc-t.json"
+  },{
+    "name":"rfc9608",
+    "file":"qa/certprofile/certprofile-rfc9608.json"
+  },{
+    "name":"brski",
+    "file":"qa/certprofile/certprofile-brski.json"
+  },{
+    "name":"matter",
+    "file":"qa/certprofile/certprofile-matter.json"
+  },{
+    "name":"mrtd",
+    "file":"qa/certprofile/certprofile-mrtd.json"
+  },{
+    "name":"dice",
+    "file":"qa/certprofile/certprofile-dice.json"
+  },{
+    "name":"caliptra",
+    "file":"qa/certprofile/certprofile-caliptra.json"
+  },{
     "name":"cab-rootca",
     "file":"qa/cab/certprofile/certprofile-cab-rootca.json"
   },{

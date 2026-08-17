@@ -45,6 +45,8 @@ public class OIDs {
     Spdm.id_spdm.getId();
     Xipki.id_alg_dhPop_x448.getId();
     XKU.id_kp_anyExtendedKeyUsage.getId();
+    MRTD.id_icao_mrtd_security_extensions_nameChange.getId();
+    TCG.tcg.getId();
     initialized = true;
   }
 
@@ -134,12 +136,12 @@ public class OIDs {
     public static final ASN1ObjectIdentifier id_on_SmtpUTF8Mailbox = initOid(
         "1.3.6.1.5.5.7.8.9", "SmtpUTF8Mailbox");
 
-    // otherName with SmtpUTF8Mailbox
+    // otherName with id_on_MACAddress
     public static final ASN1ObjectIdentifier id_on_MACAddress = initOid(
         "1.3.6.1.5.5.7.8.12", "MACAddress");
 
     public static final ASN1ObjectIdentifier id_at_statementOfPossession = initOid(
-        "1.3.6.1.4.1.22112.2.1", "d-at-statementOfPossession");
+        "1.3.6.1.4.1.22112.2.1", "at-statementOfPossession");
   }
 
   /**
@@ -849,30 +851,29 @@ public class OIDs {
     public static final ASN1ObjectIdentifier authorityInfoAccess =
         initOid("1.3.6.1.5.5.7.1.1", "authorityInfoAccess");
 
-    // TODO: change the name for ipAddrBlocks* and autonomousSysIds*
     /**
-     * ipAddrBlocks
+     * IPAddrBlocks
      */
-    public static final ASN1ObjectIdentifier ipAddrBlocks =
-        initOid("1.3.6.1.5.5.7.1.7", "sbgp-ipAddrBlock");
+    public static final ASN1ObjectIdentifier IPAddrBlocks =
+        initOid("1.3.6.1.5.5.7.1.7", "IPAddrBlocks");
 
     /**
-     * autonomousSysIds
+     * ASIdentifiers
      */
-    public static final ASN1ObjectIdentifier autonomousSysIds =
-        initOid("1.3.6.1.5.5.7.1.8", "sbgp-autonomousSysNum");
+    public static final ASN1ObjectIdentifier ASIdentifiers =
+        initOid("1.3.6.1.5.5.7.1.8", "ASIdentifiers");
 
     /**
-     * ipAddrBlocks-v2
+     * IPAddrBlocks-v2
      */
-    public static final ASN1ObjectIdentifier ipAddrBlocksV2 =
-        initOid("1.3.6.1.5.5.7.1.28", "sbgp-ipAddrBlockV2");
+    public static final ASN1ObjectIdentifier IPAddrBlocksV2 =
+        initOid("1.3.6.1.5.5.7.1.28", "IPAddrBlocksV2");
 
     /**
-     * autonomousSysIds-v2
+     * ASIdentifiers-v2
      */
-    public static final ASN1ObjectIdentifier autonomousSysIdsV2 =
-        initOid("1.3.6.1.5.5.7.1.29", "sbgp-autonomousSysNumV2");
+    public static final ASN1ObjectIdentifier ASIdentifiersV2 =
+        initOid("1.3.6.1.5.5.7.1.29", "ASIdentifiersV2");
 
     /**
      * Subject Info Access
@@ -1005,6 +1006,14 @@ public class OIDs {
         initOid("1.3.6.1.4.1.41577.5.9", "CCC-J-VehicleOEM-CA-Cert");
     public static final ASN1ObjectIdentifier id_ccc_M_VehicleOEM_CA_Cert =
         initOid("1.3.6.1.4.1.41577.5.10", "CCC-M-VehicleOEM-CA-Cert");
+    public static final ASN1ObjectIdentifier id_ccc_R_CertificationBody_Cert =
+        initOid("1.3.6.1.4.1.41577.5.14", "CCC-R-Certification-Body-Cert");
+    public static final ASN1ObjectIdentifier id_ccc_S_SBxDKis_Intermediate_CA_Cert =
+        initOid("1.3.6.1.4.1.41577.5.15", "CCC-S-SBxD/KIS-Intermediate-CA-Cert");
+    public static final ASN1ObjectIdentifier id_ccc_T_SBxDKis_Endpoint_Cert =
+        initOid("1.3.6.1.4.1.41577.5.16", "CCC-T-SBxD/KIS-Endpoint-Cert");
+    public static final ASN1ObjectIdentifier id_ccc_U_SBxDKis_RootCA_Cert =
+        initOid("1.3.6.1.4.1.41577.5.17", "CCC-U-SBxD/KIS-RootCA-Cert");
 
     // Enroll cert type
     // see https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wcce/3aec3e50-511a-42f9-a5d5-240af503e470
@@ -1034,6 +1043,17 @@ public class OIDs {
 
     public static final ASN1ObjectIdentifier id_cn_UnifiedSocialCreditCode =
         initOid(id_gmt0015_ext + ".4.4", "CN-UnifiedSocialCreditCode");
+
+    // STIR
+    public static final ASN1ObjectIdentifier id_pe_JWTClaimConstraints =
+        initOid("1.3.6.1.5.5.7.1.27", "JWTClaimConstraints");
+
+    public static final ASN1ObjectIdentifier id_pe_TNAuthList =
+        initOid("1.3.6.1.5.5.7.1.26", "TNAuthList");
+
+    // BRSKI (RFC8995)
+    public static final ASN1ObjectIdentifier id_pe_masa_url =
+        initOid("1.3.6.1.5.5.7.1.32", "masa-url");
 
   }
 
@@ -1559,31 +1579,402 @@ public class OIDs {
 
   /**
    * Spdm.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Spdm {
 
-    private static final ASN1ObjectIdentifier id_spdm =
+    public static final ASN1ObjectIdentifier id_spdm =
         new ASN1ObjectIdentifier("1.3.6.1.4.1.412.274");
 
+    // other name type
     public static final ASN1ObjectIdentifier id_DMTF_device_info =
         initOid(id_spdm + ".1", "DMTF-device-info");
 
+    // DMTF Cert OID
     public static final ASN1ObjectIdentifier id_DMTF_hardware_identity =
         initOid(id_spdm + ".2", "DMTF-hardware-identity");
 
+    // extended key usage
     public static final ASN1ObjectIdentifier id_DMTF_eku_responder_auth =
         initOid(id_spdm + ".3", "DMTF-eku-responder-auth");
 
+    // extended key usage
     public static final ASN1ObjectIdentifier id_DMTF_eku_requestor_auth =
         initOid(id_spdm + ".4", "DMTF-eku-requestor-auth");
 
+    // DMTF Cert OID
     public static final ASN1ObjectIdentifier id_DMTF_mutable_certificate =
         initOid(id_spdm + ".5", "DMTF-mutable-certificate");
 
     public static final ASN1ObjectIdentifier id_DMTF_SPDM_extension =
         initOid(id_spdm + ".6", "DMTF-SPDM-extension");
+  }
+
+  /**
+   * CSA Matter Specification
+   */
+  public static final class Matter {
+
+    private static final ASN1ObjectIdentifier csa_root =
+        new ASN1ObjectIdentifier("1.3.6.1.4.1.37244");
+
+    // RDN attribute
+    public static final ASN1ObjectIdentifier matter_node_id =
+        initOid(csa_root + ".1.1", "matter-node-id");
+
+    public static final ASN1ObjectIdentifier matter_firmware_signing_id =
+        initOid(csa_root + ".1.2", "matter-firmware-signing-id");
+
+    public static final ASN1ObjectIdentifier matter_icac_id =
+        initOid(csa_root + ".1.3", "matter-icac-id");
+
+    public static final ASN1ObjectIdentifier matter_rcac_id =
+        initOid(csa_root + ".1.4", "matter-rcac-id");
+
+    public static final ASN1ObjectIdentifier matter_fabric_id =
+        initOid(csa_root + ".1.5", "matter-fabric-id");
+
+    public static final ASN1ObjectIdentifier matter_noc_cat =
+        initOid(csa_root + ".1.6", "matter-noc-cat");
+
+    public static final ASN1ObjectIdentifier matter_vvs_id =
+        initOid(csa_root + ".1.7", "matter-vvs-id");
+
+    public static final ASN1ObjectIdentifier matter_oid_vid =
+        initOid(csa_root + ".2.1", "matter-oid-vid");
+
+    public static final ASN1ObjectIdentifier matter_oid_pid =
+        initOid(csa_root + ".2.2", "matter-oid-pid");
+
+  }
+
+  /**
+   * ICAO MRTD (Machine Readable Travel Documents) PKI, Doc 9303
+   * https://www.icao.int/sites/default/files/publications/DocSeries/9303_p12_cons_en.pdf
+   */
+  public static final class MRTD {
+
+    public static final ASN1ObjectIdentifier id_icao_mrtd_security_extensions_nameChange =
+        new ASN1ObjectIdentifier("2.23.136.1.1.6.1");
+
+    public static final ASN1ObjectIdentifier id_icao_mrtd_security_extensions_documentTypeList =
+        new ASN1ObjectIdentifier("2.23.136.1.1.6.2");
+
+  }
+
+  public static final class DICE {
+
+    private static final ASN1ObjectIdentifier tcg_dice = new ASN1ObjectIdentifier("2.23.133.5.4");
+
+    public static final ASN1ObjectIdentifier tcg_dice_ueid = tcg_dice.branch("4");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_identityInit =
+        tcg_dice.branch("100.6");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_identityLoc =
+        tcg_dice.branch("100.7");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_attestInit =
+        tcg_dice.branch("100.8");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_attestLoc =
+        tcg_dice.branch("100.9");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_assertInit =
+        tcg_dice.branch("100.10");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_assertLoc =
+        tcg_dice.branch("100.11");
+
+    public static final ASN1ObjectIdentifier tcg_dice_kp_eca =
+        tcg_dice.branch("100.12");
+  }
+
+  public static class TCG {
+
+    public static final ASN1ObjectIdentifier tcg = new ASN1ObjectIdentifier("2.23.133");
+
+    public static final ASN1ObjectIdentifier tcg_attribute = tcg.branch("2");
+
+    private static final ASN1ObjectIdentifier tcg_platformClass = tcg.branch("5");
+
+    private static final ASN1ObjectIdentifier tcg_kp = tcg.branch("8");
+
+    private static final ASN1ObjectIdentifier tcg_ca = tcg.branch("11");
+
+    // Defined in https://trustedcomputinggroup.org/wp-content/uploads/TCG-OID-Registry-Version-1.00_pub-1.pdf
+    private static final ASN1ObjectIdentifier tcg_ca_policy = tcg_ca.branch("1");
+
+    private static final ASN1ObjectIdentifier tcg_address = new ASN1ObjectIdentifier("2.23.133.17");
+
+    private static final ASN1ObjectIdentifier tcg_registry = tcg.branch("18");
+
+    private static final ASN1ObjectIdentifier tcg_traits = tcg.branch("19");
+
+    // -- TCG Platform Class Common OIDs
+    private static final ASN1ObjectIdentifier tcg_common = tcg_platformClass.branch("1");
+
+    // -- TCG Common Attribute OIDs
+    public static final ASN1ObjectIdentifier tcg_at_platformConfiguration = tcg_common.branch("7");
+
+    // -- TCG Attribute OIDs
+    public static final ASN1ObjectIdentifier tcg_at_tcgPlatformSpecification =
+        tcg_attribute.branch("17");
+
+    public static final ASN1ObjectIdentifier tcg_at_tcgCredentialSpecification =
+        tcg_attribute.branch("23");
+
+    public static final ASN1ObjectIdentifier tcg_at_tcgCredentialType =
+        tcg_attribute.branch("25");
+
+    // -- TCG Key Purposes OIDs
+    public static final ASN1ObjectIdentifier tcg_kp_PlatformAttributeCertificate =
+        tcg_kp.branch("2");
+
+    public static final ASN1ObjectIdentifier tcg_kp_PlatformKeyCertificate =
+        tcg_kp.branch("4");
+
+    public static final ASN1ObjectIdentifier tcg_kp_DeltaPlatformAttributeCertificate =
+        tcg_kp.branch("5");
+
+    // -- TCG Address OIDs
+    public static final ASN1ObjectIdentifier tcg_address_ethernetmac =
+        tcg_address.branch("1");
+
+    public static final ASN1ObjectIdentifier tcg_address_wlanmac =
+        tcg_address.branch("2");
+
+    public static final ASN1ObjectIdentifier tcg_address_bluetoothmac =
+        tcg_address.branch("3");
+
+    //-- TCG Registry OIDs
+    public static final ASN1ObjectIdentifier tcg_registry_componentClass =
+        tcg_registry.branch("3");
+
+    public static final ASN1ObjectIdentifier tcg_registry_componentClass_pcie =
+        tcg_registry.branch("4");
+
+    public static final ASN1ObjectIdentifier tcg_registry_componentClass_disk =
+        tcg_registry.branch("5");
+
+    // -- TCG Common Attribute OIDs
+    public static final ASN1ObjectIdentifier tcg_at_platformIdentifier =
+        tcg_common.branch("8");
+
+    //-- TCG Platform Configuration OIDs
+    public static final ASN1ObjectIdentifier tcg_at_platformConfiguration_v3 =
+        tcg_at_platformConfiguration.branch("3");
+
+    public static final ASN1ObjectIdentifier tcg_at_platformConfigUri_v3 =
+        tcg_at_platformConfiguration.branch("4");
+
+    // -- TCG Attribute OIDs
+    public static final ASN1ObjectIdentifier tcg_at_previousPlatformCertificates =
+        tcg_attribute.branch("26");
+
+    public static final ASN1ObjectIdentifier tcg_at_tbbSecurityAssertions_v3 =
+        tcg_attribute.branch("27");
+
+    public static final ASN1ObjectIdentifier tcg_at_cryptographicAnchors =
+        tcg_attribute.branch("28");
+
+    public static final ASN1ObjectIdentifier tcg_at_platformOwnership =
+        tcg_attribute.branch("29");
+
+    public static final ASN1ObjectIdentifier tcg_at_manufacturingAssertions =
+        tcg_attribute.branch("30");
+
+    // -- TCG Key Purposes OIDs
+    public static final ASN1ObjectIdentifier tcg_kp_DeltaPlatformKeyCertificate =
+        tcg_kp.branch("6");
+
+    public static final ASN1ObjectIdentifier tcg_kp_AdditionalPlatformAttributeCertificate =
+        tcg_kp.branch("7");
+
+    public static final ASN1ObjectIdentifier tcg_kp_AdditionalPlatformKeyCertificate =
+        tcg_kp.branch("8");
+
+    // -- TCG Certificate Policy OIDs
+    public static final ASN1ObjectIdentifier tcg_cap_verifiedPlatformCertificate =
+        tcg_ca_policy.branch("4");
+
+    // -- TCG Registry OIDs
+    public static final ASN1ObjectIdentifier tcg_registry_componentClass_tcg =
+        tcg_registry_componentClass.branch("1");
+
+    public static final ASN1ObjectIdentifier tcg_registry_componentClass_ietf =
+        tcg_registry_componentClass.branch("2");
+
+    public static final ASN1ObjectIdentifier tcg_registry_componentClass_dmtf =
+        tcg_registry_componentClass.branch("3");
+
+    // -- TCG Trait OIDs
+    private static final ASN1ObjectIdentifier tcg_tr_ID = tcg_traits.branch("1");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_Boolean = tcg_tr_ID.branch("1");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_certificateIdentifier =
+        tcg_tr_ID.branch("2");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_CommonCriteria = tcg_tr_ID.branch("3");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_componentClass = tcg_tr_ID.branch("4");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_componentIdentifierV11 =
+        tcg_tr_ID.branch("5");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_FIPSLevel = tcg_tr_ID.branch("6");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_ISO9000Level = tcg_tr_ID.branch("7");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_networkMAC = tcg_tr_ID.branch("8");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_OID = tcg_tr_ID.branch("9");
+    public static final ASN1ObjectIdentifier tcg_tr_ID_PEN = tcg_tr_ID.branch("10");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_platformFirmwareCapabilities =
+        tcg_tr_ID.branch("11");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_platformFirmwareSignatureVerification =
+        tcg_tr_ID.branch("12");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_platformFirmwareUpdateCompliance =
+        tcg_tr_ID.branch("13");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_platformHardwareCapabilities =
+        tcg_tr_ID.branch("14");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_RTM = tcg_tr_ID.branch("15");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_status = tcg_tr_ID.branch("16");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_URI = tcg_tr_ID.branch("17");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_UTF8String = tcg_tr_ID.branch("18");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_IA5String = tcg_tr_ID.branch("19");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_PEMCertString = tcg_tr_ID.branch("20");
+
+    public static final ASN1ObjectIdentifier tcg_tr_ID_PublicKey = tcg_tr_ID.branch("21");
+
+    // -- TCG Trait Category OIDs
+    private static final ASN1ObjectIdentifier tcg_tr_category = tcg_traits.branch("2");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformManufacturer =
+        tcg_tr_category.branch("1");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformModel =
+        tcg_tr_category.branch("2");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformVersion =
+        tcg_tr_category.branch("3");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformSerial =
+        tcg_tr_category.branch("4");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformManufacturerIdentifier =
+        tcg_tr_category.branch("5");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformOwnership =
+        tcg_tr_category.branch("6");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentClass =
+        tcg_tr_category.branch("7");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentManufacturer =
+        tcg_tr_category.branch("8");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentModel =
+        tcg_tr_category.branch("9");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentSerial =
+        tcg_tr_category.branch("10");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentStatus =
+        tcg_tr_category.branch("11");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentLocation =
+        tcg_tr_category.branch("12");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentRevision =
+        tcg_tr_category.branch("13");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentFieldReplaceable =
+        tcg_tr_category.branch("14");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_EKCertificate =
+        tcg_tr_category.branch("15");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_IAKCertificate =
+        tcg_tr_category.branch("16");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_IDevIDCertificate =
+        tcg_tr_category.branch("17");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_DICECertificate =
+        tcg_tr_category.branch("18");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_SPDMCertificate =
+        tcg_tr_category.branch("19");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_PEMCertificate =
+        tcg_tr_category.branch("20");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_PlatformCertificate =
+        tcg_tr_category.branch("21");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_DeltaPlatformCertificate =
+        tcg_tr_category.branch("22");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_RebasePlatformCertificate =
+        tcg_tr_category.branch("23");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_genericCertificate =
+        tcg_tr_category.branch("24");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_CommonCriteria =
+        tcg_tr_category.branch("26");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_componentIdentifierV11 =
+        tcg_tr_category.branch("26");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_FIPSLevel =
+        tcg_tr_category.branch("27");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_ISO9000 =
+        tcg_tr_category.branch("28");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_networkMAC =
+        tcg_tr_category.branch("29");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_attestationProtocol =
+        tcg_tr_category.branch("30");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_PEN =
+        tcg_tr_category.branch("31");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformFirmwareCapabilities =
+        tcg_tr_category.branch("32");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformHardwareCapabilities =
+        tcg_tr_category.branch("33");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformFirmwareSignatureVerification =
+        tcg_tr_category.branch("34");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_platformFirmwareUpdateCompliance =
+        tcg_tr_category.branch("35");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_RTM =
+        tcg_tr_category.branch("36");
+
+    public static final ASN1ObjectIdentifier tcg_tr_cat_PublicKey =
+        tcg_tr_category.branch("37");
+
+    // -- TCG Trait Registry OIDs
+    private static final ASN1ObjectIdentifier tcg_tr_registry = tcg_traits.branch("3");
+
+    public static final ASN1ObjectIdentifier tcg_tr_reg_none = tcg_tr_registry.branch("1");
   }
 
   private OIDs() {

@@ -17,7 +17,6 @@ import org.xipki.util.codec.Args;
 import java.io.OutputStream;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
-import java.security.Signature;
 import java.security.SignatureException;
 
 /**

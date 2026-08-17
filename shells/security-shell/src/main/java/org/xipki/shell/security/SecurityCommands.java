@@ -493,12 +493,12 @@ class SecurityCommands {
           throw new IOException("found no boundary");
         }
 
-        Object[] blockInfo1 = readBlock(reader, boundary);
+        Object[] blockInfo1 = readEstBlock(reader, boundary);
         if ((boolean) blockInfo1[0]) {
           throw new IOException("2 blocks is expected, found only 1");
         }
 
-        Object[] blockInfo2 = readBlock(reader, boundary);
+        Object[] blockInfo2 = readEstBlock(reader, boundary);
         if (!(boolean) blockInfo2[0]) {
           throw new IOException("2 blocks is expected, found more than 2");
         }
@@ -532,7 +532,8 @@ class SecurityCommands {
       }
     }
 
-    private static Object[] readBlock(BufferedReader reader, String boundary) throws IOException {
+    private static Object[] readEstBlock(BufferedReader reader, String boundary)
+        throws IOException {
       StringBuilder sb = new StringBuilder();
       String line;
       String contentType = null;

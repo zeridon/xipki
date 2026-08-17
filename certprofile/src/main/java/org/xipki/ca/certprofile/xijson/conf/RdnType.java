@@ -138,7 +138,7 @@ public class RdnType implements JsonEncodable {
     ret.setToSAN(toSAN);
 
     if (printableString != null) {
-      ret.setStringType(printableString ? StringType.utf8String : StringType.printableString);
+      ret.setStringType(printableString ? StringType.printableString : StringType.utf8String);
     }
 
     SubjectDnSpec.fixRdnControl(ret);

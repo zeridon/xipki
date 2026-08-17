@@ -77,14 +77,6 @@
       "minOccurs": 0
     },
     {
-      "type": "postalAddress",
-      "minOccurs": 0
-    },
-    {
-      "type": "dateOfBirth",
-      "minOccurs": 0
-    },
-    {
       "type": "userid"
     },
     {
@@ -435,6 +427,67 @@
                 "rfc822Name",
                 "uri"
               ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "QCStatements",
+      "required": true,
+      "inRequest": "required",
+      "qcStatements": {
+        "qcStatements": [
+          {
+            "statementId": "QcCompliance"
+          },
+          {
+            "statementId": "QcSSCD"
+          },
+          {
+            "statementId": "QcRetentionPeriod",
+            "statementValue": {
+              "qcRetentionPeriod": 10
+            }
+          },
+          {
+            "statementId": "QcLimitValue",
+            "statementValue": {
+              "qcEuLimitValue": {
+                "currency": "EUR",
+                "amount": {
+                  "min": 100,
+                  "max": 200
+                },
+                "exponent": {
+                  "min": 10,
+                  "max": 20
+                }
+              }
+            }
+          },
+          {
+            "statementId": "QcPDS",
+            "statementValue": {
+              "pdsLocations": [
+                {
+                  "url": "http://pki.myorg.org/pds/en",
+                  "language": "en"
+                },
+                {
+                  "url": "http://pki.myorg.org/pds/de",
+                  "language": "de"
+                }
+              ]
+            }
+          },
+          {
+            "statementId": "1.2.3.4.5",
+            "statementValue": {
+              "constant": {
+                "type": "ASN1",
+                "value": "BQA="
+              }
             }
           }
         ]

@@ -3,7 +3,15 @@
 
 package org.xipki.ca.certprofile.xijson.conf;
 
-import org.bouncycastle.asn1.*;
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1EncodableVector;
+import org.bouncycastle.asn1.ASN1Integer;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.DERBMPString;
+import org.bouncycastle.asn1.DERSequence;
+import org.bouncycastle.asn1.DERUTF8String;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.CertPolicyId;
 import org.bouncycastle.asn1.x509.GeneralName;
@@ -201,47 +209,6 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // class BiometricInfo
 
   /**
-   * CCCInstance CAExtension Schema.
-   */
-  public static class CCCInstanceCAExtensionSchema extends CCCSimpleExtensionSchema {
-
-    private final long appletVersion;
-
-    private byte[] platformInformation;
-
-    public CCCInstanceCAExtensionSchema(int version, long appletVersion) {
-      super(version);
-      this.appletVersion = Args.range(appletVersion, "appletVersion",
-      1, 0xFFFFFFFFL);
-    }
-
-    public long appletVersion() {
-      return appletVersion;
-    }
-
-    public byte[] platformInformation() {
-      return platformInformation;
-    }
-
-    public void setPlatformInformation(byte[] platformInformation) {
-      this.platformInformation = platformInformation;
-    }
-
-    public JsonMap toCodec() {
-      return super.toCodec().put("appletVersion", appletVersion)
-          .put("platformInformation", platformInformation);
-    }
-
-    public static CCCInstanceCAExtensionSchema parse(JsonMap json) throws CodecException {
-      CCCInstanceCAExtensionSchema ret = new CCCInstanceCAExtensionSchema(
-          json.getNnInt("version"), json.getNnInt("appletVersion"));
-      ret.setPlatformInformation(json.getBytes("platformInformation"));
-      return ret;
-    }
-
-  }
-
-  /**
    * CCCSimple Extension Schema.
    */
 
@@ -307,6 +274,176 @@ public abstract class ExtensionValueConf implements JsonEncodable {
     }
 
   } // class TlsFeature
+
+  public static class SpdmCertOid implements JsonEncodable {
+
+    private final String type;
+
+    private final byte[] definition;
+
+    public SpdmCertOid(String type) {
+      this(type, null);
+    }
+
+    public SpdmCertOid(String type, byte[] definition) {
+      this.type = Args.notNull(type, "type");
+      this.definition = definition;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      JsonMap ret = new JsonMap();
+      ret.put("type", type);
+      if (definition != null) {
+        ret.put("definition", definition);
+      }
+      return ret;
+    }
+
+    public String type() {
+      return type;
+    }
+
+    public byte[] definition() {
+      return definition;
+    }
+
+    public static SpdmCertOid decode(JsonMap json) throws CodecException {
+      try {
+        String type = json.getNnString("type");
+        byte[] definition = json.getBytes("definition");
+        return new SpdmCertOid(type, definition);
+      } catch (RuntimeException e) {
+        throw new CodecException(e);
+      }
+    }
+  }
+
+  /**
+   * SPDM id-spdm-cert-oids
+   */
+  public static class SpdmCertOids implements JsonEncodable {
+
+    private final List<SpdmCertOid> oids;
+
+    public SpdmCertOids(List<SpdmCertOid> spdmOids) {
+      this.oids = Args.notEmpty(spdmOids, "spdmOids");
+    }
+
+    public List<SpdmCertOid> oids() {
+      return oids;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      JsonMap ret = new JsonMap();
+      ret.putEncodables("oids", oids);
+      return ret;
+    }
+
+    public static SpdmCertOids parse(JsonMap json) throws CodecException {
+      try {
+        List<JsonMap> revisions = json.getNnList("oids").toMapList();
+        List<SpdmCertOid> oids = new ArrayList<>(revisions.size());
+        for (JsonMap revision : revisions) {
+          oids.add(SpdmCertOid.decode(revision));
+        }
+        return new SpdmCertOids(oids);
+      } catch (RuntimeException e) {
+        throw new CodecException(e);
+      }
+    }
+  }
+
+  // STIR
+  public static class JWTClaimPermittedValues implements JsonEncodable {
+
+    private final String claim;
+
+    private final List<String> permitted;
+
+    public JWTClaimPermittedValues(String claim, List<String> permitted) {
+      this.claim = Args.notBlank(claim, "claim");
+      this.permitted = Args.notEmptyAndNoNullElements(permitted, "permitted");
+    }
+
+    public String claim() {
+      return claim;
+    }
+
+    public List<String> permitted() {
+      return permitted;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      JsonMap map = new JsonMap();
+      map.put("claim", claim);
+      map.putStrings("permitted", permitted);
+      return map;
+    }
+
+    public static JWTClaimPermittedValues decode(JsonMap json) throws CodecException {
+      try {
+        String claim = json.getNnString("claim");
+        List<String> permitted = json.getStringList("permitted");
+        return new JWTClaimPermittedValues(claim, permitted);
+      } catch (RuntimeException e) {
+        throw new CodecException(e);
+      }
+    }
+
+  }
+
+  public static class JWTClaimConstraints implements JsonEncodable {
+
+    private final List<String> mustInclude;
+
+    private final List<JWTClaimPermittedValues> permittedValues;
+
+    public JWTClaimConstraints(List<String> mustInclude,
+                               List<JWTClaimPermittedValues> permittedValues) {
+      if (mustInclude == null && permittedValues == null) {
+        throw new IllegalArgumentException("mustInclude and permittedValues MUST not be both null");
+      }
+      this.mustInclude = mustInclude;
+      this.permittedValues = permittedValues;
+    }
+
+    public List<String> mustInclude() {
+      return mustInclude;
+    }
+
+    public List<JWTClaimPermittedValues> permittedValues() {
+      return permittedValues;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      JsonMap map = new JsonMap();
+      map.putStrings("mustInclude", mustInclude);
+      map.putEncodables("permittedValues", permittedValues);
+      return map;
+    }
+
+    public static JWTClaimConstraints parse(JsonMap json) throws CodecException {
+      try {
+        List<String> claim = json.getNnStringList("mustInclude");
+        JsonList l = json.getList("permittedValues");
+        List<JWTClaimPermittedValues> permittedValues = null;
+        if (l != null) {
+          permittedValues = new ArrayList<>();
+          for (JsonMap m : l.toMapList()) {
+            permittedValues.add(JWTClaimPermittedValues.decode(m));
+          }
+        }
+        return new JWTClaimConstraints(claim, permittedValues);
+      } catch (RuntimeException e) {
+        throw new CodecException(e);
+      }
+    }
+
+  }
 
   /**
    * Subject Info Access.
@@ -375,6 +512,32 @@ public abstract class ExtensionValueConf implements JsonEncodable {
           AccessMethodID.ofOidOrName(json.getNnString("accessMethod")), accessLocation);
     }
 
+  }
+
+  /**
+   * Subject Directory Attributes.
+   */
+  public static class SubjectDirectoryAttributes implements JsonEncodable {
+
+    private final List<String> types;
+
+    public SubjectDirectoryAttributes(List<String> types) {
+      this.types = Args.notEmptyAndNoNullElements(types, "types");
+    }
+
+    public List<String> types() {
+      return types;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      return new JsonMap().putStrings("types", types);
+    }
+
+    public static SubjectDirectoryAttributes parse(JsonMap json) throws CodecException {
+      List<String> list = json.getNnStringList("types");
+      return new SubjectDirectoryAttributes(list);
+    }
   }
 
   /**
@@ -456,7 +619,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
     private List<org.xipki.security.pkix.KeyUsage> optional;
 
     public SingleKeyUsages(List<KeySpec> appliesTo, List<org.xipki.security.pkix.KeyUsage> required,
-                          List<org.xipki.security.pkix.KeyUsage> optional) {
+                           List<org.xipki.security.pkix.KeyUsage> optional) {
       if (CollectionUtil.isEmpty(required) && CollectionUtil.isEmpty(optional)) {
         throw new IllegalArgumentException("required and optional can not both be empty");
       }
@@ -1422,7 +1585,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
           toUsageIDList(json.getStringList("optional")));
     }
 
-    private static List<ExtendedKeyUsageID> toUsageIDList(List<String> list) {
+    private static List<ExtendedKeyUsageID> toUsageIDList(List<String> list) throws CodecException {
       if (list == null) {
         return null;
       }
@@ -1506,7 +1669,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
       return ret;
     }
 
-    public static MicrosoftCertificateTemplateName decode(JsonMap json) throws CodecException {
+    public static MicrosoftCertificateTemplateName parse(JsonMap json) throws CodecException {
       String s = json.getNnString("nameType");
       try {
         NameType nameType = NameType.of(s);
@@ -1585,7 +1748,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
       return new DERSequence(v);
     }
 
-    public static MicrosoftCertificateTemplateInformation decode(JsonMap json)
+    public static MicrosoftCertificateTemplateInformation parse(JsonMap json)
         throws CodecException {
       try {
         ASN1ObjectIdentifier ID = new ASN1ObjectIdentifier(json.getNnString("ID"));
@@ -1683,7 +1846,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
       return map;
     }
 
-    public static MicrosoftSID decode(JsonMap json) throws CodecException {
+    public static MicrosoftSID parse(JsonMap json) throws CodecException {
       try {
         JsonList revisions = json.getNnList("revisions");
         JsonList authorities = json.getNnList("authorities");
@@ -1694,5 +1857,57 @@ public abstract class ExtensionValueConf implements JsonEncodable {
     }
 
   }
+
+  /**
+   * BRSKI MASA URL.
+   */
+  public static class MasaUrl implements JsonEncodable {
+
+    private final String url;
+
+    public MasaUrl(String url) {
+      this.url = Args.notBlank(url, "url");
+    }
+
+    public String url() {
+      return url;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      return new JsonMap().put("url", url);
+    }
+
+    public static MasaUrl parse(JsonMap json) throws CodecException {
+      return new MasaUrl(json.getNnString("url"));
+    }
+
+  } // class MasaUrl
+
+  /**
+   * ICAO MRTD URL.
+   */
+  public static class MrtdDocumentTypeListSyntax implements JsonEncodable {
+
+    private final List<String> types;
+
+    public MrtdDocumentTypeListSyntax(List<String> types) {
+      this.types = Args.notEmptyAndNoNullElements(types, "types");
+    }
+
+    public List<String> types() {
+      return types;
+    }
+
+    @Override
+    public JsonMap toCodec() {
+      return new JsonMap().putStrings("types", types);
+    }
+
+    public static MrtdDocumentTypeListSyntax parse(JsonMap json) throws CodecException {
+      return new MrtdDocumentTypeListSyntax(json.getNnStringList("types"));
+    }
+
+  } // class DocumentTypeListSyntax
 
 }

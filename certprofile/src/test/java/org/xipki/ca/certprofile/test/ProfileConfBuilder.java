@@ -55,7 +55,7 @@ public class ProfileConfBuilder extends ExtensionConfBuilder {
       Path path = Paths.get(filename);
       IoUtil.mkdirsParent(path);
       try (OutputStream out = Files.newOutputStream(path)) {
-        String json = new JsonTxtBuilder(80).toJson(profile.toCodec());
+        String json = new JsonTxtBuilder(80).toJson(profile.toCodec()) + "\n";
         out.write(json.getBytes(StandardCharsets.UTF_8));
       }
 
@@ -88,7 +88,7 @@ public class ProfileConfBuilder extends ExtensionConfBuilder {
     // Extensions - SubjectAltNames
     list.add(createExtension(ExtensionID.subjectAltName, true, false));
     GeneralNameType san = new GeneralNameType(
-        Arrays.asList(GeneralNameTag.DNSName, GeneralNameTag.IPAddress));
+        Arrays.asList(GeneralNameTag.DNSName, GeneralNameTag.IPAddress), null);
     last(list).setSubjectAltName(san);
 
     // Extensions - basicConstraints

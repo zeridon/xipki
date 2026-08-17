@@ -207,10 +207,106 @@
       "file":"${profiles.dir}/certprofile-microsoft.json"
     }
   },{
+    "name":"rpki",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-rpki.json"
+    }
+  },{
+    "name":"spdm",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-spdm.json"
+    }
+  },{
+    "name":"stir",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-stir.json"
+    }
+  },{
+    "name":"brski",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-brski.json"
+    }
+  },{
+    "name":"matter",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-matter.json"
+    }
+  },{
+    "name":"caliptra",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-caliptra.json"
+    }
+  },{
+    "name":"ccc-e",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-ccc-e.json"
+    }
+  },{
+    "name":"ccc-h",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-ccc-h.json"
+    }
+  },{
+    "name":"ccc-k",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-ccc-k.json"
+    }
+  },{
+    "name":"ccc-t",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-ccc-t.json"
+    }
+  },{
     "name":"gmt0015",
     "type":"xijson",
     "conf":{
       "file":"${profiles.dir}/certprofile-gmt0015.json"
+    }
+  },{
+    "name":"rfc9608",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-rfc9608.json"
+    }
+  },{
+    "name":"mrtd",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-mrtd.json"
+    }
+  },{
+    "name":"dice",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-dice.json"
+    }
+  },{
+    "name":"rfc3739",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-rfc3739.json"
+    }
+  },{
+    "name":"tcg",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-tcg.json"
+    }
+  },{
+    "name":"othernames",
+    "type":"xijson",
+    "conf":{
+      "file":"${profiles.dir}/certprofile-othernames.json"
     }
   }
   ],
@@ -262,7 +358,8 @@
       "cross",
       "subca",
       "subca-complex",
-      "ocsp"
+      "ocsp",
+      "caliptra"
     ],
     "publishers":[
       "ocsp-publisher"

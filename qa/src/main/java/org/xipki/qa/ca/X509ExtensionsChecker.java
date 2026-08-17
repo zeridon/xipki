@@ -16,6 +16,7 @@ import org.xipki.ca.api.profile.ctrl.ExtensionControl;
 import org.xipki.ca.api.profile.ctrl.ExtensionsControl;
 import org.xipki.ca.api.profile.ctrl.GeneralNameTag;
 import org.xipki.ca.api.profile.ctrl.KeySingleUsage;
+import org.xipki.ca.api.profile.id.ExtensionID;
 import org.xipki.ca.certprofile.xijson.XijsonCertprofile;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionType;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf;
@@ -70,8 +71,6 @@ public class X509ExtensionsChecker {
   private ExtensionValueConf.MicrosoftCertificateTemplateInformation
       microsoftCertificateTemplateInformation;
 
-  private ExtensionValueConf.MicrosoftSID microsoftSID;
-
   private ASN1ObjectIdentifier cccExtensionSchemaType;
 
   private byte[] cccExtensionSchemaValue;
@@ -93,48 +92,48 @@ public class X509ExtensionsChecker {
     ExtensionsControl extensionControls = certprofile.extensionsControl();
 
     // Certificate Policies
-    ASN1ObjectIdentifier type = OIDs.Extn.certificatePolicies;
+    ASN1ObjectIdentifier type = ExtensionID.certificatePolicies.oid();
     if (extensionControls.containsID(type)) {
       this.certificatePolicies = extensions.get(type.getId()).certificatePolicies();
     }
 
     // Policy Mappings
-    type = OIDs.Extn.policyMappings;
+    type = ExtensionID.policyMappings.oid();
     if (extensionControls.containsID(type)) {
       this.policyMappings = extensions.get(type.getId()).policyMappings();
     }
 
     // Name Constraints
-    type = OIDs.Extn.nameConstraints;
+    type = ExtensionID.nameConstraints.oid();
     if (extensionControls.containsID(type)) {
       this.nameConstraints = extensions.get(type.getId()).nameConstraints();
     }
 
     // Policy Constraints
-    type = OIDs.Extn.policyConstraints;
+    type = ExtensionID.policyConstraints.oid();
     if (extensionControls.containsID(type)) {
       this.policyConstraints = extensions.get(type.getId()).policyConstraints();
     }
 
     // Inhibit anyPolicy
-    type = OIDs.Extn.inhibitAnyPolicy;
+    type = ExtensionID.inhibitAnyPolicy.oid();
     if (extensionControls.containsID(type)) {
       this.inhibitAnyPolicy = extensions.get(type.getId()).inhibitAnyPolicy();
     }
 
-    type = OIDs.Extn.qCStatements;
+    type = ExtensionID.qcStatements.oid();
     if (extensionControls.containsID(type)) {
       this.qcStatements = extensions.get(type.getId()).qcStatements();
     }
 
     // tlsFeature
-    type = OIDs.Extn.id_pe_tlsfeature;
+    type = ExtensionID.tlsFeature.oid();
     if (extensionControls.containsID(type)) {
       this.tlsFeature = extensions.get(type.getId()).tlsFeature();
     }
 
     // SMIMECapabilities
-    type = OIDs.Extn.id_smimeCapabilities;
+    type = ExtensionID.smimeCapabilities.oid();
     if (extensionControls.containsID(type)) {
       List<ExtensionValueConf.SmimeCapability> list =
           extensions.get(type.getId()).smimeCapabilities().capabilities();
@@ -165,13 +164,13 @@ public class X509ExtensionsChecker {
     initCCCExtensionSchemas(extensions);
 
     // Microsoft
-    type = OIDs.Extn.id_microsoft_CertificateTemplateName;
+    type = ExtensionID.microsoft_CertificateTemplateName.oid();
     if (extensionControls.containsID(type)) {
       this.microsoftCertificateTemplateName =
           extensions.get(type.getId()).microsoftCertificateTemplateName();
     }
 
-    type = OIDs.Extn.id_microsoft_CertificateTemplateInformation;
+    type = ExtensionID.microsoft_CertificateTemplateInformation.oid();
     if (extensionControls.containsID(type)) {
       this.microsoftCertificateTemplateInformation =
           extensions.get(type.getId()).microsoftCertificateTemplateInformation();
@@ -223,25 +222,23 @@ public class X509ExtensionsChecker {
     }
 
     List<ASN1ObjectIdentifier> simpleSchemaTypes = Arrays.asList(
-        OIDs.Extn.id_ccc_K_Vehicle_Cert,
-        OIDs.Extn.id_ccc_F_External_CA_Cert,
-        OIDs.Extn.id_ccc_P_VehicleOEM_Enc_Cert,
-        OIDs.Extn.id_ccc_Q_VehicleOEM_Sig_Cert,
-        OIDs.Extn.id_ccc_Device_Enc_Cert,
-        OIDs.Extn.id_ccc_Vehicle_Intermediate_Cert,
-        OIDs.Extn.id_ccc_J_VehicleOEM_CA_Cert,
-        OIDs.Extn.id_ccc_M_VehicleOEM_CA_Cert);
+        ExtensionID.CCC_K_VehicleCert.oid(),
+        ExtensionID.CCC_F_External_CACert.oid(),
+        ExtensionID.CCC_P_VehicleOEMEncCert.oid(),
+        ExtensionID.CCC_Q_VehicleOEMSigCert.oid(),
+        ExtensionID.CCC_DeviceEncCert.oid(),
+        ExtensionID.CCC_VehicleIntermediateCert.oid(),
+        ExtensionID.CCC_J_VehicleOEMCACert.oid(),
+        ExtensionID.CCC_M_VehicleOEMCACert.oid());
 
     if (!simpleSchemaTypes.contains(type)) {
       return;
     }
 
-    ExtensionValueConf.CCCSimpleExtensionSchema schema = ex.cccExtensionSchema();
-    if (schema == null) {
-      throw new CertprofileException("ccExtensionSchema is not set for " + type);
-    }
+    int schemaVersion = ex.cccExtensionSchema() != null ?
+        ex.cccExtensionSchema().version() : 1;
 
-    ASN1Sequence seq = new DERSequence(new ASN1Integer(schema.version()));
+    ASN1Sequence seq = new DERSequence(new ASN1Integer(schemaVersion));
     this.cccExtensionSchemaType = type;
     try {
       this.cccExtensionSchemaValue = seq.getEncoded();
@@ -282,16 +279,12 @@ public class X509ExtensionsChecker {
     return smimeCapabilities;
   }
 
-  ExtensionValueConf.MicrosoftCertificateTemplateName microsoftCertificateTemplateName() {
+  ExtensionValueConf.MicrosoftCertificateTemplateName getMicrosoftCertificateTemplateName() {
     return microsoftCertificateTemplateName;
   }
 
-  ExtensionValueConf.MicrosoftSID microsoftSID() {
-    return microsoftSID;
-  }
-
   ExtensionValueConf.MicrosoftCertificateTemplateInformation
-      microsoftCertificateTemplateInformation() {
+      getMicrosoftCertificateTemplateInformation() {
     return microsoftCertificateTemplateInformation;
   }
 
@@ -351,52 +344,55 @@ public class X509ExtensionsChecker {
 
       byte[] extnValue = ext.getExtnValue().getOctets();
       try {
-        if (OIDs.Extn.authorityKeyIdentifier.equals(oid)) {
+        if (ExtensionID.authorityKeyIdentifier.oid().equals(oid)) {
           extnChecker.checkExtnAuthorityKeyId(failureMsg, extnValue, issuerInfo);
-        } else if (OIDs.Extn.subjectKeyIdentifier.equals(oid)) {
+        } else if (ExtensionID.subjectKeyIdentifier.oid().equals(oid)) {
           // SubjectKeyIdentifier
           extnChecker.checkExtnSubjectKeyIdentifier(failureMsg, extnValue,
               cert.getSubjectPublicKeyInfo());
-        } else if (OIDs.Extn.keyUsage.equals(oid)) {
+        } else if (ExtensionID.keyUsage.oid().equals(oid)) {
           extnChecker.checkExtnKeyUsage(failureMsg, jceCert.keyUsage(),
               requestedExtns, extnControl, keySpec);
-        } else if (OIDs.Extn.certificatePolicies.equals(oid)) {
+        } else if (ExtensionID.certificatePolicies.oid().equals(oid)) {
           extnChecker.checkExtnCertificatePolicies(
               failureMsg, extnValue, requestedExtns, extnControl);
-        } else if (OIDs.Extn.policyMappings.equals(oid)) {
+        } else if (ExtensionID.policyMappings.oid().equals(oid)) {
           extnChecker.checkExtnPolicyMappings(failureMsg, extnValue,
               requestedExtns, extnControl);
-        } else if (OIDs.Extn.subjectAlternativeName.equals(oid)) {
+        } else if (ExtensionID.subjectAlternativeName.oid().equals(oid)) {
           extnChecker.checkExtnSubjectAltNames(
               failureMsg, extnValue, requestedExtns, requestedSubject);
-        } else if (OIDs.Extn.issuerAlternativeName.equals(oid)) {
+        } else if (ExtensionID.subjectDirectoryAttributes.oid().equals(oid)) {
+          extnChecker.checkExtnSubjectDirectoryAttributes(
+              failureMsg, extnValue, requestedExtns);
+        } else if (ExtensionID.issuerAltName.oid().equals(oid)) {
           extnChecker.checkExtnIssuerAltNames(failureMsg, extnValue, issuerInfo);
-        } else if (OIDs.Extn.basicConstraints.equals(oid)) {
+        } else if (ExtensionID.basicConstraints.oid().equals(oid)) {
           extnChecker.checkExtnBasicConstraints(failureMsg, extnValue);
-        } else if (OIDs.Extn.nameConstraints.equals(oid)) {
+        } else if (ExtensionID.nameConstraints.oid().equals(oid)) {
           extnChecker.checkExtnNameConstraints(failureMsg, extnValue, requestedExtns, extnControl);
-        } else if (OIDs.Extn.policyConstraints.equals(oid)) {
+        } else if (ExtensionID.policyConstraints.oid().equals(oid)) {
           extnChecker.checkExtnPolicyConstraints(
               failureMsg, extnValue, requestedExtns, extnControl);
-        } else if (OIDs.Extn.extendedKeyUsage.equals(oid)) {
+        } else if (ExtensionID.extendedKeyUsage.oid().equals(oid)) {
           extnChecker.checkExtnExtendedKeyUsage(failureMsg, extnValue, requestedExtns, extnControl);
-        } else if (OIDs.Extn.cRLDistributionPoints.equals(oid)) {
+        } else if (ExtensionID.crlDistributionPoints.oid().equals(oid)) {
           extnChecker.checkExtnCrlDistributionPoints(failureMsg, extnValue, issuerInfo);
-        } else if (OIDs.Extn.inhibitAnyPolicy.equals(oid)) {
+        } else if (ExtensionID.inhibitAnyPolicy.oid().equals(oid)) {
           extnChecker.checkExtnInhibitAnyPolicy(failureMsg, extnValue, extensions, extnControl);
-        } else if (OIDs.Extn.freshestCRL.equals(oid)) {
+        } else if (ExtensionID.freshestCRL.oid().equals(oid)) {
           extnChecker.checkExtnDeltaCrlDistributionPoints(failureMsg, extnValue, issuerInfo);
-        } else if (OIDs.Extn.authorityInfoAccess.equals(oid)) {
+        } else if (ExtensionID.authorityInfoAccess.oid().equals(oid)) {
           extnChecker.checkExtnAuthorityInfoAccess(failureMsg, extnValue, issuerInfo);
-        } else if (OIDs.Extn.subjectInfoAccess.equals(oid)) {
+        } else if (ExtensionID.subjectInfoAccess.oid().equals(oid)) {
           extnChecker.checkExtnSubjectInfoAccess(failureMsg, extnValue, requestedExtns);
-        } else if (OIDs.Extn.id_pkix_ocsp_nocheck.equals(oid)) {
+        } else if (ExtensionID.ocspNoCheck.oid().equals(oid)) {
           extnChecker.checkExtnOcspNocheck(failureMsg, extnValue);
-        } else if (OIDs.Extn.id_pe_tlsfeature.equals(oid)) {
+        } else if (ExtensionID.tlsFeature.oid().equals(oid)) {
           extnChecker.checkExtnTlsFeature(failureMsg, extnValue, requestedExtns, extnControl);
-        } else if (OIDs.Extn.id_smimeCapabilities.equals(oid)) {
+        } else if (ExtensionID.smimeCapabilities.oid().equals(oid)) {
           extnChecker.checkSmimeCapabilities(failureMsg, extnValue);
-        } else if (OIDs.Extn.id_SignedCertificateTimestampList.equals(oid)) {
+        } else if (ExtensionID.signedCertificateTimestampList.oid().equals(oid)) {
           extnChecker.checkScts(failureMsg, extnValue);
         } else if (oid.equals(cccExtensionSchemaType)) {
           byte[] expected = cccExtensionSchemaValue;
@@ -404,20 +400,44 @@ public class X509ExtensionsChecker {
             CheckerUtil.addViolation(failureMsg, "extension value", Hex.encode(extnValue),
                 (expected == null) ? "not present" : Hex.encode(expected));
           }
-        } else if (OIDs.Extn.privateKeyUsagePeriod.equals(oid)) {
+        } else if (ExtensionID.privateKeyUsagePeriod.oid().equals(oid)) {
           extnChecker.checkExtnPrivateKeyUsagePeriod(failureMsg, extnValue,
               cert.getTBSCertificate().getStartDate().getDate(),
               cert.getTBSCertificate().getEndDate().getDate());
-        } else if (OIDs.Extn.qCStatements.equals(oid)) {
+        } else if (ExtensionID.qcStatements.oid().equals(oid)) {
           extnChecker.checkExtnQcStatements(failureMsg, extnValue, requestedExtns, extnControl);
-        } else if (OIDs.Extn.id_microsoft_CertificateTemplateName.equals(oid)) {
+        } else if (ExtensionID.microsoft_CertificateTemplateName.oid().equals(oid)) {
           extnChecker.checkExtnMicrosoftCertificateTemplateName(failureMsg, extnValue,
               requestedExtns, extnControl);
-        } else if (OIDs.Extn.id_microsoft_CertificateTemplateInformation.equals(oid)) {
+        } else if (ExtensionID.microsoft_CertificateTemplateInformation.oid().equals(oid)) {
           extnChecker.checkExtnMicrosoftCertificateTemplateInformation(failureMsg, extnValue,
               requestedExtns, extnControl);
-        } else if (OIDs.Extn.id_microsoft_SID.equals(oid)) {
+        } else if (ExtensionID.microsoft_SID.oid().equals(oid)) {
           extnChecker.checkExtnMicrosoftSid(failureMsg, extnValue, requestedExtns);
+        } else if (ExtensionID.STIR_TNAuthList.oid().equals(oid)) {
+          extnChecker.checkExtnStirTNAuthList(failureMsg, extnValue, requestedExtns);
+        } else if (ExtensionID.STIR_JWTClaimConstraints.oid().equals(oid)) {
+          extnChecker.checkExtnStirJWTClaimConstraints(failureMsg, extnValue);
+        } else if (ExtensionID.SPDM_Extension.oid().equals(oid)) {
+          extnChecker.checkExtnSpdmCertOids(failureMsg, extnValue);
+        } else if (ExtensionID.ASIdentifiers.oid().equals(oid)
+            || ExtensionID.ASIdentifiersV2.oid().equals(oid)) {
+          extnChecker.checkExtnRpkiAsIdentifiers(failureMsg, extnValue, requestedExtns,
+              ExtensionID.ASIdentifiersV2.oid().equals(oid));
+        } else if (ExtensionID.IPAddrBlocks.oid().equals(oid)
+            || ExtensionID.IPAddrBlocks.oid().equals(oid)) {
+          extnChecker.checkExtnRpkiIPAddrBlocks(failureMsg, extnValue, requestedExtns,
+              ExtensionID.IPAddrBlocks.oid().equals(oid));
+        } else if (ExtensionID.noRevAvail.oid().equals(oid)) {
+          extnChecker.checkExtnNoRevAvail(failureMsg, extnValue);
+        } else if (ExtensionID.masaUrl.oid().equals(oid)) {
+          extnChecker.checkExtnMasaUrl(failureMsg, extnValue, requestedExtns);
+        } else if (ExtensionID.MRTD_NameChange.oid().equals(oid)) {
+          extnChecker.checkExtnMrtdNameChange(failureMsg, extnValue);
+        } else if (ExtensionID.MRTD_DocumentTypeList.oid().equals(oid)) {
+          extnChecker.checkExtnMrtdDocumentTypeList(failureMsg, extnValue);
+        } else if (ExtensionID.dice_ueid.oid().equals(oid)) {
+          extnChecker.checkExtnDiceUeid(failureMsg, extnValue, requestedExtns);
         } else {
           byte[] expected = getExpectedExtValue(oid, requestedExtns, extnControl);
           if (!Arrays.equals(expected, extnValue)) {
@@ -445,12 +465,12 @@ public class X509ExtensionsChecker {
     } else if (requestedExtns != null && extControl.isPermittedInRequest()) {
       Extension reqExt = requestedExtns.getExtension(type);
       if (reqExt != null) {
-        if (OIDs.Extn.id_cn_residentIdCardNumber.equals(type)
-          || OIDs.Extn.id_cn_passportNumber.equals(type)
-          || OIDs.Extn.id_cn_socialInsuranceNumber.equals(type)
-          || OIDs.Extn.id_cn_UnifiedSocialCreditCode.equals(type)) {
+        if (ExtensionID.CN_residentIdCardNumber.oid().equals(type)
+          || ExtensionID.CN_passportNumber.oid().equals(type)
+          || ExtensionID.CN_socialInsuranceNumber.oid().equals(type)
+          || ExtensionID.CN_UnifiedSocialCreditCode.oid().equals(type)) {
           String str = ((ASN1String) reqExt.getParsedValue()).getString();
-          ASN1Encodable extnValue = OIDs.Extn.id_cn_passportNumber.equals(type)
+          ASN1Encodable extnValue = ExtensionID.CN_passportNumber.oid().equals(type)
               ? new DERUTF8String(str) : new DERPrintableString(str);
           try {
             return extnValue.toASN1Primitive().getEncoded();
@@ -483,19 +503,19 @@ public class X509ExtensionsChecker {
     }
 
     // Authority key identifier
-    ASN1ObjectIdentifier type = OIDs.Extn.authorityKeyIdentifier;
+    ASN1ObjectIdentifier type = ExtensionID.authorityKeyIdentifier.oid();
     if (extensionControls.containsID(type)) {
       addIfNotIn(types, type);
     }
 
     // Subject key identifier, Subject Ke
-    type = OIDs.Extn.subjectKeyIdentifier;
+    type = ExtensionID.subjectKeyIdentifier.oid();
     if (extensionControls.containsID(type)) {
       addIfNotIn(types, type);
     }
 
     // KeyUsage
-    type = OIDs.Extn.keyUsage;
+    type = ExtensionID.keyUsage.oid();
     if (extensionControls.containsID(type)) {
       boolean required = requestedExtns != null && requestedExtns.getExtension(type) != null;
 
@@ -512,7 +532,7 @@ public class X509ExtensionsChecker {
     }
 
     // CertificatePolicies
-    type = OIDs.Extn.certificatePolicies;
+    type = ExtensionID.certificatePolicies.oid();
     if (extensionControls.containsID(type)) {
       if (certificatePolicies != null) {
         addIfNotIn(types, type);
@@ -520,7 +540,7 @@ public class X509ExtensionsChecker {
     }
 
     // Policy Mappings
-    type = OIDs.Extn.policyMappings;
+    type = ExtensionID.policyMappings.oid();
     if (extensionControls.containsID(type)) {
       if (policyMappings != null) {
         addIfNotIn(types, type);
@@ -528,7 +548,7 @@ public class X509ExtensionsChecker {
     }
 
     // SubjectAltNames
-    type = OIDs.Extn.subjectAlternativeName;
+    type = ExtensionID.subjectAlternativeName.oid();
     if (extensionControls.containsID(type)) {
       if (requestedExtns != null && requestedExtns.getExtension(type) != null) {
         addIfNotIn(types, type);
@@ -546,22 +566,30 @@ public class X509ExtensionsChecker {
     }
 
     // IssuerAltName
-    type = OIDs.Extn.issuerAlternativeName;
+    type = ExtensionID.issuerAltName.oid();
     if (extensionControls.containsID(type)) {
       if (cert.getTBSCertificate().getExtensions().getExtension(
-          OIDs.Extn.subjectAlternativeName) != null) {
+          ExtensionID.subjectAlternativeName.oid()) != null) {
+        addIfNotIn(types, type);
+      }
+    }
+
+    // SubjectDirectoryAttributes
+    type = ExtensionID.subjectDirectoryAttributes.oid();
+    if (extensionControls.containsID(type)) {
+      if (requestedExtns != null && requestedExtns.getExtension(type) != null) {
         addIfNotIn(types, type);
       }
     }
 
     // BasicConstraints
-    type = OIDs.Extn.basicConstraints;
+    type = ExtensionID.basicConstraints.oid();
     if (extensionControls.containsID(type)) {
       addIfNotIn(types, type);
     }
 
     // Name Constraints
-    type = OIDs.Extn.nameConstraints;
+    type = ExtensionID.nameConstraints.oid();
     if (extensionControls.containsID(type)) {
       if (nameConstraints != null) {
         addIfNotIn(types, type);
@@ -569,7 +597,7 @@ public class X509ExtensionsChecker {
     }
 
     // PolicyConstraints
-    type = OIDs.Extn.policyConstraints;
+    type = ExtensionID.policyConstraints.oid();
     if (extensionControls.containsID(type)) {
       if (policyConstraints != null) {
         addIfNotIn(types, type);
@@ -577,7 +605,7 @@ public class X509ExtensionsChecker {
     }
 
     // ExtendedKeyUsage
-    type = OIDs.Extn.extendedKeyUsage;
+    type = ExtensionID.extendedKeyUsage.oid();
     if (extensionControls.containsID(type)) {
       boolean required = requestedExtns != null && requestedExtns.getExtension(type) != null;
 
@@ -594,7 +622,7 @@ public class X509ExtensionsChecker {
     }
 
     // CRLDistributionPoints
-    type = OIDs.Extn.cRLDistributionPoints;
+    type = ExtensionID.crlDistributionPoints.oid();
     if (extensionControls.containsID(type)) {
       if (issuerInfo.getCrlUrls() != null) {
         addIfNotIn(types, type);
@@ -602,7 +630,7 @@ public class X509ExtensionsChecker {
     }
 
     // Inhibit anyPolicy
-    type = OIDs.Extn.inhibitAnyPolicy;
+    type = ExtensionID.inhibitAnyPolicy.oid();
     if (extensionControls.containsID(type)) {
       if (inhibitAnyPolicy != null) {
         addIfNotIn(types, type);
@@ -610,7 +638,7 @@ public class X509ExtensionsChecker {
     }
 
     // FreshestCRL
-    type = OIDs.Extn.freshestCRL;
+    type = ExtensionID.freshestCRL.oid();
     if (extensionControls.containsID(type)) {
       if (issuerInfo.getDeltaCrlUrls() != null) {
         addIfNotIn(types, type);
@@ -618,7 +646,7 @@ public class X509ExtensionsChecker {
     }
 
     // AuthorityInfoAccess
-    type = OIDs.Extn.authorityInfoAccess;
+    type = ExtensionID.authorityInfoAccess.oid();
     if (extensionControls.containsID(type)) {
       if (issuerInfo.getOcspUrls() != null) {
         addIfNotIn(types, type);
@@ -626,7 +654,7 @@ public class X509ExtensionsChecker {
     }
 
     // SubjectInfoAccess
-    type = OIDs.Extn.subjectInfoAccess;
+    type = ExtensionID.subjectInfoAccess.oid();
     if (extensionControls.containsID(type)) {
       if (requestedExtns != null && requestedExtns.getExtension(type) != null) {
         addIfNotIn(types, type);
@@ -634,7 +662,7 @@ public class X509ExtensionsChecker {
     }
 
     // ocsp-nocheck
-    type = OIDs.Extn.id_pkix_ocsp_nocheck;
+    type = ExtensionID.ocspNoCheck.oid();
     if (extensionControls.containsID(type)) {
       addIfNotIn(types, type);
     }
@@ -649,7 +677,7 @@ public class X509ExtensionsChecker {
     }
 
     return types;
-  } // method getExensionTypes
+  } // method getExtensionTypes
 
   private ValidationIssue createExtensionIssue(ASN1ObjectIdentifier extId) {
     String extName = OIDs.getName(extId);

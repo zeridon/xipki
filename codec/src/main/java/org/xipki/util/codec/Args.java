@@ -202,6 +202,12 @@ public class Args {
     return argument;
   }
 
+  public static String lengthRange(String argument, String name, int min, int max) {
+    Objects.requireNonNull(argument, name + " may not be null");
+    range(argument.length(), name + ".length", min, max);
+    return argument;
+  }
+
   public static String toNonBlankLower(String argument, String name) {
     Objects.requireNonNull(argument, name + " may not be null");
     if (argument.isEmpty()) {

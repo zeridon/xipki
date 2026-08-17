@@ -3,7 +3,6 @@
 
 package org.xipki.security.sign;
 
-import org.bouncycastle.operator.ContentSigner;
 import org.xipki.security.SignAlgo;
 import org.xipki.security.exception.NoIdleSignerException;
 import org.xipki.security.exception.XiSecurityException;

@@ -201,7 +201,6 @@ public class ComplexProfileConfDemo extends ProfileConfBuilder {
     // Subject
     addRdns(profile, rdn(AttributeType.commonName), rdn(AttributeType.country),
         rdn(AttributeType.O), rdn01(AttributeType.OU), rdn01(AttributeType.serialNumber),
-        rdn01(AttributeType.postalAddress), rdn01(AttributeType.dateOfBirth),
         rdn(AttributeType.userid), rdn(AttributeType.jurIncorporationCountry),
         rdn(AttributeType.jurIncorporationLocality), rdn(AttributeType.jurIncorporationState));
 
@@ -274,6 +273,47 @@ public class ComplexProfileConfDemo extends ProfileConfBuilder {
     ExtensionValueConf.SubjectInfoAccess subjectInfoAccess =
         new ExtensionValueConf.SubjectInfoAccess(accesses);
     last(list).setSubjectInfoAccess(subjectInfoAccess);
+
+    // qcStatements
+    list.add(createExtension(ExtensionID.qcStatements, true, false));
+    last(list).setInRequest(TripleState.required);
+
+    List<ExtensionValueConf.QcStatementType> qcsTypes = new ArrayList<>();
+    qcsTypes.add(new ExtensionValueConf.QcStatementType(
+        QCStatementID.etsi_qcs_QcCompliance, null));
+
+    qcsTypes.add(new ExtensionValueConf.QcStatementType(
+        QCStatementID.etsi_qcs_QcSSCD, null));
+
+    ExtensionValueConf.QcStatementValueType valueType =
+        new ExtensionValueConf.QcStatementValueType(null, 10, null, null);
+    qcsTypes.add(new ExtensionValueConf.QcStatementType(
+        QCStatementID.etsi_qcs_QcRetentionPeriod, valueType));
+
+    valueType = new ExtensionValueConf.QcStatementValueType(null, null,
+        new ExtensionValueConf.QcEuLimitValueType("EUR",
+            new ExtensionValueConf.Range2Type(100, 200),
+            new ExtensionValueConf.Range2Type(10, 20)), null);
+    qcsTypes.add(new ExtensionValueConf.QcStatementType(
+        QCStatementID.etsi_qcs_QcLimitValue, valueType));
+
+    valueType = new ExtensionValueConf.QcStatementValueType(null, null, null,
+        Arrays.asList(
+            new ExtensionValueConf.PdsLocationType("http://pki.myorg.org/pds/en", "en"),
+            new ExtensionValueConf.PdsLocationType("http://pki.myorg.org/pds/de", "de")));
+    qcsTypes.add(new ExtensionValueConf.QcStatementType(
+        QCStatementID.ofOid(new ASN1ObjectIdentifier("0.4.0.1862.1.5")),
+        valueType));
+
+    valueType = new ExtensionValueConf.QcStatementValueType(
+        new ConstantExtnValue(ConstantExtnValue.Type.ASN1, new byte[] {5, 0}),
+        null, null, null);
+    qcsTypes.add(new ExtensionValueConf.QcStatementType(
+        QCStatementID.ofOid(new ASN1ObjectIdentifier("1.2.3.4.5")),
+        valueType));
+
+    ExtensionValueConf.QcStatements qcStatements = new ExtensionValueConf.QcStatements(qcsTypes);
+    last(list).setQcStatements(qcStatements);
 
     marshall(profile, destFilename, true);
   } // method certprofileEeComplex

@@ -86,6 +86,30 @@ public class BridgeAsn1Util {
     return ASN1UTF8String.getInstance(str).getString();
   }
 
+  public static boolean isPrintableString(ASN1Encodable str) {
+    return str instanceof ASN1PrintableString;
+  }
+
+  public static boolean isIA5String(ASN1Encodable str) {
+    return str instanceof ASN1IA5String;
+  }
+
+  public static boolean isUTF8String(ASN1Encodable str) {
+    return str instanceof ASN1UTF8String;
+  }
+
+  public static boolean isT61String(ASN1Encodable str) {
+    return str instanceof ASN1T61String;
+  }
+
+  public static boolean isBMPString(ASN1Encodable str) {
+    return str instanceof ASN1BMPString;
+  }
+
+  public static boolean isUniversalString(ASN1Encodable str) {
+    return str instanceof ASN1UniversalString;
+  }
+
   public static byte[] getBitStringOctets(Object obj) {
     return ASN1BitString.getInstance(obj).getOctets();
   }

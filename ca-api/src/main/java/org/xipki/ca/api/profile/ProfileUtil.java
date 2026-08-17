@@ -7,15 +7,22 @@ import org.bouncycastle.asn1.*;
 import org.bouncycastle.asn1.x500.DirectoryString;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x509.Attribute;
 import org.bouncycastle.asn1.x509.GeneralName;
+import org.bouncycastle.asn1.x509.OtherName;
 import org.xipki.ca.api.profile.ctrl.GeneralNameTag;
 import org.xipki.ca.api.profile.ctrl.RdnControl;
 import org.xipki.ca.api.profile.ctrl.StringType;
 import org.xipki.ca.api.profile.ctrl.SubjectControl;
+import org.xipki.ca.api.profile.ctrl.SubjectDnSpec;
 import org.xipki.ca.api.profile.ctrl.SubjectInfo;
 import org.xipki.ca.api.profile.ctrl.TextVadidator;
-import org.xipki.ca.api.profile.id.AttributeType;
+import org.xipki.ca.api.profile.id.OtherNameID;
+import org.xipki.ca.api.profile.id.SubjectDirectoryAttributeType;
 import org.xipki.security.OIDs;
+import org.xipki.security.asn1.rfc4108.HardwareModuleName;
+import org.xipki.security.asn1.spdm.SpdmParser;
+import org.xipki.security.asn1.tcg.TcgParser;
 import org.xipki.security.exception.BadCertTemplateException;
 import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.X509Util;
@@ -82,75 +89,9 @@ public class ProfileUtil {
   private static RDN createSubjectRdn(
       ASN1ObjectIdentifier type, ASN1Encodable value, RdnControl option)
       throws BadCertTemplateException {
-    if (AttributeType.postalAddress.oid().equals(type)) {
-      return createPostalAddressRdn(type, value, option);
-    } else if (AttributeType.dateOfBirth.oid().equals(type)) {
-      return createDateOfBirthRdn(type, value);
-    } else {
-      String text = X509Util.rdnValueToString(value);
-      return new RDN(type, createRdnValue(type, text, option));
-    }
+    String text = X509Util.rdnValueToString(value);
+    return new RDN(type, createRdnValue(type, text, option));
   } // method createSubjectRdn
-
-  private static RDN createDateOfBirthRdn(ASN1ObjectIdentifier type, ASN1Encodable rdnValue)
-      throws BadCertTemplateException {
-    Args.notNull(type, "type");
-
-    String text;
-    ASN1Encodable newRdnValue = null;
-    if (rdnValue instanceof ASN1GeneralizedTime) {
-      text = ((ASN1GeneralizedTime) rdnValue).getTimeString();
-      newRdnValue = rdnValue;
-    } else if (rdnValue instanceof ASN1String && !(rdnValue instanceof DERUniversalString)) {
-      text = ((ASN1String) rdnValue).getString();
-    } else {
-      throw new BadCertTemplateException("Value of RDN dateOfBirth has incorrect syntax");
-    }
-
-    if (!TextVadidator.DATE_OF_BIRTH.isValid(text)) {
-      throw new BadCertTemplateException(
-          "Value of RDN dateOfBirth does not have format YYYMMDD000000Z");
-    }
-
-    if (newRdnValue == null) {
-      newRdnValue = new DERGeneralizedTime(text);
-    }
-
-    return new RDN(type, newRdnValue);
-  } // method createDateOfBirthRdn
-
-  private static RDN createPostalAddressRdn(
-      ASN1ObjectIdentifier type, ASN1Encodable rdnValue, RdnControl control)
-      throws BadCertTemplateException {
-    Args.notNull(type, "type");
-
-    if (!(rdnValue instanceof ASN1Sequence)) {
-      throw new BadCertTemplateException("rdnValue of RDN postalAddress has incorrect syntax");
-    }
-
-    ASN1Sequence seq = (ASN1Sequence) rdnValue;
-    final int size = seq.size();
-    if (size < 1 || size > 6) {
-      throw new BadCertTemplateException(
-          "Sequence size of RDN postalAddress is not within [1, 6]: " + size);
-    }
-
-    ASN1EncodableVector vec = new ASN1EncodableVector();
-    for (int i = 0; i < size; i++) {
-      ASN1Encodable line = seq.getObjectAt(i);
-      String text;
-      if (line instanceof ASN1String && !(line instanceof DERUniversalString)) {
-        text = ((ASN1String) line).getString();
-      } else {
-        throw new BadCertTemplateException(String.format(
-            "postalAddress[%d] has incorrect syntax", i));
-      }
-
-      vec.add(createRdnValue(type, text, control));
-    }
-
-    return new RDN(type, new DERSequence(vec));
-  } // method createPostalAddressRdn
 
   /**
    * Creates GeneralName.
@@ -159,13 +100,16 @@ public class ProfileUtil {
    *        Requested name. Must not be {@code null}.
    * @param modes
    *        Modes to be considered. Must not be {@code null}.
+   * @param otherNameTypes
+   *        allowed types of otherName. May be {@code null}.
    * @return the created GeneralName
    * @throws BadCertTemplateException
    *         If requestedName is invalid or contains entries which are
    *         not allowed in the modes.
    */
   public static GeneralName createGeneralName(
-      GeneralName requestedName, Set<GeneralNameTag> modes)
+      GeneralName requestedName, Set<GeneralNameTag> modes,
+      Set<ASN1ObjectIdentifier> otherNameTypes)
       throws BadCertTemplateException {
     Args.notNull(requestedName, "requestedName");
 
@@ -221,40 +165,117 @@ public class ProfileUtil {
           throw new IllegalStateException("should not reach here, unknown GeneralName tag " + tag);
       }
     } else {
-      ASN1Sequence reqSeq = ASN1Sequence.getInstance(requestedName.getName());
-      int size = reqSeq.size();
-      if (size != 2) {
-        throw new BadCertTemplateException("invalid otherName sequence: size is not 2: " + size);
-      }
-
-      ASN1ObjectIdentifier type = ASN1ObjectIdentifier.getInstance(reqSeq.getObjectAt(0));
+      OtherName reqOtherName = OtherName.getInstance(requestedName.getName());
+      ASN1ObjectIdentifier type = reqOtherName.getTypeID();
       String typeText = type.getId();
 
-      boolean permitted = isPermitted(modes, typeText);
-      if (!permitted) {
+      if (!modes.contains(GeneralNameTag.otherName)) {
+        throw new BadCertTemplateException("otherName is not allowed");
+      }
+
+      if (otherNameTypes != null && !otherNameTypes.contains(type)) {
         throw new BadCertTemplateException("otherName with type " + typeText + " is not allowed");
       }
 
-      ASN1Encodable asn1 = reqSeq.getObjectAt(1);
-      if (!(asn1 instanceof ASN1TaggedObject)) {
-        throw new BadCertTemplateException("otherName.value is not tagged Object");
+      // customized checker and process
+      OtherName resOtherName;
+      try {
+        if (type.on(OIDs.TCG.tcg)) {
+          resOtherName = new OtherName(type, TcgParser.parseTcgOtherName(reqOtherName));
+        } else if (type.on(OIDs.Spdm.id_spdm)) {
+          resOtherName = new OtherName(type, SpdmParser.parseSpdmOtherName(reqOtherName));
+        } else if (type.equals(OtherNameID.hardwareModuleName.oid())) {
+          HardwareModuleName hmName = HardwareModuleName.getInstance(reqOtherName.getValue());
+          resOtherName = new OtherName(type, hmName);
+        } else if (type.equals(OtherNameID.macAddress.oid())) {
+          ASN1OctetString os = ASN1OctetString.getInstance(reqOtherName.getValue());
+          int len = os.getOctets().length;
+          if (!(len == 6 || len == 8 || len == 12 || len == 16)) {
+            throw new BadCertTemplateException("invalid length of MAC address: " + len);
+          }
+          resOtherName = reqOtherName;
+        } else if (type.equals(OtherNameID.smtpUTF8Mailbox.oid())) {
+          String text = Asn1Util.getUTF8String(reqOtherName.getValue());
+          boolean withNonAscii = false;
+          for (int i = 0; i < text.length(); i++) {
+            int c = text.charAt(i);
+            if (c > 127) {
+              withNonAscii = true;
+              break;
+            }
+          }
+
+          if (!withNonAscii) {
+            throw new BadCertTemplateException(
+                "smtpUTF8Mailbox shall not contain ASCII-only mailbox");
+          }
+          resOtherName = reqOtherName;
+        } else {
+          resOtherName = reqOtherName;
+        }
+      } catch (RuntimeException e) {
+        throw new BadCertTemplateException("invalid value of otherName type " + type);
       }
 
-      int tagNo = ASN1TaggedObject.getInstance(asn1).getTagNo();
-      if (tagNo != 0) {
-        throw new BadCertTemplateException("otherName.value does not have tag 0: " + tagNo);
-      }
-
-      ASN1EncodableVector vector = new ASN1EncodableVector();
-      vector.add(type);
-      ASN1Encodable value = Asn1Util.getBaseObject(ASN1TaggedObject.getInstance(asn1));
-      vector.add(new DERTaggedObject(true, 0, value));
-      return new GeneralName(GeneralName.otherName, new DERSequence(vector));
+      return new GeneralName(GeneralName.otherName, resOtherName);
     }
   } // method createGeneralName
 
-  private static boolean isPermitted(Set<GeneralNameTag> modes, String typeText) {
-    return modes.contains(GeneralNameTag.otherName);
+  public static Attribute canonicalizeSubjectDirectoryAttribute(Attribute reqAttr)
+      throws BadCertTemplateException {
+    ASN1ObjectIdentifier attrType = reqAttr.getAttrType();
+    ASN1Set reqAttrValues = reqAttr.getAttrValues();
+
+    if (SubjectDirectoryAttributeType.title.oid().equals(attrType) ||
+        SubjectDirectoryAttributeType.gender.oid().equals(attrType) ||
+        SubjectDirectoryAttributeType.placeOfBirth.oid().equals(attrType) ||
+        SubjectDirectoryAttributeType.dateOfBirth.oid().equals(attrType) ||
+        SubjectDirectoryAttributeType.countryOfCitizenship.oid().equals(attrType) ||
+        SubjectDirectoryAttributeType.countryOfResidence.oid().equals(attrType)) {
+      int setSize = reqAttrValues.size();
+      if (setSize != 1) {
+        throw new IllegalArgumentException("invalid attrValue.size() " + setSize);
+      }
+
+      ASN1Primitive sAttrValue = reqAttrValues.getObjectAt(0).toASN1Primitive();
+
+      if (SubjectDirectoryAttributeType.title.oid().equals(attrType)) {
+        if (Asn1Util.isT61String(sAttrValue) ||
+            Asn1Util.isPrintableString(sAttrValue) ||
+            Asn1Util.isUniversalString(sAttrValue) ||
+            Asn1Util.isUTF8String(sAttrValue) ||
+            Asn1Util.isBMPString(sAttrValue)) {
+          int sLen = ((ASN1String) sAttrValue).getString().length();
+          if (sLen == 0) {
+            throw new BadCertTemplateException("invalid length of title: 0");
+          }
+        }
+
+        return new Attribute(attrType, new DERSet(sAttrValue));
+      } else if (SubjectDirectoryAttributeType.countryOfCitizenship.oid().equals(attrType) ||
+                 SubjectDirectoryAttributeType.countryOfResidence.oid().equals(attrType)) {
+        String country = Asn1Util.getPrintableString(sAttrValue);
+        if (!SubjectDnSpec.isValidCountryAreaCode(country)) {
+          throw new BadCertTemplateException(
+              "invalid country (" + attrType.getId() + "): " + country);
+        }
+      } else if (SubjectDirectoryAttributeType.gender.oid().equals(attrType)) {
+        String gender = Asn1Util.getPrintableString(sAttrValue);
+        if (!("M".equalsIgnoreCase(gender) || "F".equalsIgnoreCase(gender))) {
+          throw new BadCertTemplateException("invalid gender: " + gender);
+        }
+      } else if (SubjectDirectoryAttributeType.dateOfBirth.oid().equals(attrType)) {
+        ASN1GeneralizedTime.getInstance(sAttrValue);
+      } else { // placeOfBirth
+        DirectoryString.getInstance(sAttrValue);
+      }
+      return reqAttr;
+    } else if (attrType.on(OIDs.TCG.tcg_attribute)) {
+      ASN1Encodable sAttrValue = TcgParser.parseTcgAttributeValue(attrType, reqAttrValues);
+      return new Attribute(attrType, new DERSet(sAttrValue));
+    } else {
+      return reqAttr;
+    }
   }
 
   private static RDN[] getRdns(RDN[] rdns, ASN1ObjectIdentifier type) {
@@ -283,7 +304,7 @@ public class ProfileUtil {
     StringType stringType = option == null ? null : option.stringType();
 
     if (stringType == null) {
-      stringType = isPrintableString(tmpText) ? StringType.printableString : StringType.utf8String;
+      stringType = StringType.utf8String; // default to UTF8String
     } else if (stringType == StringType.printableString) {
       if (!isPrintableString(tmpText)) {
         throw new BadCertTemplateException("'" + tmpText + "' contains non-printableString chars.");

@@ -28,6 +28,7 @@ import org.xipki.security.util.KeyUtil;
 import org.xipki.util.codec.Args;
 import org.xipki.util.conf.InvalidConfException;
 
+import java.math.BigInteger;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -294,7 +295,7 @@ public enum SignAlgo {
     int saltSize = hashAlgo.length();
     RSASSAPSSparams params = new RSASSAPSSparams(digAlgId,
         new AlgorithmIdentifier(OIDs.Algo.id_mgf1, digAlgId),
-        new ASN1Integer(saltSize), RSASSAPSSparams.DEFAULT_TRAILER_FIELD);
+        new ASN1Integer(BigInteger.valueOf(saltSize)), RSASSAPSSparams.DEFAULT_TRAILER_FIELD);
 
     this.oid = OIDs.Algo.id_RSASSA_PSS;
     this.algId = new AlgorithmIdentifier(this.oid, params);

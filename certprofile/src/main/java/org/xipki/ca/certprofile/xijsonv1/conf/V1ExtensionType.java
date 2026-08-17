@@ -7,7 +7,6 @@ import org.xipki.ca.api.profile.id.ExtensionID;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionType;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf.AuthorityInfoAccess;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf.BasicConstraints;
-import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf.CCCInstanceCAExtensionSchema;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf.CCCSimpleExtensionSchema;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf.InhibitAnyPolicy;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf.PolicyConstraints;
@@ -94,8 +93,6 @@ public class V1ExtensionType {
   private V1TlsFeature tlsFeature;
 
   private CCCSimpleExtensionSchema cccExtensionSchema;
-
-  private CCCInstanceCAExtensionSchema cccInstanceCAExtensionSchema;
 
   public V1ExtensionType(DescribableOid type, Boolean critical,
                         Boolean required) {
@@ -225,11 +222,6 @@ public class V1ExtensionType {
     this.cccExtensionSchema = cccExtensionSchema;
   }
 
-  public void setCccInstanceCAExtensionSchema(
-      CCCInstanceCAExtensionSchema cccInstanceCAExtensionSchema) {
-    this.cccInstanceCAExtensionSchema = cccInstanceCAExtensionSchema;
-  }
-
   public void setPermittedInRequest(Boolean permittedInRequest) {
     this.permittedInRequest = permittedInRequest;
   }
@@ -315,10 +307,6 @@ public class V1ExtensionType {
 
     if (cccExtensionSchema != null) {
       v2.setCccExtensionSchema(cccExtensionSchema);
-    }
-
-    if (cccInstanceCAExtensionSchema != null) {
-      v2.setCccInstanceCAExtensionSchema(cccInstanceCAExtensionSchema);
     }
 
     if (inRequest != null) {
@@ -451,11 +439,6 @@ public class V1ExtensionType {
     map = json.getMap("cccExtensionSchema");
     if (map != null) {
       ret.setCccExtensionSchema(CCCSimpleExtensionSchema.parse(map));
-    }
-
-    map = json.getMap("cccInstanceCAExtensionSchema");
-    if (map != null) {
-      ret.setCccInstanceCAExtensionSchema(CCCInstanceCAExtensionSchema.parse(map));
     }
 
     return ret;

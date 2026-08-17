@@ -8,11 +8,12 @@ import org.xipki.security.KeySpec;
 import java.util.List;
 
 /**
- * Public Key Control control settings.
+ * Public Key Control settings.
  *
  * @author Lijun Liao (xipki)
  */
 public class PublicKeyControl {
+
   private final List<KeySpec> algorithms;
 
   public PublicKeyControl(List<KeySpec> keySpecs) {

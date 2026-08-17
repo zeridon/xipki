@@ -6,9 +6,11 @@ package org.xipki.ca.certprofile.xijson;
 import org.bouncycastle.asn1.*;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x509.Attribute;
 import org.bouncycastle.asn1.x509.CertificatePolicies;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.asn1.x509.SubjectDirectoryAttributes;
 import org.bouncycastle.asn1.x509.qualified.BiometricData;
 import org.bouncycastle.asn1.x509.qualified.Iso4217CurrencyCode;
 import org.bouncycastle.asn1.x509.qualified.MonetaryValue;
@@ -20,7 +22,9 @@ import org.xipki.ca.api.PublicCaInfo;
 import org.xipki.ca.api.profile.Certprofile;
 import org.xipki.ca.api.profile.ExtensionValue;
 import org.xipki.ca.api.profile.ExtensionValues;
+import org.xipki.ca.api.profile.ProfileUtil;
 import org.xipki.ca.api.profile.ctrl.*;
+import org.xipki.ca.api.profile.id.ExtensionID;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf;
 import org.xipki.ca.certprofile.xijson.conf.RdnType;
 import org.xipki.ca.certprofile.xijson.conf.XijsonCertprofileType;
@@ -29,6 +33,12 @@ import org.xipki.security.HashAlgo;
 import org.xipki.security.KeySpec;
 import org.xipki.security.OIDs;
 import org.xipki.security.SignAlgo;
+import org.xipki.security.asn1.ccc.EndpointCertificateExtensionSchema;
+import org.xipki.security.asn1.ccc.InstanceCACertificateExtensionSchema;
+import org.xipki.security.asn1.ccc.SBxDKisCertificateExtensionSchema;
+import org.xipki.security.asn1.rpki.ASIdentifiers;
+import org.xipki.security.asn1.rpki.IPAddrBlocks;
+import org.xipki.security.asn1.stir.TNAuthorizationList;
 import org.xipki.security.exception.BadCertTemplateException;
 import org.xipki.security.util.Asn1Util;
 import org.xipki.util.codec.Args;
@@ -55,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Vector;
 
 /**
  * XiJSON certificate profile definition.
@@ -386,7 +397,8 @@ public class XijsonCertprofile extends Certprofile {
       GeneralNames genNames =
           XijsonExtensions.createRequestedSubjectAltNames(
               requestedSubject, sanExtnValue, subjectAltNameModes(),
-              extensions.subjectToSubjectAltNameModes());
+              extensions.subjectToSubjectAltNameModes(),
+              extensions.subjectAltNameOtherNameTypes());
 
       if (genNames != null) {
         ExtensionValue value = new ExtensionValue(isCritical(type), genNames);
@@ -443,7 +455,7 @@ public class XijsonCertprofile extends Certprofile {
     // Subject Information Access
     // processed by the CA
 
-    // OCSP Nocheck
+    // OCSP NoCheck
     // processed by the CA
 
     // PrivateKeyUsagePeriod
@@ -468,13 +480,21 @@ public class XijsonCertprofile extends Certprofile {
       tmpExtnTypes.remove(type);
     }
 
+    // SubjectDirectoryAttributes
+    type = OIDs.Extn.subjectDirectoryAttributes;
+    if (tmpExtnTypes.contains(type)) {
+      ASN1Encodable extnValue = validateSubjectDirectoryAttributes(requestedExtensions);
+      values.addExtension(type, new ExtensionValue(isCritical(type), extnValue));
+      tmpExtnTypes.remove(type);
+    }
+
     // QCStatements
     type = OIDs.Extn.qCStatements;
-    ExtensionValue qcStatments = extensions.qcStatements();
+    ExtensionValue qcStatements = extensions.qcStatements();
     List<QcStatementOption> qcStatementsOption = extensions.qcStatementsOption();
-    if (tmpExtnTypes.contains(type) && (qcStatments != null || qcStatementsOption != null)) {
-      if (qcStatments != null) {
-        values.addExtension(type, qcStatments);
+    if (tmpExtnTypes.contains(type) && (qcStatements != null || qcStatementsOption != null)) {
+      if (qcStatements != null) {
+        values.addExtension(type, qcStatements);
         tmpExtnTypes.remove(type);
       } else if (requestedExtensions != null) {
         // extract the data from request
@@ -630,7 +650,40 @@ public class XijsonCertprofile extends Certprofile {
     // CCC
     type = extensions.cccExtensionSchemaType();
     if (type != null && tmpExtnTypes.remove(type)) {
-      values.addExtension(type, extensions.cccExtensionSchemaValue());
+      if (extensions.cccSimpleExtensionSchemaValue() != null) {
+        values.addExtension(type, extensions.cccSimpleExtensionSchemaValue());
+      } else if (type.equals(OIDs.Extn.id_ccc_E_Instance_CA_Cert)
+          || type.equals(OIDs.Extn.id_ccc_H_Endpoint_Cert)
+          || type.equals(OIDs.Extn.id_ccc_T_SBxDKis_Endpoint_Cert)){
+        ASN1Encodable asn1ExtnValue = null;
+        if (requestedExtensions != null) {
+          extension = requestedExtensions.get(type);
+          if (extension != null) {
+            asn1ExtnValue = extension.getParsedValue();
+          }
+        }
+
+        if (asn1ExtnValue == null) {
+          throw new BadCertTemplateException("no extension value is provided in the request for "
+              + type.getId());
+        }
+
+        ASN1Encodable ccc;
+        try {
+          if (type.equals(OIDs.Extn.id_ccc_E_Instance_CA_Cert)) {
+            ccc = InstanceCACertificateExtensionSchema.getInstance(asn1ExtnValue);
+          } else if (type.equals(OIDs.Extn.id_ccc_H_Endpoint_Cert)){
+            ccc = EndpointCertificateExtensionSchema.getInstance(asn1ExtnValue);
+          } else {
+            ccc = SBxDKisCertificateExtensionSchema.getInstance(asn1ExtnValue);
+          }
+        } catch (Exception e) {
+          throw new BadCertTemplateException("invalid extension value provided in the request for "
+              + type.getId() + ": " + e.getMessage(), e);
+        }
+
+        values.addExtension(type, new ExtensionValue(true, ccc));
+      }
     }
 
     // Microsoft Certificate Template Name
@@ -662,6 +715,126 @@ public class XijsonCertprofile extends Certprofile {
         values.addExtension(type, value);
         tmpExtnTypes.remove(type);
       }
+    }
+
+    // SPDM Cert OIDs
+    type = OIDs.Extn.id_dmtf_spdm_extension;
+    if (tmpExtnTypes.contains(type)) {
+      ExtensionValue spdm = extensions.spdmCertOids();
+      if (spdm != null) {
+        values.addExtension(type, spdm);
+        tmpExtnTypes.remove(type);
+      }
+    }
+
+    // STIR
+    type = OIDs.Extn.id_pe_JWTClaimConstraints;
+    if (tmpExtnTypes.contains(type)) {
+      ExtensionValue stir = extensions.stirJWTClaimPermittedValues();
+      if (stir != null) {
+        values.addExtension(type, stir);
+        tmpExtnTypes.remove(type);
+      }
+    }
+
+    type = OIDs.Extn.id_pe_TNAuthList;
+    if (tmpExtnTypes.contains(type) && requestedExtensions != null) {
+      Extension extn = requestedExtensions.get(type);
+      if (extn != null) {
+        TNAuthorizationList tnList = TNAuthorizationList.getInstance(extn.getParsedValue());
+        ExtensionValue value = new ExtensionValue(isCritical(type), tnList);
+        values.addExtension(type, value);
+        tmpExtnTypes.remove(type);
+      }
+    }
+
+    // RPKI
+    for (ASN1ObjectIdentifier extnType : new ASN1ObjectIdentifier[]{
+        OIDs.Extn.ASIdentifiers, OIDs.Extn.ASIdentifiersV2}) {
+      type = extnType;
+      if (tmpExtnTypes.contains(type) && requestedExtensions != null) {
+        Extension extn = requestedExtensions.get(type);
+        if (extn != null) {
+          ASIdentifiers asIds = ASIdentifiers.getInstance(extn.getParsedValue());
+          ExtensionValue value = new ExtensionValue(isCritical(type), asIds);
+          values.addExtension(type, value);
+          tmpExtnTypes.remove(type);
+        }
+      }
+    }
+
+    // RFC9608
+    type = ExtensionID.noRevAvail.oid();
+    if (tmpExtnTypes.remove(type)) {
+      values.addExtension(type, new ExtensionValue(isCritical(type), DERNull.INSTANCE));
+    }
+
+    // BRSKI (RFC8995)
+    type = ExtensionID.masaUrl.oid();
+    if (tmpExtnTypes.remove(type)) {
+      ExtensionValue extnValue;
+      if (extensions.masaUrl() != null) {
+        extnValue = extensions.masaUrl();
+      } else {
+        String url = null;
+        if (requestedExtensions != null) {
+          Extension extn = requestedExtensions.get(type);
+          if (extn != null) {
+            url = Asn1Util.getIA5String(extn.getParsedValue());
+          }
+        }
+
+        if (url == null) {
+          throw new BadCertTemplateException("no masa url is specified in the requested extension");
+        }
+
+        extnValue = new ExtensionValue(isCritical(type), new DERIA5String(url));
+      }
+
+      values.addExtension(type, extnValue);
+    }
+
+    // ICAO MRTD
+    type = ExtensionID.MRTD_NameChange.oid();
+    if (tmpExtnTypes.remove(type)) {
+      values.addExtension(type, new ExtensionValue(isCritical(type), DERNull.INSTANCE));
+    }
+
+    type = ExtensionID.MRTD_DocumentTypeList.oid();
+    if (tmpExtnTypes.remove(type)) {
+      values.addExtension(type, extensions.mrtdDocumentTypes());
+    }
+
+    // RPKI
+    for (ASN1ObjectIdentifier extnType : new ASN1ObjectIdentifier[]{
+        OIDs.Extn.IPAddrBlocks, OIDs.Extn.IPAddrBlocksV2}) {
+      type = extnType;
+      if (tmpExtnTypes.contains(type) && requestedExtensions != null) {
+        Extension extn = requestedExtensions.get(type);
+        if (extn != null) {
+          IPAddrBlocks asIds = IPAddrBlocks.getInstance(extn.getParsedValue());
+          ExtensionValue value = new ExtensionValue(isCritical(type), asIds);
+          values.addExtension(type, value);
+          tmpExtnTypes.remove(type);
+        }
+      }
+    }
+
+    // TCG DICE
+    type = ExtensionID.dice_ueid.oid();
+    if (tmpExtnTypes.remove(type)) {
+      Extension extn = requestedExtensions == null ? null : requestedExtensions.get(type);
+      if (extn == null) {
+        throw new BadCertTemplateException(OIDs.oidToDisplayName(type) +
+            ": request extension is not a present");
+      }
+
+      if (!(extn.getParsedValue() instanceof ASN1OctetString)) {
+        throw new BadCertTemplateException(OIDs.oidToDisplayName(type) +
+            ": request extension value is not an OCTET STRING");
+      }
+
+      values.addExtension(type, new ExtensionValue(isCritical(type), extn.getParsedValue()));
     }
 
     // GM/T 0015 extensions
@@ -799,6 +972,61 @@ public class XijsonCertprofile extends Certprofile {
   @Override
   public CertificatePolicies certificatePolicies() {
     return extensions.certificatePolicies();
+  }
+
+  private ASN1Encodable validateSubjectDirectoryAttributes(
+      Map<ASN1ObjectIdentifier, Extension> requestedExtensions)
+      throws BadCertTemplateException {
+    // attrTypes is either null or non-empty
+    List<ASN1ObjectIdentifier> attrTypes = extensions.subjectDirectoryAttributes();
+    // extract the data from request
+    Extension extension = requestedExtensions.get(ExtensionID.subjectDirectoryAttributes.oid());
+    if (extension == null) {
+      throw new BadCertTemplateException(
+          "No SubjectDirectoryAttributes extension is in the request");
+    }
+
+    Vector<?> reqAttrs = SubjectDirectoryAttributes.getInstance(
+                        extension.getParsedValue()).getAttributes();
+    int size = reqAttrs.size();
+    List<ASN1ObjectIdentifier> reqAttrTypes = new ArrayList<>(size);
+    Map<ASN1ObjectIdentifier, Attribute> reqAttrsMap = new HashMap<>(size);
+    for (Object reqAttr : reqAttrs) {
+      Attribute attr = Attribute.getInstance(reqAttr);
+      ASN1ObjectIdentifier attrType = attr.getAttrType();
+      reqAttrTypes.add(attrType);
+      reqAttrsMap.put(attrType, attr);
+    }
+
+    if (attrTypes != null) {
+      for (ASN1ObjectIdentifier reqAttrType : reqAttrTypes) {
+        if (!attrTypes.contains(reqAttrType)) {
+          throw new BadCertTemplateException("SubjectDirectoryAttributes: " +
+              reqAttrType.getId() + " is requested but not permitted");
+        }
+      }
+
+      for (ASN1ObjectIdentifier attrType : attrTypes) {
+        if (!reqAttrTypes.contains(attrType)) {
+          throw new BadCertTemplateException("SubjectDirectoryAttributes: " +
+              attrType.getId() + " is required but not in the request");
+        }
+      }
+    } else {
+      attrTypes = reqAttrTypes;
+    }
+
+    List<Attribute> attrsRes = new ArrayList<>(attrTypes.size());
+    try {
+      for (ASN1ObjectIdentifier attrType : attrTypes) {
+        Attribute reqAttr = reqAttrsMap.get(attrType);
+        attrsRes.add(ProfileUtil.canonicalizeSubjectDirectoryAttribute(reqAttr));
+      }
+    } catch (RuntimeException e) {
+      throw new BadCertTemplateException("request not correctly encoded", e);
+    }
+
+    return new DERSequence(attrsRes.toArray(new ASN1Encodable[0]));
   }
 
 }

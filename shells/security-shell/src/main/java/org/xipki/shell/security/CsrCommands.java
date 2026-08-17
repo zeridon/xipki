@@ -3,27 +3,24 @@
 
 package org.xipki.shell.security;
 
-import org.bouncycastle.asn1.*;
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1EncodableVector;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.DERPrintableString;
+import org.bouncycastle.asn1.DERSequence;
+import org.bouncycastle.asn1.DERSet;
 import org.bouncycastle.asn1.pkcs.Attribute;
 import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
-import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.Extensions;
-import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
-import org.bouncycastle.asn1.x509.OtherName;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.asn1.x509.qualified.BiometricData;
-import org.bouncycastle.asn1.x509.qualified.Iso4217CurrencyCode;
-import org.bouncycastle.asn1.x509.qualified.MonetaryValue;
-import org.bouncycastle.asn1.x509.qualified.QCStatement;
-import org.bouncycastle.asn1.x509.qualified.TypeOfBiometricData;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
-import org.xipki.security.HashAlgo;
 import org.xipki.security.OIDs;
 import org.xipki.security.SecurityFactory;
 import org.xipki.security.SignAlgo;
@@ -41,7 +38,6 @@ import org.xipki.security.sign.KemHmacSignature;
 import org.xipki.security.sign.SignAlgoMode;
 import org.xipki.security.sign.Signer;
 import org.xipki.security.sign.SignerConf;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.EcCurveEnum;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.security.util.X509Util;
@@ -53,7 +49,6 @@ import org.xipki.util.codec.Hex;
 import org.xipki.util.conf.ConfPairs;
 import org.xipki.util.extra.exception.ObjectCreationException;
 import org.xipki.util.extra.misc.CollectionUtil;
-import org.xipki.util.extra.misc.DateUtil;
 import org.xipki.util.extra.misc.PemEncoder;
 import org.xipki.util.io.IoUtil;
 import org.xipki.util.misc.StringUtil;
@@ -66,12 +61,9 @@ import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.KeyStore;
 import java.security.PrivateKey;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -108,12 +100,6 @@ public class CsrCommands {
     @Option(names = {"--subject", "-s"}, description = "subject in the CSR")
     private String subject;
 
-    @Option(names = "--dateOfBirth", description = "date of birth YYYYMMdd in subject")
-    private String dateOfBirth;
-
-    @Option(names = "--postalAddress", split = ",", description = "postal address in subject")
-    private List<String> postalAddress;
-
     @Option(names = "--outform", description = "output format of the CSR")
     @Completion(Completers.OutformCompleter.class)
     private String outform = "der";
@@ -131,41 +117,6 @@ public class CsrCommands {
 
     @Option(names = "--ext-keyusage", split = ",", description = "extended keyusage")
     private List<String> extkeyusages;
-
-    @Option(names = "--qc-eu-limit", split = ",",
-        description = "QC EuLimitValue of format <currency>:<amount>:<exponent>")
-    private List<String> qcEuLimits;
-
-    @Option(names = "--biometric-type", description = "Biometric type")
-    private String biometricType;
-
-    @Option(names = "--biometric-hash", description = "Biometric hash algorithm")
-    private String biometricHashAlgo;
-
-    @Option(names = "--biometric-file", description = "Biometric data file")
-    @Completion(FilePathCompleter.class)
-    private String biometricFile;
-
-    @Option(names = "--biometric-uri", description = "Biometric source data URI")
-    private String biometricUri;
-
-    @Option(names = "--microsoft-sid", description = "Microsoft SID, e.g. S-1-5-...")
-    private String microsoftSid;
-
-    @Option(names = {"--cn-residentIdCardNumber", "--cn-ricn"},
-        description = "Resident Identity Number (China)")
-    private String cnResidentIdCardNumber;
-
-    @Option(names = {"--cn-passportNumber", "--cn-pn"}, description = "Passport Number (China)")
-    private String cnPassportNumber;
-
-    @Option(names = {"--cn-socialInsuranceNumber", "--cn-sin"},
-        description = "Social Insurance Number (China)")
-    private String cnSocialInsuranceNumber;
-
-    @Option(names = {"--cn-unifiedSocialCreditCode", "--cn-uscc"},
-        description = "Unified Social Credit Code (China)")
-    private String cnUnifiedSocialCreditCode;
 
     @Option(names = "--extensions-file", description = "DER-encoded Extensions file")
     @Completion(FilePathCompleter.class)
@@ -246,76 +197,6 @@ public class CsrCommands {
               X509Util.createExtendedUsage(textToAsn1Oids(extkeyusages)).getEncoded()));
         }
 
-        if (CollectionUtil.isNotEmpty(qcEuLimits)) {
-          ASN1EncodableVector vec = new ASN1EncodableVector();
-          for (String value : qcEuLimits) {
-            StringTokenizer st = new StringTokenizer(value, ":");
-            try {
-              String currencyS = st.nextToken();
-              String amountS = st.nextToken();
-              String exponentS = st.nextToken();
-              Iso4217CurrencyCode currency;
-              try {
-                currency = new Iso4217CurrencyCode(Integer.parseInt(currencyS));
-              } catch (NumberFormatException ex) {
-                currency = new Iso4217CurrencyCode(currencyS);
-              }
-
-              MonetaryValue mv = new MonetaryValue(currency,
-                  Integer.parseInt(amountS), Integer.parseInt(exponentS));
-              vec.add(new QCStatement(OIDs.QCS.id_etsi_qcs_QcLimitValue, mv));
-            } catch (Exception ex) {
-              throw new IOException("invalid qc-eu-limit '" + value + "'");
-            }
-          }
-
-          extensions.add(new Extension(OIDs.Extn.qCStatements, false,
-              new DERSequence(vec).getEncoded()));
-        }
-
-        if (biometricType != null && biometricHashAlgo != null && biometricFile != null) {
-          TypeOfBiometricData bioType = StringUtil.isNumber(biometricType)
-              ? new TypeOfBiometricData(Integer.parseInt(biometricType))
-              : new TypeOfBiometricData(new ASN1ObjectIdentifier(biometricType));
-          HashAlgo hashAlgo = HashAlgo.getInstance(biometricHashAlgo);
-          byte[] bioHash = hashAlgo.hash(IoUtil.read(biometricFile));
-          BiometricData bioData = Asn1Util.buildBiometricData(
-              bioType, hashAlgo.algorithmIdentifier(), bioHash, biometricUri);
-          extensions.add(new Extension(OIDs.Extn.biometricInfo, false,
-              new DERSequence(bioData).getEncoded()));
-        } else if (!(biometricType == null && biometricHashAlgo == null && biometricFile == null)) {
-          throw new IOException("either all of biometric triples must be set or none");
-        }
-
-        if (StringUtil.isNotBlank(microsoftSid)) {
-          OtherName on = new OtherName(OIDs.Extn.id_microsoft_objectSid,
-              new DEROctetString(microsoftSid.getBytes(StandardCharsets.US_ASCII)));
-          GeneralName gn = new GeneralName(GeneralName.otherName, on);
-          GeneralNames gns = new GeneralNames(gn);
-          extensions.add(new Extension(OIDs.Extn.id_microsoft_SID, false, gns.getEncoded()));
-        }
-
-        // GM/T 0015
-        if (StringUtil.isNotBlank(cnResidentIdCardNumber)) {
-          extensions.add(new Extension(OIDs.Extn.id_cn_residentIdCardNumber, false,
-              new DERPrintableString(cnResidentIdCardNumber).getEncoded()));
-        }
-
-        if (StringUtil.isNotBlank(cnPassportNumber)) {
-          extensions.add(new Extension(OIDs.Extn.id_cn_passportNumber, false,
-              new DERUTF8String(cnPassportNumber).getEncoded()));
-        }
-
-        if (StringUtil.isNotBlank(cnSocialInsuranceNumber)) {
-          extensions.add(new Extension(OIDs.Extn.id_cn_socialInsuranceNumber, false,
-              new DERUTF8String(cnSocialInsuranceNumber).getEncoded()));
-        }
-
-        if (StringUtil.isNotBlank(cnUnifiedSocialCreditCode)) {
-          extensions.add(new Extension(OIDs.Extn.id_cn_UnifiedSocialCreditCode, false,
-              new DERUTF8String(cnUnifiedSocialCreditCode).getEncoded()));
-        }
-
         List<ASN1ObjectIdentifier> addedExtnTypes = new ArrayList<>(extensions.size());
         for (Extension extn : extensions) {
           addedExtnTypes.add(extn.getExtnId());
@@ -377,12 +258,6 @@ public class CsrCommands {
         boolean updateOldCert = oldCertFile != null;
         X500Name newSubjectDn = null;
         if (subject == null) {
-          if (StringUtil.isNotBlank(dateOfBirth)) {
-            throw new IllegalArgumentException("dateOfBirth cannot be set if subject is not set");
-          }
-          if (CollectionUtil.isNotEmpty(postalAddress)) {
-            throw new IllegalArgumentException("postalAddress cannot be set if subject is not set");
-          }
           if (!updateOldCert) {
             X509Cert signerCert = signer.x509Cert();
             if (signerCert == null) {
@@ -392,33 +267,6 @@ public class CsrCommands {
           }
         } else {
           newSubjectDn = getSubject(subject);
-          List<RDN> list = new LinkedList<>();
-          if (StringUtil.isNotBlank(dateOfBirth)) {
-            ASN1ObjectIdentifier id = OIDs.DN.dateOfBirth;
-            RDN[] rdns = newSubjectDn.getRDNs(id);
-            if (rdns == null || rdns.length == 0) {
-              Instant date = DateUtil.parseUtcTimeyyyyMMdd(dateOfBirth).plus(12, ChronoUnit.HOURS);
-              list.add(new RDN(id, new DERGeneralizedTime(
-                  DateUtil.toUtcTimeyyyyMMddhhmmss(date) + "Z")));
-            }
-          }
-          if (CollectionUtil.isNotEmpty(postalAddress)) {
-            ASN1ObjectIdentifier id = OIDs.DN.postalAddress;
-            RDN[] rdns = newSubjectDn.getRDNs(id);
-            if (rdns == null || rdns.length == 0) {
-              ASN1EncodableVector vec = new ASN1EncodableVector();
-              for (String value : postalAddress) {
-                vec.add(new DERUTF8String(value));
-              }
-              if (vec.size() > 0) {
-                list.add(new RDN(id, new DERSequence(vec)));
-              }
-            }
-          }
-          if (!list.isEmpty()) {
-            Collections.addAll(list, newSubjectDn.getRDNs());
-            newSubjectDn = new X500Name(list.toArray(new RDN[0]));
-          }
         }
 
         extnValue = CollectionUtil.isEmpty(subjectAltNames) ? null

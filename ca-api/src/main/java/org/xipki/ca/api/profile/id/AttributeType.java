@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Attribute Type type definition.
+ * Attribute Type definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -93,22 +93,19 @@ public class AttributeType extends AbstractID {
       initOf(OIDs.DN.organizationIdentifier, "organizationIdentifier", "OI");
 
   public static final AttributeType jurIncorporationLocality =
-      initOf(OIDs.DN.jurIncorporationLocality, "jurIncorporationLocality", "JIL");
+      initOf(OIDs.DN.jurIncorporationLocality,
+          "jurIncorporationLocality", "jurisdictionLocalityName", "JIL");
 
   public static final AttributeType jurIncorporationState =
-      initOf(OIDs.DN.jurIncorporationState, "jurIncorporationState", "JIS");
+      initOf(OIDs.DN.jurIncorporationState,
+          "jurIncorporationState", "jurisdictionStateOrProvinceName", "JIS");
 
   public static final AttributeType jurIncorporationCountry =
-      initOf(OIDs.DN.jurIncorporationCountry, "jurIncorporationCountry", "JIC");
+      initOf(OIDs.DN.jurIncorporationCountry,
+          "jurIncorporationCountry", "jurisdictionCountryName", "JIC");
 
   public static final AttributeType domainComponent =
       initOf(OIDs.DN.domainComponent, "domainComponent", "DC");
-
-  public static final AttributeType postalAddress =
-      initOf(OIDs.DN.postalAddress, "postalAddress");
-
-  public static final AttributeType dateOfBirth =
-      initOf(OIDs.DN.dateOfBirth, "dateOfBirth");
 
   public static final AttributeType name =
       initOf(OIDs.DN.name, "name");
@@ -129,6 +126,33 @@ public class AttributeType extends AbstractID {
 
   public static final AttributeType unstructuredAddress =
       initOf(OIDs.DN.unstructuredAddress, "unstructuredAddress");
+
+  public static final AttributeType matter_node_id =
+      initOf(OIDs.Matter.matter_node_id, "matter-node-id");
+
+  public static final AttributeType matter_firmware_signing_id =
+      initOf(OIDs.Matter.matter_firmware_signing_id, "matter-firmware-signing-id");
+
+  public static final AttributeType matter_icac_id =
+      initOf(OIDs.Matter.matter_icac_id, "matter-icac-id");
+
+  public static final AttributeType matter_rcac_id =
+      initOf(OIDs.Matter.matter_rcac_id, "matter-rcac-id");
+
+  public static final AttributeType matter_fabric_id =
+      initOf(OIDs.Matter.matter_fabric_id, "matter-fabric-id");
+
+  public static final AttributeType matter_noc_cat =
+      initOf(OIDs.Matter.matter_noc_cat, "matter-noc_cat");
+
+  public static final AttributeType matter_vvs_id =
+      initOf(OIDs.Matter.matter_vvs_id, "matter-vvs-id");
+
+  public static final AttributeType matter_oid_vid =
+      initOf(OIDs.Matter.matter_oid_vid, "matter-oid-vid");
+
+  public static final AttributeType matter_oid_pid =
+      initOf(OIDs.Matter.matter_oid_pid, "matter-oid-pid");
 
   private AttributeType(ASN1ObjectIdentifier x509, List<String> aliases) {
     super(x509, aliases);

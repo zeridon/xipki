@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- * Subject Key Identifier Control control settings.
+ * Subject Key Identifier Control settings.
  *
  * @author Lijun Liao (xipki)
  */
@@ -97,13 +97,13 @@ public class SubjectKeyIdentifierControl implements JsonEncodable {
       throw new IllegalStateException(e);
     }
     byte[] hashValue = md.digest(keyData);
+    int hLen = hashValue.length;
 
     if (method == SubjectKeyIdentifierMethod.METHOD2) {
-      byte[] id = Arrays.copyOfRange(hashValue, 8, 16);
+      byte[] id = Arrays.copyOfRange(hashValue, hLen - 8, hLen);
       id[0] = (byte) ((0x0F & id[0]) | 0x40);
       return id;
     } else { // use METHOD_1
-      int hLen = hashValue.length;
       if (truncateByteSize == null || (truncateByteSize >= hLen)) {
         return hashValue;
       }

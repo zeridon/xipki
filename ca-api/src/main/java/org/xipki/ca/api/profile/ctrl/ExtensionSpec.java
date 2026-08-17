@@ -4,6 +4,7 @@
 package org.xipki.ca.api.profile.ctrl;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.xipki.ca.api.profile.id.ExtensionID;
 import org.xipki.security.OIDs;
 
 import java.util.Arrays;
@@ -116,31 +117,79 @@ public abstract class ExtensionSpec {
         Collections.emptySet();
 
     private static final Set<ASN1ObjectIdentifier> CRITICAL_ONLY_EXTENSIONS =
-        Set.of(OIDs.Extn.keyUsage,
-            OIDs.Extn.policyMappings, OIDs.Extn.nameConstraints,
-            OIDs.Extn.policyConstraints, OIDs.Extn.inhibitAnyPolicy);
+        Set.of(
+            ExtensionID.keyUsage.oid(),
+            ExtensionID.policyMappings.oid(),
+            ExtensionID.nameConstraints.oid(),
+            ExtensionID.policyConstraints.oid(),
+            ExtensionID.inhibitAnyPolicy.oid(),
+            ExtensionID.CCC_K_VehicleCert.oid(),
+            ExtensionID.CCC_F_External_CACert.oid(),
+            ExtensionID.CCC_E_Instance_CACert.oid(),
+            ExtensionID.CCC_H_EndpointCert.oid(),
+            ExtensionID.CCC_P_VehicleOEMEncCert.oid(),
+            ExtensionID.CCC_Q_VehicleOEMSigCert.oid(),
+            ExtensionID.CCC_DeviceEncCert.oid(),
+            ExtensionID.CCC_VehicleIntermediateCert.oid(),
+            ExtensionID.CCC_J_VehicleOEMCACert.oid(),
+            ExtensionID.CCC_M_VehicleOEMCACert.oid(),
+            ExtensionID.CCC_R_CertificationBodyCert.oid(),
+            ExtensionID.CCC_S_SBxDKisIntermediateCACert.oid(),
+            ExtensionID.CCC_T_SBxDKisEndpointCert.oid(),
+            ExtensionID.CCC_U_SBxDKisRootCACert.oid());
 
     private static final Set<ASN1ObjectIdentifier>
-        NON_CRITICAL_ONLY_EXTENSIONS = Set.of(OIDs.Extn.authorityKeyIdentifier,
-            OIDs.Extn.subjectKeyIdentifier, OIDs.Extn.issuerAlternativeName,
-            OIDs.Extn.subjectDirectoryAttributes, OIDs.Extn.freshestCRL,
-            OIDs.Extn.authorityInfoAccess, OIDs.Extn.subjectInfoAccess,
-            OIDs.Extn.id_pe_tlsfeature, OIDs.Extn.id_SignedCertificateTimestampList,
-            OIDs.Extn.id_microsoft_CertificateTemplateName,
-            OIDs.Extn.id_microsoft_CertificateTemplateInformation,
-            OIDs.Extn.id_microsoft_SID,
-            OIDs.Extn.id_cn_residentIdCardNumber,
-            OIDs.Extn.id_cn_passportNumber,
-            OIDs.Extn.id_cn_socialInsuranceNumber,
-            OIDs.Extn.id_cn_UnifiedSocialCreditCode);
+        NON_CRITICAL_ONLY_EXTENSIONS = Set.of(
+            ExtensionID.authorityKeyIdentifier.oid(),
+            ExtensionID.subjectKeyIdentifier.oid(),
+            ExtensionID.issuerAltName.oid(),
+            ExtensionID.subjectDirectoryAttributes.oid(),
+            ExtensionID.freshestCRL.oid(),
+            ExtensionID.authorityInfoAccess.oid(),
+            ExtensionID.subjectInfoAccess.oid(),
+            ExtensionID.tlsFeature.oid(),
+            ExtensionID.signedCertificateTimestampList.oid(),
+            ExtensionID.microsoft_CertificateTemplateName.oid(),
+            ExtensionID.microsoft_CertificateTemplateInformation.oid(),
+            ExtensionID.microsoft_SID.oid(),
+            ExtensionID.CN_residentIdCardNumber.oid(),
+            ExtensionID.CN_passportNumber.oid(),
+            ExtensionID.CN_socialInsuranceNumber.oid(),
+            ExtensionID.CN_UnifiedSocialCreditCode.oid(),
+            ExtensionID.SPDM_Extension.oid(),
+            ExtensionID.STIR_TNAuthList.oid(),
+            ExtensionID.STIR_JWTClaimConstraints.oid(),
+            ExtensionID.noRevAvail.oid(),
+            ExtensionID.MRTD_DocumentTypeList.oid()
+        );
 
     private static final Set<ASN1ObjectIdentifier> NON_REQUEST_EXTENSIONS =
-        Set.of(OIDs.Extn.authorityKeyIdentifier,
-            OIDs.Extn.issuerAlternativeName, OIDs.Extn.cRLDistributionPoints,
-            OIDs.Extn.authorityInfoAccess, OIDs.Extn.freshestCRL,
-            OIDs.Extn.id_SignedCertificateTimestampList, OIDs.Extn.inhibitAnyPolicy,
-            OIDs.Extn.id_pkix_ocsp_nocheck, OIDs.Extn.id_microsoft_CertificateTemplateName,
-            OIDs.Extn.id_microsoft_CertificateTemplateInformation);
+        Set.of(ExtensionID.authorityKeyIdentifier.oid(),
+            ExtensionID.issuerAltName.oid(),
+            ExtensionID.crlDistributionPoints.oid(),
+            ExtensionID.authorityInfoAccess.oid(),
+            ExtensionID.freshestCRL.oid(),
+            ExtensionID.signedCertificateTimestampList.oid(),
+            ExtensionID.inhibitAnyPolicy.oid(),
+            ExtensionID.ocspNoCheck.oid(),
+            ExtensionID.microsoft_CertificateTemplateName.oid(),
+            ExtensionID.microsoft_CertificateTemplateInformation.oid(),
+            ExtensionID.CCC_K_VehicleCert.oid(),
+            ExtensionID.CCC_F_External_CACert.oid(),
+            ExtensionID.CCC_P_VehicleOEMEncCert.oid(),
+            ExtensionID.CCC_Q_VehicleOEMSigCert.oid(),
+            ExtensionID.CCC_DeviceEncCert.oid(),
+            ExtensionID.CCC_VehicleIntermediateCert.oid(),
+            ExtensionID.CCC_J_VehicleOEMCACert.oid(),
+            ExtensionID.CCC_M_VehicleOEMCACert.oid(),
+            ExtensionID.CCC_R_CertificationBodyCert.oid(),
+            ExtensionID.CCC_S_SBxDKisIntermediateCACert.oid(),
+            ExtensionID.CCC_U_SBxDKisRootCACert.oid(),
+            ExtensionID.STIR_JWTClaimConstraints.oid(),
+            ExtensionID.noRevAvail.oid(),
+            ExtensionID.MRTD_NameChange.oid(),
+            ExtensionID.MRTD_DocumentTypeList.oid()
+            );
 
     public Set<ASN1ObjectIdentifier> requiredExtensions() {
       return REQUIRED_EXTENSIONS;
@@ -148,7 +197,7 @@ public abstract class ExtensionSpec {
 
     @Override
     public boolean isCriticalOnly(ASN1ObjectIdentifier type) {
-      return CRITICAL_ONLY_EXTENSIONS.contains(type);
+      return CRITICAL_ONLY_EXTENSIONS.contains(type) || type.on(OIDs.Extn.id_ccc_extn);
     }
 
     @Override
@@ -171,18 +220,19 @@ public abstract class ExtensionSpec {
   private static class Rfc5280RootCA extends Rfc5280 {
 
     private static final Set<ASN1ObjectIdentifier> REQUIRED_EXTENSIONS =
-        Set.of(OIDs.Extn.basicConstraints,
-            OIDs.Extn.subjectKeyIdentifier, OIDs.Extn.keyUsage);
+        Set.of(ExtensionID.basicConstraints.oid(),
+            ExtensionID.subjectKeyIdentifier.oid(),
+            ExtensionID.keyUsage.oid());
 
     private static final Set<ASN1ObjectIdentifier> NON_PERMITTED_EXTENSIONS =
-        Set.of(OIDs.Extn.certificatePolicies,
-            OIDs.Extn.extendedKeyUsage,
+        Set.of(ExtensionID.certificatePolicies.oid(),
+            ExtensionID.extendedKeyUsage.oid(),
             // not required in RFC5280, forbidden by several national standards,
             // e.g. chinese GM/T 0015 and German Gematik.
-            OIDs.Extn.authorityKeyIdentifier);
+            ExtensionID.authorityKeyIdentifier.oid());
 
     private static final Set<ASN1ObjectIdentifier> CRITICAL_ONLY_EXTENSIONS =
-        Set.of(OIDs.Extn.basicConstraints, OIDs.Extn.keyUsage);
+        Set.of(ExtensionID.basicConstraints.oid(), ExtensionID.keyUsage.oid());
 
     private static final Set<ASN1ObjectIdentifier> NON_CRITICAL_ONLY_EXTENSIONS
         = Collections.emptySet();
@@ -221,23 +271,23 @@ public abstract class ExtensionSpec {
   private static class Rfc5280SubCA extends Rfc5280 {
 
     private static final Set<ASN1ObjectIdentifier> REQUIRED_EXTENSIONS =
-        Set.of(OIDs.Extn.basicConstraints,
-            OIDs.Extn.subjectKeyIdentifier, OIDs.Extn.keyUsage);
+        Set.of(ExtensionID.basicConstraints.oid(),
+            ExtensionID.subjectKeyIdentifier.oid(), ExtensionID.keyUsage.oid());
 
     private static final Set<ASN1ObjectIdentifier> NON_PERMITTED_EXTENSIONS
         = Collections.emptySet();
 
     private static final Set<ASN1ObjectIdentifier> CRITICAL_ONLY_EXTENSIONS =
-        Set.of(OIDs.Extn.basicConstraints, // BR
-            OIDs.Extn.keyUsage, // BR
-            OIDs.Extn.nameConstraints); // BR
+        Set.of(ExtensionID.basicConstraints.oid(), // BR
+            ExtensionID.keyUsage.oid(), // BR
+            ExtensionID.nameConstraints.oid()); // BR
 
     private static final Set<ASN1ObjectIdentifier>
         NON_CRITICAL_ONLY_EXTENSIONS = Set.of(
-            OIDs.Extn.certificatePolicies, // BR
-            OIDs.Extn.cRLDistributionPoints, // BR
-            OIDs.Extn.authorityInfoAccess, // BR
-            OIDs.Extn.extendedKeyUsage); // BR
+            ExtensionID.certificatePolicies.oid(), // BR
+            ExtensionID.crlDistributionPoints.oid(), // BR
+            ExtensionID.authorityInfoAccess.oid(), // BR
+            ExtensionID.extendedKeyUsage.oid()); // BR
 
     private final Set<ASN1ObjectIdentifier> requiredExtensions;
 
@@ -273,11 +323,12 @@ public abstract class ExtensionSpec {
   private static class Rfc5280EndEntity extends Rfc5280 {
 
     private static final Set<ASN1ObjectIdentifier> REQUIRED_EXTENSIONS =
-        Set.copyOf(Collections.singletonList(OIDs.Extn.subjectKeyIdentifier));
+        Set.copyOf(Collections.singletonList(ExtensionID.subjectKeyIdentifier.oid()));
 
     private static final Set<ASN1ObjectIdentifier> NON_PERMITTED_EXTENSIONS =
-        Set.of(OIDs.Extn.policyMappings,
-            OIDs.Extn.nameConstraints, OIDs.Extn.policyConstraints);
+        Set.of(ExtensionID.policyMappings.oid(),
+            ExtensionID.nameConstraints.oid(),
+            ExtensionID.policyConstraints.oid());
 
     private static final Set<ASN1ObjectIdentifier> CRITICAL_ONLY_EXTENSIONS
         = Collections.emptySet();
@@ -314,26 +365,26 @@ public abstract class ExtensionSpec {
   private static class BrowserForumBRSubCA extends Rfc5280SubCA {
 
     private static final Set<ASN1ObjectIdentifier> REQUIRED_EXTENSIONS =
-        Set.of(OIDs.Extn.certificatePolicies, // BR
-            OIDs.Extn.cRLDistributionPoints, // BR
-            OIDs.Extn.authorityInfoAccess, // BR
-            OIDs.Extn.basicConstraints, // BR
-            OIDs.Extn.keyUsage); // BR
+        Set.of(ExtensionID.certificatePolicies.oid(), // BR
+            ExtensionID.crlDistributionPoints.oid(), // BR
+            ExtensionID.authorityInfoAccess.oid(), // BR
+            ExtensionID.basicConstraints.oid(), // BR
+            ExtensionID.keyUsage.oid()); // BR
 
     private static final Set<ASN1ObjectIdentifier> NON_PERMITTED_EXTENSIONS =
         Collections.emptySet();
 
     private static final Set<ASN1ObjectIdentifier> CRITICAL_ONLY_EXTENSIONS =
-        Set.of(OIDs.Extn.basicConstraints, // BR
-            OIDs.Extn.keyUsage, // BR
-            OIDs.Extn.nameConstraints); // BR
+        Set.of(ExtensionID.basicConstraints.oid(), // BR
+            ExtensionID.keyUsage.oid(), // BR
+            ExtensionID.nameConstraints.oid()); // BR
 
     private static final Set<ASN1ObjectIdentifier>
         NON_CRITICAL_ONLY_EXTENSIONS = Set.of(
-            OIDs.Extn.certificatePolicies, // BR
-            OIDs.Extn.cRLDistributionPoints, // BR
-            OIDs.Extn.authorityInfoAccess, // BR
-            OIDs.Extn.extendedKeyUsage); // BR
+            ExtensionID.certificatePolicies.oid(), // BR
+            ExtensionID.crlDistributionPoints.oid(), // BR
+            ExtensionID.authorityInfoAccess.oid(), // BR
+            ExtensionID.extendedKeyUsage.oid()); // BR
 
     private final Set<ASN1ObjectIdentifier> requiredExtensions;
 
@@ -369,10 +420,10 @@ public abstract class ExtensionSpec {
   private static class BrowserForumBREndEntity extends Rfc5280EndEntity {
 
     private static final Set<ASN1ObjectIdentifier> REQUIRED_EXTENSIONS =
-        Set.of(OIDs.Extn.certificatePolicies, // BR
-            OIDs.Extn.authorityInfoAccess, // BR
-            OIDs.Extn.extendedKeyUsage, // BR
-            OIDs.Extn.subjectAlternativeName); // BR
+        Set.of(ExtensionID.certificatePolicies.oid(), // BR
+            ExtensionID.authorityInfoAccess.oid(), // BR
+            ExtensionID.extendedKeyUsage.oid(), // BR
+            ExtensionID.subjectAlternativeName.oid()); // BR
 
     private static final Set<ASN1ObjectIdentifier> NON_PERMITTED_EXTENSIONS =
         Collections.emptySet();
@@ -382,9 +433,9 @@ public abstract class ExtensionSpec {
 
     private static final Set<ASN1ObjectIdentifier>
         NON_CRITICAL_ONLY_EXTENSIONS = Set.of(
-            OIDs.Extn.certificatePolicies, // BR
-            OIDs.Extn.cRLDistributionPoints, // BR
-            OIDs.Extn.authorityInfoAccess); // BR
+            ExtensionID.certificatePolicies.oid(), // BR
+            ExtensionID.crlDistributionPoints.oid(), // BR
+            ExtensionID.authorityInfoAccess.oid()); // BR
 
     private final Set<ASN1ObjectIdentifier> requiredExtensions;
 

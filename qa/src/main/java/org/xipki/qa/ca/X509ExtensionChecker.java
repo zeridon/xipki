@@ -12,12 +12,15 @@ import org.bouncycastle.asn1.x509.qualified.MonetaryValue;
 import org.bouncycastle.asn1.x509.qualified.QCStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xipki.ca.api.profile.ExtensionValue;
+import org.xipki.ca.api.profile.ProfileUtil;
 import org.xipki.ca.api.profile.ctrl.AuthorityInfoAccessControl;
 import org.xipki.ca.api.profile.ctrl.CertLevel;
 import org.xipki.ca.api.profile.ctrl.ExtKeyUsageControl;
 import org.xipki.ca.api.profile.ctrl.ExtensionControl;
 import org.xipki.ca.api.profile.ctrl.GeneralNameTag;
 import org.xipki.ca.api.profile.ctrl.KeySingleUsage;
+import org.xipki.ca.api.profile.id.ExtensionID;
 import org.xipki.ca.certprofile.xijson.XijsonCertprofile;
 import org.xipki.ca.certprofile.xijson.XijsonExtensions;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf;
@@ -25,6 +28,8 @@ import org.xipki.ca.certprofile.xijson.conf.GeneralSubtreeType;
 import org.xipki.qa.CheckerUtil;
 import org.xipki.security.KeySpec;
 import org.xipki.security.OIDs;
+import org.xipki.security.asn1.spdm.SpdmParser;
+import org.xipki.security.asn1.tcg.TcgParser;
 import org.xipki.security.exception.BadCertTemplateException;
 import org.xipki.security.pkix.CtLog;
 import org.xipki.security.pkix.KeyUsage;
@@ -505,9 +510,7 @@ class X509ExtensionChecker {
   } // method checkExtnNameConstraintsSubtrees
 
   void checkExtnOcspNocheck(StringBuilder failureMsg, byte[] extnValue) {
-    if (!Arrays.equals(DER_NULL, extnValue)) {
-      failureMsg.append("value is not DER NULL; ");
-    }
+    checkExtnNullValue(failureMsg, extnValue);
   }
 
   void checkExtnPolicyConstraints(
@@ -829,6 +832,8 @@ class X509ExtensionChecker {
       X500Name requestedSubject) {
     XijsonCertprofile certprofile = getCertprofile();
     Set<GeneralNameTag> conf = certprofile.subjectAltNameModes();
+    Set<ASN1ObjectIdentifier> sanOtherNameTypes =
+        certprofile.extensions().subjectAltNameOtherNameTypes();
 
     GeneralName[] requested;
     try {
@@ -837,7 +842,8 @@ class X509ExtensionChecker {
               OIDs.Extn.subjectAlternativeName));
       GeneralNames gns = XijsonExtensions.createRequestedSubjectAltNames(
           requestedSubject, sanExtnValue, certprofile.subjectAltNameModes(),
-          certprofile.extensions().subjectToSubjectAltNameModes());
+          certprofile.extensions().subjectToSubjectAltNameModes(),
+          certprofile.extensions().subjectAltNameOtherNameTypes());
       requested = (gns == null) ? new GeneralName[0] : gns.getNames();
     } catch (BadCertTemplateException ex) {
       String msg = "error while derive grantedSubject from requestedSubject";
@@ -856,7 +862,7 @@ class X509ExtensionChecker {
     GeneralName[] expected = new GeneralName[requested.length];
     for (int i = 0; i < is.length; i++) {
       try {
-        expected[i] = createGeneralName(is[i], conf);
+        expected[i] = createGeneralName(is[i], conf, sanOtherNameTypes);
       } catch (BadCertTemplateException ex) {
         failureMsg.append("could not process ").append(i + 1)
             .append("-th name: ").append(ex.getMessage()).append("; ");
@@ -875,6 +881,89 @@ class X509ExtensionChecker {
       }
     }
   } // method checkExtnSubjectAltNames
+
+  void checkExtnSubjectDirectoryAttributes(
+      StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns) {
+    XijsonCertprofile certprofile = getCertprofile();
+    List<ASN1ObjectIdentifier> profileAttrTypes =
+        certprofile.extensions().subjectDirectoryAttributes();
+
+    SubjectDirectoryAttributes sdAttrs = SubjectDirectoryAttributes.getInstance(extnValue);
+    Map<ASN1ObjectIdentifier, Attribute> certAttrsMap = new HashMap<>();
+    Vector<?> v = sdAttrs.getAttributes();
+    for (Object o : v) {
+      Attribute attr = Attribute.getInstance(o);
+      certAttrsMap.put(attr.getAttrType(), attr);
+    }
+
+    List<ASN1ObjectIdentifier> unpermittedAttrTypes = new ArrayList<>();
+    for (ASN1ObjectIdentifier attrTypeInCert : certAttrsMap.keySet()) {
+      if (!profileAttrTypes.contains(attrTypeInCert)) {
+        unpermittedAttrTypes.add(attrTypeInCert);
+      }
+    }
+
+    List<ASN1ObjectIdentifier> missingAttrTypes = new ArrayList<>();
+    for (ASN1ObjectIdentifier profileAttrType : profileAttrTypes) {
+      if (!certAttrsMap.containsKey(profileAttrType)) {
+        missingAttrTypes.add(profileAttrType);
+      }
+    }
+
+    if (! (unpermittedAttrTypes.isEmpty() && missingAttrTypes.isEmpty())) {
+      if (!unpermittedAttrTypes.isEmpty()) {
+        failureMsg.append("attributes ").append(unpermittedAttrTypes)
+            .append(" present but not permitted; ");
+      }
+
+      if (!missingAttrTypes.isEmpty()) {
+        failureMsg.append("attributes ").append(unpermittedAttrTypes)
+            .append(" required but not present; ");
+      }
+      return;
+    }
+
+    Extension reqExtn = requestedExtns.getExtension(OIDs.Extn.subjectDirectoryAttributes);
+    if (reqExtn == null) {
+      failureMsg.append("extension is required in request but not present; ");
+      return;
+    }
+
+    SubjectDirectoryAttributes reqSdAttrs =
+        SubjectDirectoryAttributes.getInstance(reqExtn.getParsedValue());
+
+    Map<ASN1ObjectIdentifier, Attribute> reqCertAttrsMap = new HashMap<>();
+    Vector<?> reqV = reqSdAttrs.getAttributes();
+    for (Object o : reqV) {
+      Attribute attr = Attribute.getInstance(o);
+      reqCertAttrsMap.put(attr.getAttrType(), attr);
+    }
+
+    for (Map.Entry<ASN1ObjectIdentifier, Attribute> m : certAttrsMap.entrySet()) {
+      ASN1ObjectIdentifier attrType = m.getKey();
+      Attribute reqAttr = reqCertAttrsMap.get(attrType);
+      if (reqAttr == null) {
+        failureMsg.append("attribute ").append(attrType)
+            .append(" is present in cert but not in request; ");
+      } else {
+        byte[] expected, is;
+        try {
+          Attribute expectedAttr = ProfileUtil.canonicalizeSubjectDirectoryAttribute(reqAttr);
+          expected = expectedAttr.getAttrValues().getEncoded();
+          is = m.getValue().getAttrValues().getEncoded();
+        } catch (Exception e) {
+          failureMsg.append("attribute ").append(attrType)
+              .append(" error encoding attribute value; ");
+          continue;
+        }
+
+        if (!Arrays.equals(expected, is)) {
+          CheckerUtil.addViolation(failureMsg, "attribute value", Hex.encode(is),
+              Hex.encode(expected));
+        }
+      }
+    }
+  } // method checkExtnSubjectDirectoryAttributes
 
   void checkExtnSubjectInfoAccess(
       StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns) {
@@ -928,7 +1017,7 @@ class X509ExtensionChecker {
 
       GeneralName accessLocation;
       try {
-        accessLocation = createGeneralName(ad.getAccessLocation(), generalNameModes);
+        accessLocation = createGeneralName(ad.getAccessLocation(), generalNameModes, null);
       } catch (BadCertTemplateException ex) {
         failureMsg.append("invalid requestedExtension: ").append(ex.getMessage()).append("; ");
         continue;
@@ -989,7 +1078,7 @@ class X509ExtensionChecker {
       StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns,
       ExtensionControl extnControl) {
     ExtensionValueConf.MicrosoftCertificateTemplateName template =
-        caller.microsoftCertificateTemplateName();
+        caller.getMicrosoftCertificateTemplateName();
     if (template == null) {
       caller.checkConstantExtnValue(OIDs.Extn.id_microsoft_CertificateTemplateName,
           failureMsg, extnValue, requestedExtns, extnControl);
@@ -1003,7 +1092,7 @@ class X509ExtensionChecker {
       StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns,
       ExtensionControl extnControl) {
     ExtensionValueConf.MicrosoftCertificateTemplateInformation template =
-        caller.microsoftCertificateTemplateInformation();
+        caller.getMicrosoftCertificateTemplateInformation();
     if (template == null) {
       caller.checkConstantExtnValue(OIDs.Extn.id_microsoft_CertificateTemplateInformation,
           failureMsg, extnValue, requestedExtns, extnControl);
@@ -1015,7 +1104,7 @@ class X509ExtensionChecker {
 
   void checkExtnMicrosoftSid(
       StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns) {
-    ExtensionValueConf.MicrosoftSID template = caller.microsoftSID();
+    ExtensionValueConf.MicrosoftSID template = caller.getCertprofile().extensions().microsoftSID();
     if (template == null) {
       return;
     }
@@ -1029,6 +1118,115 @@ class X509ExtensionChecker {
           ex.getMessage(), "profile conform");
     }
   } // method checkExtnMicrosoftSid
+
+  void checkExtnStirTNAuthList(
+      StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns) {
+    try {
+      ASN1Encodable asn1ExtnValue =
+          requestedExtns.getExtensionParsedValue(OIDs.Extn.id_pe_TNAuthList);
+      checkExpectedAsn1(failureMsg, extnValue, asn1ExtnValue);
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnMicrosoftSid
+
+  void checkExtnRpkiAsIdentifiers(
+      StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns, boolean v2) {
+    try {
+      ASN1Encodable asn1ExtnValue = requestedExtns.getExtensionParsedValue(
+          v2 ? OIDs.Extn.ASIdentifiersV2 : OIDs.Extn.ASIdentifiers);
+      checkExpectedAsn1(failureMsg, extnValue, asn1ExtnValue);
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnRpkiAsIdentifiers
+
+  void checkExtnRpkiIPAddrBlocks(
+      StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns, boolean v2) {
+    try {
+      ASN1Encodable asn1ExtnValue = requestedExtns.getExtensionParsedValue(
+          v2 ? OIDs.Extn.IPAddrBlocks : OIDs.Extn.IPAddrBlocksV2);
+      checkExpectedAsn1(failureMsg, extnValue, asn1ExtnValue);
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnRpkiIPAddrBlocks
+
+  void checkExtnStirJWTClaimConstraints(StringBuilder failureMsg, byte[] extnValue) {
+    try {
+      ExtensionValue expectedExtnValue =
+          caller.getCertprofile().extensions().stirJWTClaimPermittedValues();
+      checkExpectedAsn1(failureMsg, extnValue, expectedExtnValue.value());
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnStirJWTClaimConstraints
+
+  void checkExtnSpdmCertOids(StringBuilder failureMsg, byte[] extnValue) {
+    try {
+      ExtensionValue expectedExtnValue =
+          caller.getCertprofile().extensions().spdmCertOids();
+      checkExpectedAsn1(failureMsg, extnValue, expectedExtnValue.value());
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnSpdmCertOids
+
+  void checkExtnNoRevAvail(StringBuilder failureMsg, byte[] extnValue) {
+    checkExtnNullValue(failureMsg, extnValue);
+  }
+
+  void checkExtnMasaUrl(StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns) {
+    try {
+      ASN1Encodable expExtValue = caller.getCertprofile().extensions().masaUrl().value();
+      if (expExtValue == null) {
+        String str = ((ASN1String) requestedExtns.getExtension(ExtensionID.masaUrl.oid())
+                      .getParsedValue()).getString();
+        expExtValue = new DERIA5String(str);
+      }
+      checkExpectedAsn1(failureMsg, extnValue, expExtValue);
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnMasaUrl
+
+  void checkExtnMrtdNameChange(StringBuilder failureMsg, byte[] extnValue) {
+    checkExtnNullValue(failureMsg, extnValue);
+  }
+
+  void checkExtnMrtdDocumentTypeList(StringBuilder failureMsg, byte[] extnValue) {
+    try {
+      ASN1Encodable expExtValue = caller.getCertprofile().extensions().mrtdDocumentTypes().value();
+      checkExpectedAsn1(failureMsg, extnValue, expExtValue);
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnMasaUrl
+
+  private void checkExtnNullValue(StringBuilder failureMsg, byte[] extnValue) {
+    if (!Arrays.equals(DER_NULL, extnValue)) {
+      failureMsg.append("value is not DER NULL; ");
+    }
+  }
+
+  void checkExtnDiceUeid(
+      StringBuilder failureMsg, byte[] extnValue, Extensions requestedExtns) {
+    try {
+      ASN1Encodable asn1ExtnValue = requestedExtns.getExtensionParsedValue(OIDs.DICE.tcg_dice_ueid);
+      ASN1OctetString.getInstance(asn1ExtnValue);
+      checkExpectedAsn1(failureMsg, extnValue, asn1ExtnValue);
+    } catch (RuntimeException ex) {
+      CheckerUtil.addViolation(failureMsg, "extension value",
+          ex.getMessage(), "profile conform");
+    }
+  } // method checkExtnRpkiIPAddrBlocks
 
   private static void checkExpectedAsn1(
       StringBuilder failureMsg, byte[] extnValue, ASN1Encodable expectedAsn1) {
@@ -1118,7 +1316,8 @@ class X509ExtensionChecker {
     }
   } // method checkAia
 
-  static GeneralName createGeneralName(GeneralName reqName, Set<GeneralNameTag> modes)
+  static GeneralName createGeneralName(
+      GeneralName reqName, Set<GeneralNameTag> modes, Set<ASN1ObjectIdentifier> otherNameTypes)
       throws BadCertTemplateException {
     int tag = reqName.getTagNo();
     GeneralNameTag mode = null;
@@ -1144,24 +1343,22 @@ class X509ExtensionChecker {
       case GeneralName.directoryName:
         return new GeneralName(tag, reqName.getName());
       case GeneralName.otherName: {
-        ASN1Sequence reqSeq = ASN1Sequence.getInstance(reqName.getName());
-        ASN1ObjectIdentifier type = ASN1ObjectIdentifier.getInstance(reqSeq.getObjectAt(0));
-
-        ASN1Encodable value = Asn1Util.getBaseObject(
-            ASN1TaggedObject.getInstance(reqSeq.getObjectAt(1)));
-
-        String text;
-        if (!(value instanceof ASN1String)) {
-          throw new BadCertTemplateException("otherName.value is not a String");
-        } else {
-          text = ((ASN1String) value).getString();
+        OtherName reqSeq = OtherName.getInstance(reqName.getName());
+        ASN1ObjectIdentifier type = reqSeq.getTypeID();
+        if (otherNameTypes != null && !otherNameTypes.contains(type)) {
+          throw new BadCertTemplateException("otherName.type " + type.getId() +
+              " is not permitted");
         }
 
-        ASN1EncodableVector vector = new ASN1EncodableVector();
-        vector.add(type);
-        vector.add(new DERTaggedObject(true, 0, new DERUTF8String(text)));
+        ASN1Encodable value = reqSeq.getValue();
+        if (type.on(OIDs.Spdm.id_spdm)) {
+          value = SpdmParser.parseSpdmOtherName(reqSeq);
+        } else if (type.on(OIDs.TCG.tcg)) {
+          value = TcgParser.parseTcgOtherName(reqSeq);
+        }
 
-        return new GeneralName(GeneralName.otherName, new DERSequence(vector));
+        OtherName newOtherName = new OtherName(type, value);
+        return new GeneralName(GeneralName.otherName, newOtherName);
       }
       case GeneralName.ediPartyName: {
         ASN1Sequence reqSeq = ASN1Sequence.getInstance(reqName.getName());

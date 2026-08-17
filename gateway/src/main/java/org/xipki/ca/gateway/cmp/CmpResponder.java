@@ -312,7 +312,7 @@ public class CmpResponder extends BaseCmpResponder {
       CertificationRequest p10cr, AuditEvent event) throws SdkErrorResponseException {
     // verify the POP first
     CertRepMessage certResp;
-    ASN1Integer certReqId = new ASN1Integer(-1);
+    ASN1Integer certReqId = new ASN1Integer(BigInteger.valueOf(-1));
 
     if (!GatewayUtil.verifyCsr(p10cr, securityFactory, popControl)) {
       LOG.warn("could not validate POP for the pkcs#10 requst");

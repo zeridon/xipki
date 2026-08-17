@@ -60,6 +60,10 @@ public abstract class TextVadidator {
 
   public static final TextVadidator FQDN = new FQDNValidator();
 
+  public static final TextVadidator UPPER_HEX = new RegexValidator("[0-9A-F]{2,}");
+
+  public static final TextVadidator LOWER_HEX = new RegexValidator("[0-9a-f]{2,}");
+
   private static final LruCache<String, TextVadidator> cache = new LruCache<>(200);
 
   private TextVadidator() {

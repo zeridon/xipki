@@ -9,13 +9,17 @@ import org.xipki.ca.api.profile.ctrl.GeneralNameTag;
 import org.xipki.ca.api.profile.id.AttributeType;
 import org.xipki.ca.api.profile.id.ExtendedKeyUsageID;
 import org.xipki.ca.api.profile.id.ExtensionID;
+import org.xipki.ca.api.profile.id.OtherNameID;
+import org.xipki.ca.api.profile.id.SubjectDirectoryAttributeType;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionType;
 import org.xipki.ca.certprofile.xijson.conf.ExtensionValueConf;
 import org.xipki.ca.certprofile.xijson.conf.GeneralNameType;
 import org.xipki.ca.certprofile.xijson.conf.RdnType;
 import org.xipki.ca.certprofile.xijson.conf.XijsonCertprofileType;
+import org.xipki.security.HashAlgo;
 import org.xipki.security.pkix.KeyUsage;
 import org.xipki.util.codec.TripleState;
+import org.xipki.util.extra.type.SubjectKeyIdentifierControl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -93,6 +97,11 @@ public class ProfileConfDemo extends ProfileConfBuilder {
 
       certprofileMicrosoft(qa_dir + "certprofile-microsoft.json");
       certprofileGMT0015(qa_dir + "certprofile-gmt0015.json");
+      certprofileRfc3739(qa_dir + "certprofile-rfc3739.json");
+      certprofileSpdm(qa_dir + "certprofile-spdm.json");
+      certprofileTcg(qa_dir + "certprofile-tcg.json");
+      certprofileCaliptra(qa_dir + "certprofile-caliptra.json");
+      certprofileOthernames(qa_dir + "certprofile-othernames.json");
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -618,4 +627,273 @@ public class ProfileConfDemo extends ProfileConfBuilder {
     }
   } // method certprofileGMT0015
 
+  private static void certprofileRfc3739(String... destFilenames) {
+    XijsonCertprofileType profile = getBaseProfile(
+        "certprofile RFC 3739", CertLevel.EndEntity, "5y",
+        KeypairGenMode.FIRST_ALLOWED_KEY, AllowKeyMode.ALL);
+
+    // Subject
+    addRdns(profile, rdn01(AttributeType.C), rdn01(AttributeType.O), rdn01(AttributeType.OU),
+        rdn01(AttributeType.SN), rdn(AttributeType.CN));
+
+    // Extensions
+    List<ExtensionType> list = profile.extensions();
+
+    list.add(createExtension(ExtensionID.subjectKeyIdentifier, true, false));
+    list.add(createExtension(ExtensionID.crlDistributionPoints, false, false));
+    list.add(createExtension(ExtensionID.freshestCRL, false, false));
+
+    // Extensions - basicConstraints
+    list.add(createExtension(ExtensionID.basicConstraints, true, true));
+
+    // Extensions - AuthorityInfoAccess
+    list.add(createExtension(ExtensionID.authorityInfoAccess, true, false));
+    last(list).setAuthorityInfoAccess(createAuthorityInfoAccess());
+
+    // Extensions - AuthorityKeyIdentifier
+    list.add(createExtension(ExtensionID.authorityKeyIdentifier, true, false));
+
+    // Extensions - keyUsage
+    list.add(createExtension(ExtensionID.keyUsage, true, true));
+    last(list).setKeyUsage(createKeyUsage(
+        new KeyUsage[]{KeyUsage.digitalSignature, KeyUsage.dataEncipherment,
+            KeyUsage.keyEncipherment, KeyUsage.keyAgreement}, null, profile.keyAlgorithms()));
+
+    // Extensions - Biometric Info
+    list.add(createExtension(ExtensionID.biometricInfo, true, false));
+    ExtensionValueConf.BiometricInfo bInfo = new ExtensionValueConf.BiometricInfo(
+        Arrays.asList(ExtensionValueConf.BiometricInfo.BiometricType.picture,
+            ExtensionValueConf.BiometricInfo.BiometricType.handwrittenSignature),
+        Arrays.asList(HashAlgo.SHA256, HashAlgo.SHA384),
+        TripleState.required);
+    last(list).setInRequest(TripleState.required);
+    last(list).setBiometricInfo(bInfo);
+
+    // Extensions - SubjectDirectoryAttributes
+    list.add(createExtension(ExtensionID.subjectDirectoryAttributes, true, false));
+    last(list).setInRequest(TripleState.required);
+    ExtensionValueConf.SubjectDirectoryAttributes sdAttrs =
+        new ExtensionValueConf.SubjectDirectoryAttributes(
+            Arrays.asList(
+                SubjectDirectoryAttributeType.title.mainAlias(),
+                SubjectDirectoryAttributeType.gender.mainAlias(),
+                SubjectDirectoryAttributeType.dateOfBirth.mainAlias(),
+                SubjectDirectoryAttributeType.placeOfBirth.mainAlias(),
+                SubjectDirectoryAttributeType.countryOfResidence.mainAlias(),
+                SubjectDirectoryAttributeType.countryOfCitizenship.mainAlias()
+        ));
+    last(list).setSubjectDirectoryAttributes(sdAttrs);
+
+    for (String destFilename : destFilenames) {
+      marshall(profile, destFilename, true);
+    }
+  } // method certprofileRfc3739
+
+  private static void certprofileSpdm(String... destFilenames) {
+    XijsonCertprofileType profile = getBaseProfile(
+        "certprofile SPDM", CertLevel.EndEntity, "5y",
+        KeypairGenMode.FIRST_ALLOWED_KEY, AllowKeyMode.ALL);
+
+    // Subject
+    addRdns(profile, rdn01(AttributeType.C), rdn01(AttributeType.O), rdn01(AttributeType.OU),
+        rdn01(AttributeType.SN), rdn(AttributeType.CN));
+
+    // Extensions
+    List<ExtensionType> list = profile.extensions();
+
+    list.add(createExtension(ExtensionID.subjectKeyIdentifier, true, false));
+    list.add(createExtension(ExtensionID.crlDistributionPoints, false, false));
+    list.add(createExtension(ExtensionID.freshestCRL, false, false));
+
+    // Extensions - basicConstraints
+    list.add(createExtension(ExtensionID.basicConstraints, true, true));
+
+    // Extensions - AuthorityInfoAccess
+    list.add(createExtension(ExtensionID.authorityInfoAccess, true, false));
+    last(list).setAuthorityInfoAccess(createAuthorityInfoAccess());
+
+    // Extensions - AuthorityKeyIdentifier
+    list.add(createExtension(ExtensionID.authorityKeyIdentifier, true, false));
+
+    // Extensions - keyUsage
+    list.add(createExtension(ExtensionID.keyUsage, true, true));
+    last(list).setKeyUsage(createKeyUsage(
+        new KeyUsage[]{KeyUsage.digitalSignature, KeyUsage.dataEncipherment,
+            KeyUsage.keyEncipherment, KeyUsage.keyAgreement}, null, profile.keyAlgorithms()));
+
+    // Extensions - extendedKeyUsage
+    list.add(createExtension(ExtensionID.extendedKeyUsage, true, false));
+    last(list).setExtendedKeyUsage(createExtendedKeyUsage(
+        new ExtendedKeyUsageID[]{ExtendedKeyUsageID.DMTF_eku_requestor_auth,
+            ExtendedKeyUsageID.DMTF_eku_responder_auth}, null));
+
+    // SubjectAltNames
+    list.add(createExtension(ExtensionID.subjectAltName, true, false));
+    GeneralNameType gn = new GeneralNameType(Arrays.asList(GeneralNameTag.otherName),
+        Arrays.asList(OtherNameID.DMTF_device_info.mainAlias()));
+    last(list).setSubjectAltName(gn);
+
+    // SDPM extension
+    list.add(createExtension(ExtensionID.SPDM_Extension, true, false));
+    ExtensionValueConf.SpdmCertOids spdmCertOids = new ExtensionValueConf.SpdmCertOids(
+        List.of(new ExtensionValueConf.SpdmCertOid("DMTF-hardware-identity"),
+            new ExtensionValueConf.SpdmCertOid("DMTF-mutable-certificate"),
+            new ExtensionValueConf.SpdmCertOid("1.2.3.4")));
+
+    last(list).setSpdmCertOids(spdmCertOids);
+
+    for (String destFilename : destFilenames) {
+      marshall(profile, destFilename, true);
+    }
+  } // method certprofileSpdm
+
+  private static void certprofileTcg(String... destFilenames) {
+    XijsonCertprofileType profile = getBaseProfile(
+        "certprofile TCG", CertLevel.EndEntity, "5y",
+        KeypairGenMode.FIRST_ALLOWED_KEY, AllowKeyMode.ALL);
+
+    // Subject
+    addRdns(profile, rdn01(AttributeType.C), rdn01(AttributeType.O), rdn01(AttributeType.OU),
+        rdn01(AttributeType.SN), rdn(AttributeType.CN));
+
+    // Extensions
+    List<ExtensionType> list = profile.extensions();
+
+    list.add(createExtension(ExtensionID.subjectKeyIdentifier, true, false));
+    list.add(createExtension(ExtensionID.crlDistributionPoints, false, false));
+    list.add(createExtension(ExtensionID.freshestCRL, false, false));
+
+    // Extensions - basicConstraints
+    list.add(createExtension(ExtensionID.basicConstraints, true, true));
+
+    // Extensions - AuthorityInfoAccess
+    list.add(createExtension(ExtensionID.authorityInfoAccess, true, false));
+    last(list).setAuthorityInfoAccess(createAuthorityInfoAccess());
+
+    // Extensions - AuthorityKeyIdentifier
+    list.add(createExtension(ExtensionID.authorityKeyIdentifier, true, false));
+
+    // Extensions - keyUsage
+    list.add(createExtension(ExtensionID.keyUsage, true, true));
+    last(list).setKeyUsage(createKeyUsage(
+        new KeyUsage[]{KeyUsage.digitalSignature, KeyUsage.dataEncipherment,
+            KeyUsage.keyEncipherment, KeyUsage.keyAgreement}, null, profile.keyAlgorithms()));
+
+    // SubjectAltNames
+    list.add(createExtension(ExtensionID.subjectAltName, true, false));
+    GeneralNameType gn = new GeneralNameType(Arrays.asList(GeneralNameTag.otherName),
+        Arrays.asList(OtherNameID.tcg_platformIdentifier.mainAlias()));
+    last(list).setSubjectAltName(gn);
+
+    // Extensions - SubjectDirectoryAttributes
+    list.add(createExtension(ExtensionID.subjectDirectoryAttributes, true, false));
+    last(list).setInRequest(TripleState.required);
+    ExtensionValueConf.SubjectDirectoryAttributes sdAttrs =
+        new ExtensionValueConf.SubjectDirectoryAttributes(List.of(
+            SubjectDirectoryAttributeType.tcg_at_tcgPlatformSpecification.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_tcgCredentialSpecification.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_tcgCredentialType.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_platformConfiguration_v3.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_platformConfigUri_v3.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_previousPlatformCertificates.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_tbbSecurityAssertions_v3.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_cryptographicAnchors.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_platformOwnership.mainAlias(),
+            SubjectDirectoryAttributeType.tcg_at_manufacturingAssertions.mainAlias()
+        ));
+    last(list).setSubjectDirectoryAttributes(sdAttrs);
+
+    for (String destFilename : destFilenames) {
+      marshall(profile, destFilename, true);
+    }
+  } // method certprofileTcg
+
+  private static void certprofileCaliptra(String... destFilenames) {
+    XijsonCertprofileType profile = getBaseProfile( "certprofile Caliptra IDEVID",
+        CertLevel.SubCA, "UNDEFINED", KeypairGenMode.FORBIDDEM, AllowKeyMode.ALL_SIGN);
+
+    // Subject
+    // TODO: compute serial number over public key
+    addRdns(profile, rdn01(AttributeType.SN), rdn(AttributeType.CN));
+
+    // Extensions
+    List<ExtensionType> list = profile.extensions();
+
+    // Extensions - controls
+    ExtensionType extensionType =
+        createExtension(ExtensionID.subjectKeyIdentifier, true, false);
+    SubjectKeyIdentifierControl skControl = new SubjectKeyIdentifierControl(
+        SubjectKeyIdentifierControl.SubjectKeyIdentifierMethod.METHOD1,
+        "SHA256", SubjectKeyIdentifierControl.TruncateMethod.RIGHT, 20);
+    extensionType.setSubjectKeyIdentifier(skControl);
+    list.add(extensionType);
+
+    // Extensions - basicConstraints
+    list.add(createExtension(ExtensionID.basicConstraints, true, true));
+    last(list).setBasicConstraints(createBasicConstraints(4));
+
+    // Extensions - AuthorityKeyIdentifier
+    list.add(createExtension(ExtensionID.authorityKeyIdentifier, true, false));
+
+    // Extensions - keyUsage
+    list.add(createExtension(ExtensionID.keyUsage, true, true));
+    last(list).setKeyUsage(createKeyUsage(
+        new KeyUsage[]{KeyUsage.keyCertSign}, null, profile.keyAlgorithms()));
+
+    // Extensions - DICE ueid
+    list.add(createExtension(ExtensionID.dice_ueid, true, false));
+    last(list).setInRequest(TripleState.required);
+
+    for (String destFilename : destFilenames) {
+      marshall(profile, destFilename, true);
+    }
+  } // method certprofileCaliptra
+
+  private static void certprofileOthernames(String... destFilenames) {
+    XijsonCertprofileType profile = getBaseProfile(
+        "certprofile OtherNames", CertLevel.EndEntity, "5y",
+        KeypairGenMode.FIRST_ALLOWED_KEY, AllowKeyMode.ALL);
+
+    // Subject
+    addRdns(profile, rdn01(AttributeType.C), rdn01(AttributeType.O), rdn01(AttributeType.OU),
+        rdn01(AttributeType.SN), rdn(AttributeType.CN));
+
+    // Extensions
+    List<ExtensionType> list = profile.extensions();
+
+    list.add(createExtension(ExtensionID.subjectKeyIdentifier, true, false));
+    list.add(createExtension(ExtensionID.crlDistributionPoints, false, false));
+    list.add(createExtension(ExtensionID.freshestCRL, false, false));
+
+    // Extensions - basicConstraints
+    list.add(createExtension(ExtensionID.basicConstraints, true, true));
+
+    // Extensions - AuthorityInfoAccess
+    list.add(createExtension(ExtensionID.authorityInfoAccess, true, false));
+    last(list).setAuthorityInfoAccess(createAuthorityInfoAccess());
+
+    // Extensions - AuthorityKeyIdentifier
+    list.add(createExtension(ExtensionID.authorityKeyIdentifier, true, false));
+
+    // Extensions - keyUsage
+    list.add(createExtension(ExtensionID.keyUsage, true, true));
+    last(list).setKeyUsage(createKeyUsage(
+        new KeyUsage[]{KeyUsage.digitalSignature, KeyUsage.dataEncipherment,
+            KeyUsage.keyEncipherment, KeyUsage.keyAgreement}, null, profile.keyAlgorithms()));
+
+    // Extensions - SubjectAltNames
+    list.add(createExtension(ExtensionID.subjectAlternativeName, true, false));
+    last(list).setInRequest(TripleState.required);
+
+    GeneralNameType san = new GeneralNameType(List.of(GeneralNameTag.otherName),
+        List.of(OtherNameID.smtpUTF8Mailbox.mainAlias(),
+            OtherNameID.macAddress.mainAlias(),
+            OtherNameID.hardwareModuleName.mainAlias(),
+            "1.2.3.4.5"));
+    last(list).setSubjectAltName(san);
+
+    for (String destFilename : destFilenames) {
+      marshall(profile, destFilename, true);
+    }
+  } // method certprofileOthernames
 }

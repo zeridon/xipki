@@ -4,6 +4,7 @@
 package org.xipki.ca.certprofile.xijson.conf;
 
 import org.xipki.ca.api.profile.id.ExtensionID;
+import org.xipki.util.codec.Args;
 import org.xipki.util.codec.CodecException;
 import org.xipki.util.codec.TripleState;
 import org.xipki.util.codec.json.JsonEncodable;
@@ -11,7 +12,7 @@ import org.xipki.util.codec.json.JsonMap;
 import org.xipki.util.extra.type.SubjectKeyIdentifierControl;
 
 /**
- * Extension Type type definition.
+ * Extension Type definition.
  *
  * @author Lijun Liao (xipki)
  *
@@ -75,11 +76,11 @@ public class ExtensionType implements JsonEncodable {
 
   private ExtensionValueConf.SubjectInfoAccess subjectInfoAccess;
 
+  private ExtensionValueConf.SubjectDirectoryAttributes subjectDirectoryAttributes;
+
   private ExtensionValueConf.TlsFeature tlsFeature;
 
   private ExtensionValueConf.CCCSimpleExtensionSchema cccExtensionSchema;
-
-  private ExtensionValueConf.CCCInstanceCAExtensionSchema cccInstanceCAExtensionSchema;
 
   private ExtensionValueConf.MicrosoftCertificateTemplateName microsoftCertificateTemplateName;
 
@@ -87,6 +88,14 @@ public class ExtensionType implements JsonEncodable {
       microsoftCertificateTemplateInformation;
 
   private ExtensionValueConf.MicrosoftSID microsoftSID;
+
+  private ExtensionValueConf.SpdmCertOids spdmCertOids;
+
+  private ExtensionValueConf.JWTClaimConstraints stirJWTClaimConstraints;
+
+  private ExtensionValueConf.MasaUrl masaUrl;
+
+  private ExtensionValueConf.MrtdDocumentTypeListSyntax mrtdDocumentTypes;
 
   public ExtensionType(ExtensionID type, Boolean critical, Boolean required) {
     this.type = type;
@@ -251,6 +260,15 @@ public class ExtensionType implements JsonEncodable {
     this.subjectInfoAccess = subjectInfoAccess;
   }
 
+  public ExtensionValueConf.SubjectDirectoryAttributes subjectDirectoryAttributes() {
+    return subjectDirectoryAttributes;
+  }
+
+  public void setSubjectDirectoryAttributes(
+      ExtensionValueConf.SubjectDirectoryAttributes attributes) {
+    this.subjectDirectoryAttributes = attributes;
+  }
+
   public ExtensionValueConf.TlsFeature tlsFeature() {
     return tlsFeature;
   }
@@ -266,15 +284,6 @@ public class ExtensionType implements JsonEncodable {
   public void setCccExtensionSchema(
       ExtensionValueConf.CCCSimpleExtensionSchema cccExtensionSchema) {
     this.cccExtensionSchema = cccExtensionSchema;
-  }
-
-  public ExtensionValueConf.CCCInstanceCAExtensionSchema cccInstanceCAExtensionSchema() {
-    return cccInstanceCAExtensionSchema;
-  }
-
-  public void setCccInstanceCAExtensionSchema(
-      ExtensionValueConf.CCCInstanceCAExtensionSchema cccInstanceCAExtensionSchema) {
-    this.cccInstanceCAExtensionSchema = cccInstanceCAExtensionSchema;
   }
 
   public ExtensionValueConf.MicrosoftCertificateTemplateName microsoftCertificateTemplateName() {
@@ -305,6 +314,40 @@ public class ExtensionType implements JsonEncodable {
     this.microsoftSID = microsoftSID;
   }
 
+  public ExtensionValueConf.SpdmCertOids spdmCertOids() {
+    return spdmCertOids;
+  }
+
+  public void setSpdmCertOids(ExtensionValueConf.SpdmCertOids spdmCertOids) {
+    this.spdmCertOids = spdmCertOids;
+  }
+
+  public ExtensionValueConf.JWTClaimConstraints stirJWTClaimConstraints() {
+    return stirJWTClaimConstraints;
+  }
+
+  public void setStirJWTClaimConstraints(
+      ExtensionValueConf.JWTClaimConstraints stirJWTClaimConstraints) {
+    this.stirJWTClaimConstraints = stirJWTClaimConstraints;
+  }
+
+  public ExtensionValueConf.MasaUrl masaUrl() {
+    return masaUrl;
+  }
+
+  public void setMasaUrl(ExtensionValueConf.MasaUrl masaUrl) {
+    this.masaUrl = Args.notNull(masaUrl, "masaUrl");
+  }
+
+  public ExtensionValueConf.MrtdDocumentTypeListSyntax mrtdDocumentTypes() {
+     return mrtdDocumentTypes;
+   }
+
+   public void setMrtdDocumentTypes(
+       ExtensionValueConf.MrtdDocumentTypeListSyntax mrtdDocumentTypes) {
+     this.mrtdDocumentTypes = Args.notNull(mrtdDocumentTypes, "mrtdDocumentTypes");
+   }
+
   @Override
   public JsonMap toCodec() {
     JsonMap ret = new JsonMap();
@@ -334,12 +377,16 @@ public class ExtensionType implements JsonEncodable {
     ret.put("smimeCapabilities", smimeCapabilities);
     ret.put("subjectAltName", subjectAltName);
     ret.put("subjectInfoAccess", subjectInfoAccess);
+    ret.put("subjectDirectoryAttributes", subjectDirectoryAttributes);
     ret.put("tlsFeature", tlsFeature);
     ret.put("cccExtensionSchema", cccExtensionSchema);
-    ret.put("cccInstanceCAExtensionSchema", cccInstanceCAExtensionSchema);
     ret.put("microsoftCertificateTemplateName", microsoftCertificateTemplateName);
     ret.put("microsoftCertificateTemplateInformation", microsoftCertificateTemplateInformation);
     ret.put("microsoftSID", microsoftSID);
+    ret.put("spdmCertOids", spdmCertOids);
+    ret.put("stirJWTClaimConstraints", stirJWTClaimConstraints);
+    ret.put("masaUrl", masaUrl);
+    ret.put("mrtdDocumentTypes", mrtdDocumentTypes);
     return ret;
   }
 
@@ -437,6 +484,11 @@ public class ExtensionType implements JsonEncodable {
       ret.setSubjectInfoAccess(ExtensionValueConf.SubjectInfoAccess.parse(map));
     }
 
+    map = json.getMap("subjectDirectoryAttributes");
+    if (map != null) {
+      ret.setSubjectDirectoryAttributes(ExtensionValueConf.SubjectDirectoryAttributes.parse(map));
+    }
+
     map = json.getMap("tlsFeature");
     if (map != null) {
       ret.setTlsFeature(ExtensionValueConf.TlsFeature.parse(map));
@@ -447,27 +499,41 @@ public class ExtensionType implements JsonEncodable {
       ret.setCccExtensionSchema(ExtensionValueConf.CCCSimpleExtensionSchema.parse(map));
     }
 
-    map = json.getMap("cccInstanceCAExtensionSchema");
-    if (map != null) {
-      ret.setCccInstanceCAExtensionSchema(
-          ExtensionValueConf.CCCInstanceCAExtensionSchema.parse(map));
-    }
-
     map = json.getMap("microsoftCertificateTemplateName");
     if (map != null) {
       ret.setMicrosoftCertificateTemplateName(
-          ExtensionValueConf.MicrosoftCertificateTemplateName.decode(map));
+          ExtensionValueConf.MicrosoftCertificateTemplateName.parse(map));
     }
 
     map = json.getMap("microsoftCertificateTemplateInformation");
     if (map != null) {
       ret.setMicrosoftCertificateTemplateInformation(
-          ExtensionValueConf.MicrosoftCertificateTemplateInformation.decode(map));
+          ExtensionValueConf.MicrosoftCertificateTemplateInformation.parse(map));
     }
 
     map = json.getMap("microsoftSID");
     if (map != null) {
-      ret.setMicrosoftSID(ExtensionValueConf.MicrosoftSID.decode(map));
+      ret.setMicrosoftSID(ExtensionValueConf.MicrosoftSID.parse(map));
+    }
+
+    map = json.getMap("spdmCertOids");
+    if (map != null) {
+      ret.setSpdmCertOids(ExtensionValueConf.SpdmCertOids.parse(map));
+    }
+
+    map = json.getMap("stirJWTClaimConstraints");
+    if (map != null) {
+      ret.setStirJWTClaimConstraints(ExtensionValueConf.JWTClaimConstraints.parse(map));
+    }
+
+    map = json.getMap("masaUrl");
+    if (map != null) {
+      ret.setMasaUrl(ExtensionValueConf.MasaUrl.parse(map));
+    }
+
+    map = json.getMap("mrtdDocumentTypes");
+    if (map != null) {
+      ret.setMrtdDocumentTypes(ExtensionValueConf.MrtdDocumentTypeListSyntax.parse(map));
     }
 
     return ret;

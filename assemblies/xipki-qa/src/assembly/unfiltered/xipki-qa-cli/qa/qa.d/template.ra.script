@@ -164,21 +164,23 @@ csr-p12 REPLACEME-RSAPSS --p12 output/ee-complex1.p12 --password CHANGEIT \
   --outform $OUTFORM --out output/ee-complex1.csr \
   --subject \
   "UID=abc-def,CN=ee-complex1,O=myorg,C=DE,1.3.6.1.4.1.311.60.2.1.3=CN,1.3.6.1.4.1.311.60.2.1.2=Guandong,1.3.6.1.4.1.311.60.2.1.1=Shenzhen" \
-  --qc-eu-limit EUR:150:15 --biometric-type 0 --biometric-hash SHA256 \
-  --biometric-file bin/xipki \
-  --biometric-uri https://myorg.org/?id=123 \
   --san '[0]1.2.3.1=SAN-I am otherName 1.2.3.1' \
-  --san '[0]1.2.3.2=SAN-I am otherName 1.2.3.2' --san '[1]SNA-info@myorg.org' \
-  --san '[2]SAN-dns.myorg.org' --san '[4]CN=demo,C=DE' \
-  --san '[5]SAN-assigner1=SAN-party1' --san '[6]SAN-uri.myorg.org' \
-  --san '[7]69.1.2.190' --san '[8]2.3.4.5' \
+  --san '[0]1.2.3.2=SAN-I am otherName 1.2.3.2' \
+  --san '[1]SNA-info@myorg.org' \
+  --san '[2]SAN-dns.myorg.org' \
+  --san '[4]CN=demo,C=DE' \
+  --san '[5]SAN-assigner1=SAN-party1' \
+  --san '[6]SAN-uri.myorg.org' \
+  --san '[7]69.1.2.190' \
+  --san '[8]2.3.4.5' \
   --sia '1.3.6.1.5.5.7.48.5=[0]1.2.3.1\=SIA-I am otherName 1.2.3.1' \
   --sia '2.3.4.1=[0]1.2.3.2\=SIA-I am otherName 1.2.3.2' \
   --sia '2.3.4.2=[1]SNA-info@myorg.org' --sia '2.3.4.3=[2]SIA-dns.myorg.org' \
   --sia '2.3.4.4=[4]CN\=demo\,C\=DE' \
   --sia '2.3.4.5=[5]SIA-assigner1\=SIA-party1' \
   --sia '2.3.4.6=[6]SIA-uri.myorg.org' --sia '2.3.4.7=[7]69.1.2.190' \
-  --sia '2.3.4.8=[8]2.3.4.5'
+  --sia '2.3.4.8=[8]2.3.4.5' \
+  --extensions-file qa/extensions/ee-complex.der
 
 cmp-csr-enroll --csr output/ee-complex1.csr --ca subca --profile ee-complex \
   --outform $OUTFORM --out output/ee-complex1.crt \
@@ -195,15 +197,13 @@ csr-p12 REPLACEME-RSAPSS --p12 output/ee-complex2.p12 --password CHANGEIT \
   --outform $OUTFORM --out output/ee-complex2.csr \
   --subject \
   "UID=abc-def,CN=ee-complex2,O=myorg,C=DE,1.3.6.1.4.1.311.60.2.1.3=CN,1.3.6.1.4.1.311.60.2.1.2=Guandong,1.3.6.1.4.1.311.60.2.1.1=Shenzhen" \
-  --dateOfBirth 19810102 --postalAddress "street myorg 1" \
-  --postalAddress "D-69112 Heidelberg" --qc-eu-limit EUR:150:15 \
-  --biometric-type 0 --biometric-hash SHA256 \
-  --biometric-file bin/xipki \
-  --biometric-uri https://myorg.org/?id=123 \
   --san '[0]1.2.3.1=SAN-I am otherName 1.2.3.1' \
-  --san '[0]1.2.3.2=SAN-I am otherName 1.2.3.2' --san '[1]SNA-info@myorg.org' \
-  --san '[2]SAN-dns.myorg.org' --san '[4]CN=demo,C=DE' \
-  --san '[5]SAN-assigner1=SAN-party1' --san '[6]SAN-uri.myorg.org' \
+  --san '[0]1.2.3.2=SAN-I am otherName 1.2.3.2' \
+  --san '[1]SNA-info@myorg.org' \
+  --san '[2]SAN-dns.myorg.org' \
+  --san '[4]CN=demo,C=DE' \
+  --san '[5]SAN-assigner1=SAN-party1' \
+  --san '[6]SAN-uri.myorg.org' \
   --san '[7]69.1.2.190' --san '[8]2.3.4.5' \
   --sia '1.3.6.1.5.5.7.48.5=[0]1.2.3.1\=SIA-I am otherName 1.2.3.1' \
   --sia '2.3.4.1=[0]1.2.3.2\=SIA-I am otherName 1.2.3.2' \
@@ -211,7 +211,8 @@ csr-p12 REPLACEME-RSAPSS --p12 output/ee-complex2.p12 --password CHANGEIT \
   --sia '2.3.4.4=[4]CN\=demo\,C\=DE' \
   --sia '2.3.4.5=[5]SIA-assigner1\=SIA-party1' \
   --sia '2.3.4.6=[6]SIA-uri.myorg.org' --sia '2.3.4.7=[7]69.1.2.190' \
-  --sia '2.3.4.8=[8]2.3.4.5'
+  --sia '2.3.4.8=[8]2.3.4.5' \
+  --extensions-file qa/extensions/ee-complex.der
 
 cmp-csr-enroll --csr output/ee-complex2.csr --ca subca --profile ee-complex \
   --outform $OUTFORM --out output/ee-complex2.crt \
@@ -375,7 +376,7 @@ cmp-revoke --ca subca1 --cert output/tls-c2.crt --ca-cert output/subca1.crt \
 
 csr-p12 REPLACEME-RSAPSS --p12 output/microsoft.p12 --password CHANGEIT \
   --subject "CN=microsoft.myorg.org,O=myorg,C=DE" \
-  --microsoft-sid "S-1-5-123456-234567-1234" \
+  --extensions-file qa/extensions/microsoft.der \
   --outform $OUTFORM \
   --out output/microsoft.csr
 
@@ -391,10 +392,7 @@ update-cert-p12 --p12 output/microsoft.p12 --password CHANGEIT \
 
 csr-p12 REPLACEME-RSAPSS --p12 output/gmt0015.p12 --password CHANGEIT \
   --subject "CN=gmt0015.myorg.org,O=myorg,C=DE" \
-  --cn-residentIdCardNumber "110101199001011234" \
-  --cn-passportNumber "E12345678" \
-  --cn-socialInsuranceNumber "110101199001013456" \
-  --cn-unifiedSocialCreditCode "91310000MA1K12345X" \
+  --extensions-file qa/extensions/gmt0015.der \
   --outform $OUTFORM \
   --out output/gmt0015.csr
 
@@ -404,6 +402,256 @@ cmp-csr-enroll --csr output/gmt0015.csr --ca subca --profile gmt0015 \
 
 update-cert-p12 --p12 output/gmt0015.p12 --password CHANGEIT \
   --cert output/gmt0015.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate rpki
+
+csr-p12 REPLACEME-RSAPSS --p12 output/rpki.p12 --password CHANGEIT \
+  --subject "CN=rpki.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/rpki.der \
+  --outform $OUTFORM \
+  --out output/rpki.csr
+
+cmp-csr-enroll --csr output/rpki.csr --ca subca --profile rpki \
+  --outform $OUTFORM --out output/rpki.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/rpki.p12 --password CHANGEIT \
+  --cert output/rpki.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate spdm
+
+csr-p12 REPLACEME-RSAPSS --p12 output/spdm.p12 --password CHANGEIT \
+  --subject "CN=spdm.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/spdm.der \
+  --outform $OUTFORM \
+  --out output/spdm.csr
+
+cmp-csr-enroll --csr output/spdm.csr --ca subca --profile spdm \
+  --outform $OUTFORM --out output/spdm.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/spdm.p12 --password CHANGEIT \
+  --cert output/spdm.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate stir
+
+csr-p12 REPLACEME-RSAPSS --p12 output/stir.p12 --password CHANGEIT \
+  --subject "CN=spdm.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/stir.der \
+  --outform $OUTFORM \
+  --out output/stir.csr
+
+cmp-csr-enroll --csr output/stir.csr --ca subca --profile stir \
+  --outform $OUTFORM --out output/stir.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/stir.p12 --password CHANGEIT \
+  --cert output/stir.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate rfc3739
+
+csr-p12 REPLACEME-RSAPSS --p12 output/rfc3739.p12 --password CHANGEIT \
+  --subject "CN=rfc3739.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/rfc3739.der \
+  --outform $OUTFORM \
+  --out output/rfc3739.csr
+
+cmp-csr-enroll --csr output/rfc3739.csr --ca subca --profile rfc3739 \
+  --outform $OUTFORM --out output/rfc3739.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/rfc3739.p12 --password CHANGEIT \
+  --cert output/rfc3739.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate BRSKI
+
+csr-p12 REPLACEME-RSAPSS --p12 output/brski.p12 --password CHANGEIT \
+  --subject "CN=brski.myorg.org,O=myorg,C=DE" \
+  --outform $OUTFORM \
+  --out output/brski.csr
+
+cmp-csr-enroll --csr output/brski.csr --ca subca --profile brski \
+  --outform $OUTFORM --out output/brski.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/brski.p12 --password CHANGEIT \
+  --cert output/brski.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate matter
+
+csr-p12 REPLACEME-RSAPSS --p12 output/matter.p12 --password CHANGEIT \
+  --subject "1.3.6.1.4.1.37244.1.1=1234567890ABCDEF,CN=matter.myorg.org,O=myorg,C=DE" \
+  --outform $OUTFORM \
+  --out output/matter.csr
+
+cmp-csr-enroll --csr output/matter.csr --ca subca --profile matter \
+  --outform $OUTFORM --out output/matter.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/matter.p12 --password CHANGEIT \
+  --cert output/matter.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate mrtd
+
+csr-p12 REPLACEME-RSAPSS --p12 output/mrtd.p12 --password CHANGEIT \
+  --subject "CN=mrtd.myorg.org,O=myorg,C=DE" \
+  --outform $OUTFORM \
+  --out output/mrtd.csr
+
+cmp-csr-enroll --csr output/mrtd.csr --ca subca --profile mrtd \
+  --outform $OUTFORM --out output/mrtd.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/mrtd.p12 --password CHANGEIT \
+  --cert output/mrtd.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate dice
+
+csr-p12 REPLACEME-RSAPSS --p12 output/dice.p12 --password CHANGEIT \
+  --subject "CN=dice.myorg.org,O=myorg,C=DE" \
+  --outform $OUTFORM \
+  --out output/dice.csr
+
+cmp-csr-enroll --csr output/dice.csr --ca subca --profile dice \
+  --outform $OUTFORM --out output/dice.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/dice.p12 --password CHANGEIT \
+  --cert output/dice.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate tcg
+
+csr-p12 REPLACEME-RSAPSS --p12 output/tcg.p12 --password CHANGEIT \
+  --subject "CN=tcg.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/tcg.der \
+  --outform $OUTFORM \
+  --out output/tcg.csr
+
+cmp-csr-enroll --csr output/tcg.csr --ca subca --profile tcg \
+  --outform $OUTFORM --out output/tcg.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/tcg.p12 --password CHANGEIT \
+  --cert output/tcg.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate othernames
+
+csr-p12 REPLACEME-RSAPSS --p12 output/othernames.p12 --password CHANGEIT \
+  --subject "CN=othernames.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/othernames.der \
+  --outform $OUTFORM \
+  --out output/othernames.csr
+
+cmp-csr-enroll --csr output/othernames.csr --ca subca --profile othernames \
+  --outform $OUTFORM --out output/othernames.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/othernames.p12 --password CHANGEIT \
+  --cert output/othernames.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate caliptra
+
+csr-p12 REPLACEME-RSAPSS --p12 output/caliptra.p12 --password CHANGEIT \
+  --subject "CN=caliptra.myorg.org" \
+  --extensions-file qa/extensions/caliptra.der \
+  --outform $OUTFORM \
+  --out output/caliptra.csr
+
+cmp-csr-enroll --csr output/caliptra.csr --ca rootca --profile caliptra \
+  --outform $OUTFORM --out output/caliptra.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/caliptra.p12 --password CHANGEIT \
+  --cert output/caliptra.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate ccc-e
+
+csr-p12 REPLACEME-RSAPSS --p12 output/ccc-e.p12 --password CHANGEIT \
+  --subject "CN=ccc-e.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/ccc-e.der \
+  --outform $OUTFORM \
+  --out output/ccc-e.csr
+
+cmp-csr-enroll --csr output/ccc-e.csr --ca subca --profile ccc-e \
+  --outform $OUTFORM --out output/ccc-e.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/ccc-e.p12 --password CHANGEIT \
+  --cert output/ccc-e.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate ccc-h
+
+csr-p12 REPLACEME-RSAPSS --p12 output/ccc-h.p12 --password CHANGEIT \
+  --subject "CN=ccc-h.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/ccc-h.der \
+  --outform $OUTFORM \
+  --out output/ccc-h.csr
+
+cmp-csr-enroll --csr output/ccc-h.csr --ca subca --profile ccc-h \
+  --outform $OUTFORM --out output/ccc-h.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/ccc-h.p12 --password CHANGEIT \
+  --cert output/ccc-h.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate ccc-k
+
+csr-p12 REPLACEME-RSAPSS --p12 output/ccc-k.p12 --password CHANGEIT \
+  --subject "CN=ccc-k.myorg.org,O=myorg,C=DE" \
+  --outform $OUTFORM \
+  --out output/ccc-k.csr
+
+cmp-csr-enroll --csr output/ccc-k.csr --ca subca --profile ccc-k \
+  --outform $OUTFORM --out output/ccc-k.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/ccc-k.p12 --password CHANGEIT \
+  --cert output/ccc-k.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate ccc-t
+
+csr-p12 REPLACEME-RSAPSS --p12 output/ccc-t.p12 --password CHANGEIT \
+  --subject "CN=ccc-t.myorg.org,O=myorg,C=DE" \
+  --extensions-file qa/extensions/ccc-t.der \
+  --outform $OUTFORM \
+  --out output/ccc-t.csr
+
+cmp-csr-enroll --csr output/ccc-t.csr --ca subca --profile ccc-t \
+  --outform $OUTFORM --out output/ccc-t.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/ccc-t.p12 --password CHANGEIT \
+  --cert output/ccc-t.crt --ca-cert output/subca1.crt \
+  --ca-cert output/rootca1.crt
+
+# Certificate rfc9608
+
+csr-p12 REPLACEME-RSAPSS --p12 output/rfc9608.p12 --password CHANGEIT \
+  --subject "CN=rfc9608.myorg.org,O=myorg,C=DE" \
+  --outform $OUTFORM \
+  --out output/rfc9608.csr
+
+cmp-csr-enroll --csr output/rfc9608.csr --ca subca --profile rfc9608 \
+  --outform $OUTFORM --out output/rfc9608.crt \
+  --signer-password $[cmp.client.keyPassword] --signer-p12 ${SIGNER_P12}
+
+update-cert-p12 --p12 output/rfc9608.p12 --password CHANGEIT \
+  --cert output/rfc9608.crt --ca-cert output/subca1.crt \
   --ca-cert output/rootca1.crt
 
 # Certificate max-time1

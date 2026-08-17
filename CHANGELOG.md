@@ -2,9 +2,18 @@
 
 See also <https://github.com/xipki/xipki/releases>
 
-## 6.7.x
+## 6.7.1
 - Release date: 202x/mm/dd
 - xipki-ca
+  - Added native support of RFC 5280 extensions
+    - Subject Directory Properties (2.5.29.9)
+  - Added native support of otherName types in the SubjectAltNames extension
+    - RFC 4108
+      - id-on-hardwareModuleName (1.3.6.1.5.5.7.8.4)
+    - RFC 9598
+      - id-on-SmtpUTF8Mailbox (1.3.6.1.5.5.7.8.9)
+    - I-D.ietf-lamps-macaddress-on-07
+      - id-on-MACAddress (1.3.6.1.5.5.7.8.12)
   - Added native support of Microsoft proprietary extensions
     - Certificate Template Name (1.3.1.6.1.311.20.2)
     - Certificate Template Information (1.3.1.6.1.311.21.7)
@@ -14,11 +23,94 @@ See also <https://github.com/xipki/xipki/releases>
     - Passport Number (1.2.156.10260.4.1.1.2)
     - Social Insurance Number (1.2.156.10260.4.1.2)
     - Unified Social Credit Code  (1.2.156.10260.4.4)
+  - Added native support of SPDM extensions and key purposes
+    - OtherName Types
+      - DMTF-device-info (1.3.6.1.4.1.412.274.1)
+    - Extensions
+      - SPDM-Extension (1.3.6.1.4.1.412.274.6)
+    - Key Purposes (in the extension Extended Key Usage)
+      - DMTF-eku-responder-auth (1.3.6.1.4.1.412.274.3)
+      - DMTF-eku-requestor-auth (1.3.6.1.4.1.412.274.4)
+  - Added native support of Qualified Certificates Profile (RFC 3739)
+    - Subject Directory Attributes
+      - dateOfBirth  (1.3.6.1.5.5.7.9.1)
+      - placeOfBirth (1.3.6.1.5.5.7.9.2)
+      - gender       (1.3.6.1.5.5.7.9.3)
+      - countryOfCitizenship (1.3.6.1.5.5.7.9.4)
+      - countryOfResidence   (1.3.6.1.5.5.7.9.5)
+  - Added native support of RPKI (RFC 3779) extensions
+    - IPAddrBlocks    (1.3.6.1.5.5.7.1.7)
+    - IPAddrBlocksV2  (1.3.6.1.5.5.7.1.28)
+    - ASIdentifiers   (1.3.6.1.5.5.7.1.8)
+    - ASIdentifiersV2 (1.3.6.1.5.5.7.1.29)
+  - Added native support of STIR (RFC 8226) extensions
+    - TNAuthList          (1.3.6.1.5.5.7.1.26)
+    - JWTClaimConstraints (1.3.6.1.5.5.7.1.27)
+  - Added native support of RFC 9608 extensions
+    - noRevAvail (2.5.29.56)
+  - Added native support of BRSKI (RFC 8995) extensions
+    - MASA-URL (1.3.6.1.5.5.7.1.32)
+  - Added native support of TCG DICE / Caliptra extensions and key purposes
+    - Extensions
+      - dice-ueid (2.23.133.5.4.4)
+    - Key Purposes (in the extension Extended Key Usage)
+      - tcg-dice-kp-identityInit (2.23.133.5.4.100.6)
+      - tcg-dice-kp-identityLoc  (2.23.133.5.4.100.7)
+      - tcg-dice-kp-attestInit   (2.23.133.5.4.100.8)
+      - tcg-dice-kp-attestLoc    (2.23.133.5.4.100.9)
+      - tcg-dice-kp-assertInit   (2.23.133.5.4.100.10)
+      - tcg-dice-kp-assertLoc    (2.23.133.5.4.100.11)
+      - tcg-dice-kp-eca          (2.23.133.5.4.100.12)
+  - Added native support of TCG Platform Certificate Profile
+    - OtherName Types
+      - TCG-platformIdentifier (2.23.133.5.1.8)
+    - Subject Directory Attributes
+      - TCG-PlatformSpecification        (2.23.133.2.17)
+      - TCG-CredentialSpecification      (2.23.133.2.23)
+      - TCG-CredentialType               (2.23.133.2.25)
+      - TCG-PreviousPlatformCertificates (2.23.133.2.26)
+      - TCG-TbbSecurityAssertions-v3     (2.23.133.2.27)
+      - TCG-CryptographicAnchors         (2.23.133.2.28)
+      - TCG-PlatformOwnership            (2.23.133.2.29)
+      - TCG-ManufacturingAssertions      (2.23.133.2.30)
+      - TCG-PlatformConfiguration-v3     (2.23.133.5.1.7.3)
+      - TCG-PlatformConfigUri-v3         (2.23.133.5.1.7.4)
+  - Added native support of CSA Matter RDN attributes
+    - matter-node-id   (1.3.6.1.4.1.37244.1.1)
+    - matter-firmware-signing-id (1.3.6.1.4.1.37244.1.2)
+    - matter-icac-id   (1.3.6.1.4.1.37244.1.3)
+    - matter-rcac-id   (1.3.6.1.4.1.37244.1.4)
+    - matter-fabric-id (1.3.6.1.4.1.37244.1.5)
+    - matter-noc-cat   (1.3.6.1.4.1.37244.1.6)
+    - matter-vvs-id    (1.3.6.1.4.1.37244.1.7)
+    - matter-oid-vid   (1.3.6.1.4.1.37244.2.1)
+    - matter-oid-pid   (1.3.6.1.4.1.37244.2.2)
+  - Added native support of Car Connectivity Consortium Digital Key Extensions
+    - CCC-K-VehicleCert       (1.3.6.1.4.1.41577.5.1)
+    - CCC-F-ExternalCACert    (1.3.6.1.4.1.41577.5.2)
+    - CCC-E-InstanceCACert    (1.3.6.1.4.1.41577.5.3)
+    - CCC-H-EndpointCert      (1.3.6.1.4.1.41577.5.4)
+    - CCC-P-VehicleOEMEncCert (1.3.6.1.4.1.41577.5.5)
+    - CCC-Q-VehicleOEMSigCert (1.3.6.1.4.1.41577.5.6)
+    - CCC-DeviceEncCert       (1.3.6.1.4.1.41577.5.7)
+    - CCC-VehicleIntermediateCert     (1.3.6.1.4.1.41577.5.8)
+    - CCC-J-VehicleOEMCACert          (1.3.6.1.4.1.41577.5.9)
+    - CCC-M-VehicleOEMCACert          (1.3.6.1.4.1.41577.5.10)
+    - CCC-R-CertificationBodyCert     (1.3.6.1.4.1.41577.5.14)
+    - CCC-S-SBxDKisIntermediateCACert (1.3.6.1.4.1.41577.5.15)
+    - CCC-T-SBxDKisIntermediateCACert (1.3.6.1.4.1.41577.5.16)
+    - CCC-U-SBxDKisRootCACert         (1.3.6.1.4.1.41577.5.17)
 - Dependencies
-  - bcpqc-fips:  2.0.0  -> 2.1.0
-  - bcutil-fips: 2.1.5  -> 2.1.6
-  - bcpkix-fips: 2.1.10 -> 2.1.11
-  - jline:       4.0.9  -> 4.0.13
+  - bclts:         2.73.10 -> 2.73.12
+  - bc-fips:       2.1.2   -> 2.1.3
+  - bcpkix-fips:   2.1.10  -> 2.1.12
+  - bcpqc-fips:    2.0.0   -> 2.1.0
+  - bcutil-fips:   2.1.5   -> 2.1.7
+  - dnsjava        3.6.4   -> 3.6.5
+  - hikaricp:      7.0.2   -> 7.1.0
+  - jline:         4.0.9   -> 4.3.1
+  - mariadb jdbc:  3.5.7   -> 3.5.10
+  - postgres jdbc: 42.7.10 -> 42.7.13
 
 ## 6.7.0
 - Release date: 2026/03/28
@@ -426,7 +518,7 @@ See also <https://github.com/xipki/xipki/releases>
     - Remove the CA controls DUPLICATE_{KEY|SUBJECT}
     - For pre-defined DSA parameters, using Pi as seed
     - Check pathLenConstraint before issuing certificate
-    - Use tagNo or tagName to identify a SAN tag in a certificat request
+    - Use tagNo or tagName to identify a SAN tag in a certificate request
     - accept also PEM encoded CSR in rest servlet
   - OCSP
     - Unify the use of X.509 certificate and CRL

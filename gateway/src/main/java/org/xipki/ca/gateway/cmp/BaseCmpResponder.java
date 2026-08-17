@@ -95,6 +95,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
@@ -382,7 +383,7 @@ public abstract class BaseCmpResponder {
       // change the cmp version in response
       ASN1Sequence seq = ASN1Sequence.getInstance(responseHdr.toASN1Primitive());
       ASN1EncodableVector v = new ASN1EncodableVector();
-      v.add(new ASN1Integer(cmpVersion.respVersion));
+      v.add(new ASN1Integer(BigInteger.valueOf(cmpVersion.respVersion)));
       for (int i = 1; i < seq.size(); i++) {
         v.add(seq.getObjectAt(i));
       }

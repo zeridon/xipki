@@ -170,7 +170,7 @@ public class CaEmulator {
     crlBuilder.addCRLEntry(BigInteger.valueOf(2), Date.from(revocationTime),
         CRLReason.keyCompromise);
     crlBuilder.addExtension(OIDs.Extn.cRLNumber, false,
-        new ASN1Integer(crlNumber.getAndAdd(1)));
+        new ASN1Integer(BigInteger.valueOf(crlNumber.getAndAdd(1))));
 
     String signatureAlgorithm = SignAlgo.getInstance(caKey).jceName();
     ContentSigner contentSigner = new JcaContentSignerBuilder(signatureAlgorithm).build(caKey);

@@ -22,6 +22,9 @@ public class ExtensionID extends AbstractID {
 
   private static final Map<String, ExtensionID> typeMap = new HashMap<>();
 
+  public static final ExtensionID subjectDirectoryAttributes =
+      initOf(OIDs.Extn.subjectDirectoryAttributes, "subjectDirectoryAttributes");
+
   public static final ExtensionID subjectKeyIdentifier =
       initOf(OIDs.Extn.subjectKeyIdentifier, "SubjectKeyIdentifier");
 
@@ -129,6 +132,18 @@ public class ExtensionID extends AbstractID {
   public static final ExtensionID CCC_M_VehicleOEMCACert =
       initOf(OIDs.Extn.id_ccc_M_VehicleOEM_CA_Cert, "CCC-M-VehicleOEMCACert");
 
+  public static final ExtensionID CCC_R_CertificationBodyCert =
+      initOf(OIDs.Extn.id_ccc_R_CertificationBody_Cert, "CCC-R-CertificationBodyCert");
+
+  public static final ExtensionID CCC_S_SBxDKisIntermediateCACert =
+      initOf(OIDs.Extn.id_ccc_S_SBxDKis_Intermediate_CA_Cert, "CCC-S-SBxDKisIntermediateCACert");
+
+  public static final ExtensionID CCC_T_SBxDKisEndpointCert =
+      initOf(OIDs.Extn.id_ccc_T_SBxDKis_Endpoint_Cert, "CCC-T-SBxDKisEndpointCert");
+
+  public static final ExtensionID CCC_U_SBxDKisRootCACert =
+      initOf(OIDs.Extn.id_ccc_U_SBxDKis_RootCA_Cert, "CCC-U-SBxDKisRootCACert");
+
   public static final ExtensionID microsoft_CertificateTemplateName =
       initOf(OIDs.Extn.id_microsoft_CertificateTemplateName, "Microsoft-CertificateTemplateName");
 
@@ -150,6 +165,48 @@ public class ExtensionID extends AbstractID {
 
   public static final ExtensionID CN_UnifiedSocialCreditCode =
       initOf(OIDs.Extn.id_cn_UnifiedSocialCreditCode, "CN-UnifiedSocialCreditCode");
+
+  public static final ExtensionID SPDM_Extension =
+      initOf(OIDs.Extn.id_dmtf_spdm_extension, "SPDM-Extension");
+
+  public static final ExtensionID STIR_JWTClaimConstraints =
+      initOf(OIDs.Extn.id_pe_JWTClaimConstraints, "STIR-JWTClaimConstraints");
+
+  public static final ExtensionID STIR_TNAuthList =
+      initOf(OIDs.Extn.id_pe_TNAuthList, "STIR-TNAuthList");
+
+  // RPKI
+  public static final ExtensionID IPAddrBlocks =
+      initOf(OIDs.Extn.IPAddrBlocks, "IPAddrBlocks");
+
+  public static final ExtensionID IPAddrBlocksV2 =
+      initOf(OIDs.Extn.IPAddrBlocksV2, "IPAddrBlocksV2");
+
+  public static final ExtensionID ASIdentifiers =
+      initOf(OIDs.Extn.ASIdentifiers, "ASIdentifiers");
+
+  public static final ExtensionID ASIdentifiersV2 =
+      initOf(OIDs.Extn.ASIdentifiersV2, "ASIdentifiersV2");
+
+  // RFC 9608
+  public static final ExtensionID noRevAvail =
+      initOf(OIDs.Extn.noRevAvail, "NoRevAvail");
+
+  // BRSKI (RFC 8995)
+  public static final ExtensionID masaUrl =
+      initOf(OIDs.Extn.id_pe_masa_url, "MASA-URL");
+
+  // ICAO MRTD
+  public static final ExtensionID MRTD_NameChange =
+      initOf(OIDs.MRTD.id_icao_mrtd_security_extensions_nameChange, "MRTD-NameChange");
+
+  public static final ExtensionID MRTD_DocumentTypeList =
+      initOf(OIDs.MRTD.id_icao_mrtd_security_extensions_documentTypeList,
+          "MRTD-DocumentTypeList");
+
+  // DICE
+  public static final ExtensionID dice_ueid =
+      initOf(OIDs.DICE.tcg_dice_ueid, "dice-ueid");
 
   private ExtensionID(ASN1ObjectIdentifier x509, List<String> aliases) {
     super(x509, aliases);

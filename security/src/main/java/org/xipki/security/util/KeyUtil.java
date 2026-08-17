@@ -508,7 +508,7 @@ public class KeyUtil {
    */
   public static PrivateKeyInfo buildPrivateKeyInfo(AlgorithmIdentifier algId, byte[] encodedSk) {
     ASN1EncodableVector vec = new ASN1EncodableVector(3);
-    vec.add(new ASN1Integer(0));
+    vec.add(new ASN1Integer(BigInteger.ZERO));
     vec.add(algId);
     vec.add(new DEROctetString(encodedSk));
     return PrivateKeyInfo.getInstance(new DERSequence(vec));

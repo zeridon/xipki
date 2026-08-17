@@ -82,3 +82,67 @@ check-cert --issuer subca --profile microsoft \
 check-cert --issuer subca --profile gmt0015 \
   --csr output/gmt0015.csr \
   --cert output/gmt0015.crt
+
+check-cert --issuer subca --profile stir \
+  --csr output/stir.csr \
+  --cert output/stir.crt
+
+check-cert --issuer subca --profile spdm \
+  --csr output/spdm.csr \
+  --cert output/spdm.crt
+
+check-cert --issuer subca --profile rpki \
+  --csr output/rpki.csr \
+  --cert output/rpki.crt
+
+check-cert --issuer subca --profile ccc-e \
+  --csr output/ccc-e.csr \
+  --cert output/ccc-e.crt
+
+check-cert --issuer subca --profile ccc-h \
+  --csr output/ccc-h.csr \
+  --cert output/ccc-h.crt
+
+check-cert --issuer subca --profile ccc-k \
+  --csr output/ccc-k.csr \
+  --cert output/ccc-k.crt
+
+check-cert --issuer subca --profile ccc-t \
+  --csr output/ccc-t.csr \
+  --cert output/ccc-t.crt
+
+check-cert --issuer subca --profile rfc9608 \
+  --csr output/rfc9608.csr \
+  --cert output/rfc9608.crt
+
+check-cert --issuer subca --profile brski \
+  --csr output/brski.csr \
+  --cert output/brski.crt
+
+check-cert --issuer subca --profile matter \
+  --csr output/matter.csr \
+  --cert output/matter.crt
+
+check-cert --issuer subca --profile mrtd \
+  --csr output/mrtd.csr \
+  --cert output/mrtd.crt
+
+check-cert --issuer subca --profile dice \
+  --csr output/dice.csr \
+  --cert output/dice.crt
+
+check-cert --issuer subca --profile rfc3739 \
+  --csr output/rfc3739.csr \
+  --cert output/rfc3739.crt
+
+check-cert --issuer subca --profile tcg \
+  --csr output/tcg.csr \
+  --cert output/tcg.crt
+
+check-cert --issuer subca --profile othernames \
+  --csr output/othernames.csr \
+  --cert output/othernames.crt
+
+check-cert --issuer rootca --profile caliptra \
+  --csr output/caliptra.csr \
+  --cert output/caliptra.crt

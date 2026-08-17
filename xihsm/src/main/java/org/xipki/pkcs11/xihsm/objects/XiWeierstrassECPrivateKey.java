@@ -118,7 +118,7 @@ public class XiWeierstrassECPrivateKey extends XiECPrivateKey {
     if (vendor.getVendorEnum() == VendorEnum.UTIMACO) {
       byte[] bytes = BigIntegers.asUnsignedByteArray(sk);
       ASN1EncodableVector v = new ASN1EncodableVector(2);
-      v.add(new ASN1Integer(1));
+      v.add(new ASN1Integer(BigInteger.valueOf(1)));
       v.add(new DEROctetString(bytes));
       return org.bouncycastle.asn1.sec.ECPrivateKey.getInstance(new DERSequence(v));
     } else {

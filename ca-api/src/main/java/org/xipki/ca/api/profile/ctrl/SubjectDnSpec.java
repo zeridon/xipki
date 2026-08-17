@@ -48,11 +48,11 @@ public class SubjectDnSpec {
   /**
    * ranges.
    */
-  private static final Range RANGE_64 = new Range(1, 64);
+  private static final Range RANGE_1_64 = new Range(1, 64);
 
-  private static final Range RANGE_128 = new Range(1, 128);
+  private static final Range RANGE_1_128 = new Range(1, 128);
 
-  private static final Range RANGE_255 = new Range(1, 255);
+  private static final Range RANGE_1_255 = new Range(1, 255);
 
   private static final Range RANGE_POSTAL_CODE = new Range(1, 40);
 
@@ -67,6 +67,12 @@ public class SubjectDnSpec {
   // according to specification should be 32768, 256 is specified by
   // Lijun Liao (xipki).
   private static final Range RANGE_NAME = new Range(1, 256);
+
+  private static final Range RANGE_4_4 = new Range(4, 4);
+
+  private static final Range RANGE_8_8 = new Range(8, 8);
+
+  private static final Range RANGE_16_16 = new Range(16, 16);
 
   private static final Map<ASN1ObjectIdentifier, Range> RANGES = new HashMap<>();
 
@@ -165,7 +171,7 @@ public class SubjectDnSpec {
     Set<ASN1ObjectIdentifier> ids = new HashSet<>();
 
     // businessCategory
-    conf(ids, OIDs.DN.businessCategory, RANGE_128, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.businessCategory, RANGE_1_128, StringControl.PrintableOrUtf8);
 
     // countryName, countryOfCitizenship, countryOfResidence,
     // jurisdictionOfIncorporationCountryName
@@ -177,10 +183,10 @@ public class SubjectDnSpec {
     }
 
     // commonName
-    conf(ids, OIDs.DN.commonName, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.commonName, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // emailAddress
-    conf(ids, OIDs.DN.emailAddress, RANGE_255, StringControl.IA5);
+    conf(ids, OIDs.DN.emailAddress, RANGE_1_255, StringControl.IA5);
 
     // DATE_OF_BIRTH
     conf(ids, OIDs.DN.dateOfBirth, RANGE_DATE_OF_BIRTH, null);
@@ -197,13 +203,13 @@ public class SubjectDnSpec {
     PATTERNS.put(OIDs.DN.gender, TextVadidator.GENDER);
 
     // generation qualifier
-    conf(ids, OIDs.DN.generationQualifier, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.generationQualifier, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // givenName
-    conf(ids, OIDs.DN.givenName, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.givenName, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // initials
-    conf(ids, OIDs.DN.initials, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.initials, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // LDAP user ID
     conf(ids, OIDs.DN.userid, null, StringControl.PrintableOrUtf8);
@@ -211,26 +217,26 @@ public class SubjectDnSpec {
     // localityName, jurisdictionOfIncorporationLocalityName
     idList = new ASN1ObjectIdentifier[] {OIDs.DN.locality, OIDs.DN.jurIncorporationLocality};
     for (ASN1ObjectIdentifier m : idList) {
-      conf(ids, m, RANGE_128, StringControl.PrintableOrUtf8);
+      conf(ids, m, RANGE_1_128, StringControl.PrintableOrUtf8);
     }
 
     // name
     conf(ids, OIDs.DN.name, RANGE_NAME, StringControl.PrintableOrUtf8);
 
     // nameOfBirth
-    conf(ids, OIDs.DN.nameAtBirth, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.nameAtBirth, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // organizationName
-    conf(ids, OIDs.DN.organization, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.organization, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // organizationIdentifier
-    conf(ids, OIDs.DN.organizationIdentifier, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.organizationIdentifier, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // organizationalUnitName
-    conf(ids, OIDs.DN.organizationalUnit, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.organizationalUnit, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // placeOfBirth
-    conf(ids, OIDs.DN.placeOfBirth, RANGE_128, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.placeOfBirth, RANGE_1_128, StringControl.PrintableOrUtf8);
 
     // postalAddress
     conf(ids, OIDs.DN.postalAddress, RANGE_POSTAL_ADDRESS, null);
@@ -239,28 +245,28 @@ public class SubjectDnSpec {
     conf(ids, OIDs.DN.postalCode, RANGE_POSTAL_CODE, StringControl.PrintableOrUtf8);
 
     // pseudonym
-    conf(ids, OIDs.DN.pseudonym, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.pseudonym, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // distinguishedNameQualifier
-    conf(ids, OIDs.DN.dnQualifier, RANGE_64, StringControl.Printable);
+    conf(ids, OIDs.DN.dnQualifier, RANGE_1_64, StringControl.Printable);
 
     // serialNumber
-    conf(ids, OIDs.DN.serialNumber, RANGE_64, StringControl.Printable);
+    conf(ids, OIDs.DN.serialNumber, RANGE_1_64, StringControl.Printable);
 
     // stateOrProvinceName, jurisdictionOfIncorporationStateOrProvinceName
     idList = new ASN1ObjectIdentifier[] {OIDs.DN.state, OIDs.DN.jurIncorporationState};
     for (ASN1ObjectIdentifier m : idList) {
-      conf(ids, m, RANGE_128, StringControl.PrintableOrUtf8);
+      conf(ids, m, RANGE_1_128, StringControl.PrintableOrUtf8);
     }
 
     // streetAddress
-    conf(ids, OIDs.DN.street, RANGE_128, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.street, RANGE_1_128, StringControl.PrintableOrUtf8);
 
     // surName
-    conf(ids, OIDs.DN.surname, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.surname, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // title
-    conf(ids, OIDs.DN.title, RANGE_64, StringControl.PrintableOrUtf8);
+    conf(ids, OIDs.DN.title, RANGE_1_64, StringControl.PrintableOrUtf8);
 
     // telefonNumber
     conf(ids, OIDs.DN.telephoneNumber, null, StringControl.PrintableOrUtf8);
@@ -273,6 +279,28 @@ public class SubjectDnSpec {
 
     // unstructedName
     conf(ids, OIDs.DN.unstructuredName, null, StringControl.PrintableOrUtf8);
+
+    // CSA Matter specification
+    ASN1ObjectIdentifier[] oids = new ASN1ObjectIdentifier[] {
+        OIDs.Matter.matter_node_id,
+        OIDs.Matter.matter_firmware_signing_id,
+        OIDs.Matter.matter_icac_id,
+        OIDs.Matter.matter_rcac_id,
+        OIDs.Matter.matter_fabric_id,
+        OIDs.Matter.matter_vvs_id };
+    for (ASN1ObjectIdentifier oid : oids) {
+      conf(ids, oid, RANGE_16_16, StringControl.Utf8);
+      PATTERNS.put(oid, TextVadidator.UPPER_HEX);
+    }
+
+    conf(ids, OIDs.Matter.matter_noc_cat, RANGE_8_8, StringControl.Utf8);
+    PATTERNS.put(OIDs.Matter.matter_noc_cat, TextVadidator.UPPER_HEX);
+
+    conf(ids, OIDs.Matter.matter_oid_vid, RANGE_4_4, StringControl.PrintableOrUtf8);
+    PATTERNS.put(OIDs.Matter.matter_oid_vid, TextVadidator.UPPER_HEX);
+
+    conf(ids, OIDs.Matter.matter_oid_pid, RANGE_4_4, StringControl.PrintableOrUtf8);
+    PATTERNS.put(OIDs.Matter.matter_oid_pid, TextVadidator.UPPER_HEX);
   }
 
   private SubjectDnSpec() {

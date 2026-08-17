@@ -55,7 +55,7 @@ public class IPAddressFamily {
   private final Byte safi;
 
   public IPAddressFamily(int afi, Byte safi) {
-    this.afi = Args.among(afi, "afi", 0, 0xFFFF);
+    this.afi = Args.range(afi, "afi", 0, 0xFFFF);
     this.safi = safi;
   }
 
@@ -71,6 +71,10 @@ public class IPAddressFamily {
 
   public int afi() {
     return afi;
+  }
+
+  public Byte safi() {
+    return safi;
   }
 
   @Override

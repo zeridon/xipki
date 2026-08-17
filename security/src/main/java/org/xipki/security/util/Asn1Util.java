@@ -79,6 +79,30 @@ public class Asn1Util {
     return BridgeAsn1Util.getUTF8String(str);
   }
 
+  public static boolean isIA5String(ASN1Encodable str) {
+    return BridgeAsn1Util.isIA5String(str);
+  }
+
+  public static boolean isUTF8String(ASN1Encodable str) {
+    return BridgeAsn1Util.isUTF8String(str);
+  }
+
+  public static boolean isPrintableString(ASN1Encodable str) {
+    return BridgeAsn1Util.isPrintableString(str);
+  }
+
+  public static boolean isT61String(ASN1Encodable str) {
+    return BridgeAsn1Util.isT61String(str);
+  }
+
+  public static boolean isBMPString(ASN1Encodable str) {
+    return BridgeAsn1Util.isBMPString(str);
+  }
+
+  public static boolean isUniversalString(ASN1Encodable str) {
+    return BridgeAsn1Util.isUniversalString(str);
+  }
+
   public static byte[] getBitStringOctets(Object obj) {
     return BridgeAsn1Util.getBitStringOctets(obj);
   }

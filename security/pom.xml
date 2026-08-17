@@ -13,7 +13,7 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>bcbridge-lts8on</artifactId>
+      <artifactId>bcbridge-fips</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

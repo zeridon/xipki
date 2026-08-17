@@ -158,32 +158,58 @@ the instructions in `xipki-setup-<version>/INSTALL.md`.
     - RSA PKCS1v1.5 with hash algorithms: SHA-1, SHA-2, and SHA-3
     - RSA PSS with hash algorithms: SHA-1, SHA-2, and SHA-3, and SHAKE
     - SM3withSM2
-  - Native support for X.509 extensions (other extensions can also be supported by 
-    configuring them as blobs)
+  - Native support for X.509 extensions (other extensions can also be supported by configuring them as blobs)
     - RFC 3739
-      - BiometricInfo
-      - QCStatements (also in eIDAS standard EN 319 412)
+      - BiometricInfo (1.3.6.1.5.5.7.1.2)
+      - QCStatements (also in eIDAS standard EN 319 412, 1.3.6.1.5.5.7.1.3)
+      - SubjectDirectoryAttributes with attribute types
+        - dateOfBirth  (1.3.6.1.5.5.7.9.1)
+        - placeOfBirth (1.3.6.1.5.5.7.9.2)
+        - gender       (1.3.6.1.5.5.7.9.3)
+        - countryOfCitizenship (1.3.6.1.5.5.7.9.4)
+        - countryOfResidence   (1.3.6.1.5.5.7.9.5)
     - RFC 4262
-      - SMIMECapabilities
+      - SMIMECapabilities (1.2.840.113549.1.9.15)
     - RFC 5280
-      - AuthorityInformationAccess, AuthorityKeyIdentifier
-      - BasicConstraints
-      - CertificatePolicies, CRLDistributionPoints
-      - ExtendedKeyUsage
-      - FreshestCRL
-      - InhibitAnyPolicy, IssuerAltName
-      - KeyUsage
-      - NameConstraints
-      - PolicyConstrains, PolicyMappings, PrivateKeyUsagePeriod
-      - SubjectAltName, SubjectInfoAccess, SubjectKeyIdentifier
+      - AuthorityInformationAccess (1.3.6.1.5.5.7.1.1)
+      - AuthorityKeyIdentifier (2.5.29.35)
+      - BasicConstraints (2.5.29.19)
+      - CertificatePolicies (2.5.29.32)
+      - CRLDistributionPoints (2.5.29.31)
+      - ExtendedKeyUsage (2.5.29.37)
+      - FreshestCRL (2.5.29.46)
+      - InhibitAnyPolicy (2.5.29.54)
+      - IssuerAltName (2.5.29.18)
+      - KeyUsage (2.5.29.15)
+      - NameConstraints (2.5.29.30)
+      - PolicyConstrains (2.5.29.36)
+      - PolicyMappings (2.5.29.33)
+      - PrivateKeyUsagePeriod (2.5.29.16)
+      - SubjectAltName (2.5.29.17)
+      - SubjectDirectoryAttributes (2.5.29.9)
+      - SubjectInfoAccess (1.3.6.1.5.5.7.1.11)
+      - SubjectKeyIdentifier (2.5.29.14)
     - RFC 6960
-      - OcspNoCheck
+      - OcspNoCheck (1.3.6.1.5.5.7.48.1.5)
     - RFC 6962
-      - CT Pre-certificate SCTs
+      - CT Pre-certificate SCTs (1.3.6.1.4.1.11129.2.4.2)
     - RfC 7633
-      - TLSFeature
+      - TLSFeature (1.3.6.1.5.5.7.1.24)
     - Car Connectivity Consortium
-      - ExtensionSchema
+      - CCC-K-Vehicle-Cert     (1.3.6.1.4.1.41577.5.1)
+      - CCC-F-External-CA-Cert (1.3.6.1.4.1.41577.5.2)
+      - CCC-E-Instance-CA-Cert (1.3.6.1.4.1.41577.5.3)
+      - CCC-H-Endpoint-Cert    (1.3.6.1.4.1.41577.5.4)
+      - CCC-P-VehicleOEM-Enc-Cert (1.3.6.1.4.1.41577.5.5)
+      - CCC-Q-VehicleOEM-Sig-Cert (1.3.6.1.4.1.41577.5.6)
+      - CCC-Device-Enc-Cert       ( 1.3.6.1.4.1.41577.5.7)
+      - CCC-Vehicle-Intermediate-Cert (1.3.6.1.4.1.41577.5.8)
+      - CCC-J-VehicleOEM-CA-Cert (1.3.6.1.4.1.41577.5.9)
+      - CCC-M-VehicleOEM-CA-Cert (1.3.6.1.4.1.41577.5.10)
+      - CCC-R-Certification-Body-Cert (1.3.6.1.4.1.41577.5.14)
+      - CCC-S-SBxD/KIS-Intermediate-CA-Cert (1.3.6.1.4.1.41577.5.15)
+      - CCC-T-SBxD/KIS-Endpoint-Cert (1.3.6.1.4.1.41577.5.16)
+      - CCC-U-SBxD/KIS-RootCA-Cert (1.3.6.1.4.1.41577.5.17)
     - Microsoft
       - Certificate Template Name (1.3.1.6.1.311.20.2)
       - Certificate Template Information (1.3.1.6.1.311.21.7)
@@ -193,6 +219,86 @@ the instructions in `xipki-setup-<version>/INSTALL.md`.
       - Passport Number (1.2.156.10260.4.1.1.2)
       - Social Insurance Number (1.2.156.10260.4.1.2)
       - Unified Social Credit Code  (1.2.156.10260.4.4)
+    - RPKI
+      - IPAddrBlocks    (1.3.6.1.5.5.7.1.7)
+      - IPAddrBlocksV2  (1.3.6.1.5.5.7.1.28)
+      - ASIdentifiers   (1.3.6.1.5.5.7.1.8)
+      - ASIdentifiersV2 (1.3.6.1.5.5.7.1.29)
+    - SPDM (https://www.dmtf.org/standards/spdm)
+      - spdm-cert-oids (1.3.6.1.4.1.412.274.6)
+      - SubjectAltNames with otherName types
+        - DMTF-device-info (1.3.6.1.4.1.412.274.1)
+    - STIR (RFC8226)
+      - TNAuthList (1.3.6.1.5.5.7.1.26)
+      - JWTClaimConstraints (1.3.6.1.5.5.7.1.27)
+    - RFC 4108
+      - SubjectAltNames with otherName types
+        - id-on-hardwareModuleName (1.3.6.1.5.5.7.8.4)
+    - RFC 9608
+      - noRevAvail (2.5.29.56)
+    - RFC 9598
+      - SubjectAltNames with otherName types
+        - id-on-SmtpUTF8Mailbox (1.3.6.1.5.5.7.8.9)
+    - BRSKI (RFC 8995)
+      - MASA-URL (1.3.6.1.5.5.7.1.32)
+    - I-D.ietf-lamps-macaddress-on-07
+      - SubjectAltNames with otherName types
+        - id-on-MACAddress (1.3.6.1.5.5.7.8.12)
+    - TCG DICE (Calipta)
+      - dice-ueid (2.23.133.5.4.4)
+    - TCG Platform Certificate Profile
+      - SubjectAltNames with OtherName types
+        - TCG-platformIdentifier (2.23.133.5.1.8)
+      - SubjectDirectoryAttributes with attribute types
+        - TCG-PlatformSpecification        (2.23.133.2.17)
+        - TCG-CredentialSpecification      (2.23.133.2.23)
+        - TCG-CredentialType               (2.23.133.2.25)
+        - TCG-PreviousPlatformCertificates (2.23.133.2.26)
+        - TCG-TbbSecurityAssertions-v3     (2.23.133.2.27)
+        - TCG-CryptographicAnchors         (2.23.133.2.28)
+        - TCG-PlatformOwnership            (2.23.133.2.29)
+        - TCG-ManufacturingAssertions      (2.23.133.2.30)
+        - TCG-PlatformConfiguration-v3     (2.23.133.5.1.7.3)
+        - TCG-PlatformConfigUri-v3         (2.23.133.5.1.7.4)
+  - Native support for X.509 RDN attributes
+    - Common attributes
+      - c, countryName (2.5.4.6)
+      - dc, domainComponent (0.9.2342.19200300.100.1.25)
+      - st, stateOrProvinceName (2.5.4.8)
+      - l, localityName (2.5.4.7)
+      - postalCode (2.5.4.17)
+      - street, streetAddress (2.5.4.9)
+      - jurisdictionCountryName, jurisdictionOfIncorporationCountryName (1.3.6.1.4.1.311.60.2.1.3)
+      - jurisdictionStateOrProvinceName, jurisdictionOfIncorporationStateOrProvinceName (1.3.6.1.4.1.311.60.2.1.2)
+      - jurisdictionLocalityName, jurisdictionOfIncorporationLocalityName (1.3.6.1.4.1.311.60.2.1.1)
+      - o, organizationName (2.5.4.10)
+      - organizationIdentifier (2.5.4.97)
+      - ou, organizationalUnitName (2.5.4.11)
+      - serialNumber (2.5.4.5)
+      - sn, surName (2.5.4.4)
+      - initials (2.5.4.43)
+      - givenName (2.5.4.42)
+      - title (2.5.4.12)
+      - pseudonym (2.5.4.65)
+      - name (2.5.4.41)
+      - cn, commonName (2.5.4.3)
+      - uid, userId (0.9.2342.19200300.100.1.1)
+      - dmdName (2.5.4.54)
+      - emailAddress (1.2.840.113549.1.9.1)
+      - unstructuredName (1.2.840.113549.1.9.2)
+      - unstructuredAddress (1.2.840.113549.1.9.8)
+      - telephoneNumber (2.5.4.20)
+      - businessCategory (2.5.4.15)
+    - CSA Matter (https://csa-iot.org/developer-resource/specifications-download-request)
+      - matter-node-id (1.3.6.1.4.1.37244.1.1)
+      - matter-firmware-signing-id (1.3.6.1.4.1.37244.1.2)
+      - matter-icac-id (1.3.6.1.4.1.37244.1.3)
+      - matter-rcac-id (1.3.6.1.4.1.37244.1.4)
+      - matter-fabric-id (1.3.6.1.4.1.37244.1.5)
+      - matter-noc-cat (1.3.6.1.4.1.37244.1.6)
+      - matter-vvs-id (1.3.6.1.4.1.37244.1.7)
+      - matter-oid-vid (1.3.6.1.4.1.37244.2.1)
+      - matter-oid-pid (1.3.6.1.4.1.37244.2.2)
   - Management of multiple CAs in one software instance
     - Support for database clusters
     - Multiple software instances (all can be in active mode) for the same CA

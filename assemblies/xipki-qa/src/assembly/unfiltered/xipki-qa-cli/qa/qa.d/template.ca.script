@@ -17,7 +17,9 @@ dbschema-add --name KEYPAIR_ENC_KEY --value 00112233445566778899AABBCCDDEEFF
 set list [ cross subca subca-complex ocsp scep multiple-ous qc ee-complex \
   smime smime-legacy tls tls-enc tls-c max-time fixed-partial-subject \
   constant-ext tls-rsa tls-ec tls-edwards tls-montgomery tls-mldsa tls-mlkem \
-  tls-compsig tls-compkem tls-sm2 tls-sm2-enc]
+  tls-compsig tls-compkem tls-sm2 tls-sm2-enc \
+  ccc-e ccc-h ccc-k ccc-t microsoft rfc9608 rpki spdm stir gmt0015 brski \
+  matter mrtd dice tcg othernames rfc3739 caliptra ]
 
 for it in $list
   profile-add --name ${it} --conf-file qa/certprofile/certprofile-${it}.json
@@ -195,13 +197,20 @@ ca-add --name subca1 --permission all --sn-len 20 --next-crl-no 2 \
 caalias-add --ca subca1 --alias subca
 
 ## Add cert profile to CA
+caprofile-add --ca rootca1 --profile caliptra
+
 caprofile-add --ca subca1 --profile qc --profile ee-complex \
   --profile constant-ext --profile smime:smime-alias --profile smime-legacy \
   --profile tls:tls-alias1,tls-alias2 --profile tls-c \
   --profile fixed-partial-subject --profile tls-rsa --profile tls-ec \
   --profile tls-edwards --profile tls-montgomery --profile tls-mldsa \
   --profile tls-mlkem --profile tls-sm2 --profile tls-compsig \
-  --profile tls-compkem
+  --profile tls-compkem \
+  --profile ccc-e --profile ccc-h --profile ccc-k --profile ccc-t \
+  --profile microsoft --profile rfc9608 --profile rpki --profile spdm \
+  --profile stir --profile brski --profile matter --profile mrtd \
+  --profile dice --profile gmt0015 --profile tcg --profile othernames \
+  --profile rfc3739
 
 ## Add publisher
 capub-add --ca subca1 --publisher ocsp-publisher

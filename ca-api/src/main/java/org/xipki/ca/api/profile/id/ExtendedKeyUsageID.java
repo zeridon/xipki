@@ -4,7 +4,9 @@
 package org.xipki.ca.api.profile.id;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.xipki.security.OIDs;
 import org.xipki.util.codec.Args;
+import org.xipki.util.codec.CodecException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,6 +94,57 @@ public class ExtendedKeyUsageID extends AbstractID {
   public static final ExtendedKeyUsageID certTransparency =
       initOf("1.3.6.1.4.1.11129.2.4.4", "certTransparency");
 
+  public static final ExtendedKeyUsageID DMTF_eku_responder_auth =
+      initOf(OIDs.Spdm.id_DMTF_eku_responder_auth.getId(), "DMTF-eku-responder-auth");
+
+  public static final ExtendedKeyUsageID DMTF_eku_requestor_auth =
+      initOf(OIDs.Spdm.id_DMTF_eku_requestor_auth.getId(), "DMTF-eku-requestor-auth");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_identityInit =
+      initOf(OIDs.DICE.tcg_dice_kp_identityInit.getId(), "tcg-dice-kp-identityInit");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_identityLoc =
+      initOf(OIDs.DICE.tcg_dice_kp_identityLoc.getId(), "tcg-dice-kp-identityLoc");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_attestInit =
+      initOf(OIDs.DICE.tcg_dice_kp_attestInit.getId(), "tcg-dice-kp-attestInit");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_attestLoc =
+      initOf(OIDs.DICE.tcg_dice_kp_attestLoc.getId(), "tcg-dice-kp-attestLoc");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_assertInit =
+      initOf(OIDs.DICE.tcg_dice_kp_assertInit.getId(), "tcg-dice-kp-assertInit");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_assertLoc =
+      initOf(OIDs.DICE.tcg_dice_kp_assertLoc.getId(), "tcg-dice-kp-assertLoc");
+
+  public static final ExtendedKeyUsageID tcg_dice_kp_eca =
+      initOf(OIDs.DICE.tcg_dice_kp_eca.getId(), "tcg-dice-kp-eca");
+
+  public static final ExtendedKeyUsageID tcg_kp_PlatformAttributeCertificate =
+      initOf(OIDs.TCG.tcg_kp_PlatformAttributeCertificate.getId(),
+          "tcg-kp-PlatformAttributeCertificate");
+
+  public static final ExtendedKeyUsageID tcg_kp_PlatformKeyCertificate =
+      initOf(OIDs.TCG.tcg_kp_PlatformKeyCertificate.getId(),
+          "tcg-kp-PlatformKeyCertificate");
+
+  public static final ExtendedKeyUsageID tcg_kp_DeltaPlatformAttributeCertificate =
+      initOf(OIDs.TCG.tcg_kp_DeltaPlatformAttributeCertificate.getId(),
+          "tcg-kp-DeltaPlatformAttributeCertificate");
+
+  public static final ExtendedKeyUsageID tcg_kp_DeltaPlatformKeyCertificate =
+      initOf(OIDs.TCG.tcg_kp_DeltaPlatformKeyCertificate.getId(),
+          "tcg-kp-DeltaPlatformKeyCertificate");
+
+  public static final ExtendedKeyUsageID tcg_kp_AdditionalPlatformAttributeCertificate =
+      initOf(OIDs.TCG.tcg_kp_AdditionalPlatformAttributeCertificate.getId(),
+          "tcg-kp-AdditionalPlatformAttributeCertificate");
+
+  public static final ExtendedKeyUsageID tcg_kp_AdditionalPlatformKeyCertificate =
+      initOf(OIDs.TCG.tcg_kp_AdditionalPlatformKeyCertificate.getId(),
+          "tcg-kp-AdditionalPlatformKeyCertificate");
+
   private ExtendedKeyUsageID(ASN1ObjectIdentifier x509, List<String> aliases) {
     super(x509, aliases);
   }
@@ -116,7 +169,7 @@ public class ExtendedKeyUsageID extends AbstractID {
     return new ExtendedKeyUsageID(oid, Collections.singletonList(oid.getId()));
   }
 
-  public static ExtendedKeyUsageID ofOidOrName(String oidOrName) {
+  public static ExtendedKeyUsageID ofOidOrName(String oidOrName) throws CodecException {
     String c14n = canonicalizeAlias(Args.notNull(oidOrName, "oidOrName"));
     ExtendedKeyUsageID id = ofOidOrName(typeMap, c14n);
     if (id != null) {
@@ -127,7 +180,7 @@ public class ExtendedKeyUsageID extends AbstractID {
       ASN1ObjectIdentifier oid = new ASN1ObjectIdentifier(c14n);
       return new ExtendedKeyUsageID(oid, Collections.singletonList(oid.getId()));
     } catch (RuntimeException e) {
-      return null;
+      throw new CodecException("invalid EKU " + oidOrName, e);
     }
   }
 
