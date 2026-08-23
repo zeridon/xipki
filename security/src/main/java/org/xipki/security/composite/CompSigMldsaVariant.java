@@ -3,7 +3,7 @@
 
 package org.xipki.security.composite;
 
-import org.bouncycastle.pqc.crypto.mldsa.MLDSAParameters;
+import org.bouncycastle.crypto.params.MLDSAParameters;
 import org.xipki.security.KeySpec;
 import org.xipki.security.SignAlgo;
 

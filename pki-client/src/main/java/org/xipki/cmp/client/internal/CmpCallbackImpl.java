@@ -29,7 +29,7 @@ import org.bouncycastle.jcajce.spec.PBKDF2KeySpec;
 import org.bouncycastle.operator.DefaultSecretKeySizeProvider;
 import org.xipki.cmp.client.Requestor;
 import org.xipki.security.OIDs;
-import org.xipki.security.bridge.CmpCallback;
+import org.xipki.security.cmp.CmpCallback;
 import org.xipki.security.exception.XiSecurityException;
 import org.xipki.security.sign.ConcurrentSigner;
 import org.xipki.security.util.Asn1Util;

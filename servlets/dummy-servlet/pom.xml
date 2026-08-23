@@ -76,12 +76,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.xipki</groupId>
-      <artifactId>bcbridge-lts8on</artifactId>
-      <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcutil-lts8on</artifactId>
       <scope>provided</scope>

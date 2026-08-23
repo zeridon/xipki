@@ -30,8 +30,8 @@ import org.xipki.security.asn1.stir.TNAuthorizationList;
 import org.xipki.security.asn1.stir.TNEntry;
 import org.xipki.security.asn1.stir.TelephoneNumberRange;
 import org.xipki.security.asn1.tcg.*;
-import org.xipki.security.bridge.BridgeKeyUtil;
 import org.xipki.security.util.Asn1Util;
+import org.xipki.security.util.KeyUtil;
 import org.xipki.util.codec.ipadress.IPAddress;
 import org.xipki.util.codec.ipadress.IPAddressFamily;
 import org.xipki.util.io.IoUtil;
@@ -42,7 +42,6 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.NamedParameterSpec;
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class GenerateExtensions {
 
   public static void main(String[] args) {
     try {
-      BridgeKeyUtil.addProviders();
+      KeyUtil.addProviders();
       saveExtensions("ccc-e.der", generateCCC_E_Instance_CA());
       saveExtensions("ccc-h.der", generateCCC_H_Endpoint());
       saveExtensions("ccc-t.der", generateCCC_T_SBxDKis_Endpoint());

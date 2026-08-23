@@ -4,7 +4,7 @@
 package org.xipki.security.composite;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMParameters;
+import org.bouncycastle.crypto.params.MLKEMParameters;
 import org.xipki.security.KeySpec;
 import org.xipki.security.OIDs;
 

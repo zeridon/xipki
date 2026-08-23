@@ -141,12 +141,10 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>src/assembly/descriptors/dist-thin.xml</descriptor>
                 <descriptor>src/assembly/descriptors/dist-bclts.xml</descriptor>
-                <descriptor>src/assembly/descriptors/dist-bcfips.xml</descriptor>
               </descriptors>
               <attach>true</attach>
-              <appendAssemblyId>true</appendAssemblyId>
+              <appendAssemblyId>false</appendAssemblyId>
               <tarLongFileMode>posix</tarLongFileMode>
               <recompressZippedFiles>true</recompressZippedFiles>
             </configuration>

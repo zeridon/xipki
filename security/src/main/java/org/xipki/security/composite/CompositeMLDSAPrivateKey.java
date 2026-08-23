@@ -4,9 +4,9 @@
 package org.xipki.security.composite;
 
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
+import org.bouncycastle.jcajce.spec.MLDSAParameterSpec;
 import org.xipki.security.KeySpec;
-import org.xipki.security.bridge.MLDSAParameterSpec;
-import org.xipki.security.bridge.MLDSAPrivateKey;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.util.codec.Args;
 import org.xipki.util.io.IoUtil;

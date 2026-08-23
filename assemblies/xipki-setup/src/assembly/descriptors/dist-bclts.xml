@@ -9,17 +9,11 @@
   <fileSets>
     <!-- JDBC & BouncyCastle jars -->
     <fileSet>
-      <directory>${project.build.directory}/t2/setup/jars/bclts</directory>
-      <outputDirectory>setup/jars/bouncycastle</outputDirectory>
-      <fileMode>0644</fileMode>
-      <directoryMode>0755</directoryMode>
-    </fileSet>
-    <fileSet>
       <directory>${project.build.directory}/t2/setup/jars</directory>
       <outputDirectory>setup/jars</outputDirectory>
       <includes>
         <include>jdbc/**</include>
-        <include>xipki/**</include>
+        <include>bouncycastle/**</include>
       </includes>
       <fileMode>0644</fileMode>
       <directoryMode>0755</directoryMode>

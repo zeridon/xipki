@@ -91,7 +91,6 @@
                   <groupId>org.xipki.assembly</groupId>
                   <artifactId>xipki-setup</artifactId>
                   <version>${project.version}</version>
-                  <classifier>bcfips</classifier>
                   <type>tar.gz</type>
                 </artifactItem>
               </artifactItems>

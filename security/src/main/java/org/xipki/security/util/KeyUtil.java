@@ -10,6 +10,9 @@ import org.bouncycastle.asn1.DERNull;
 import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.cmp.CertifiedKeyPair;
+import org.bouncycastle.asn1.pkcs.PBKDF2Params;
+import org.bouncycastle.asn1.pkcs.PBMAC1Params;
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
@@ -22,22 +25,49 @@ import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
+import org.bouncycastle.crypto.CipherParameters;
+import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.crypto.PBEParametersGenerator;
+import org.bouncycastle.crypto.Xof;
+import org.bouncycastle.crypto.digests.SHA256Digest;
+import org.bouncycastle.crypto.digests.SHA512Digest;
+import org.bouncycastle.crypto.digests.SHAKEDigest;
+import org.bouncycastle.crypto.generators.MLKEMKeyPairGenerator;
+import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
+import org.bouncycastle.crypto.kems.MLKEMExtractor;
+import org.bouncycastle.crypto.macs.HMac;
+import org.bouncycastle.crypto.params.MLKEMKeyGenerationParameters;
+import org.bouncycastle.crypto.params.MLKEMParameters;
+import org.bouncycastle.crypto.params.MLKEMPrivateKeyParameters;
+import org.bouncycastle.crypto.params.MLKEMPublicKeyParameters;
+import org.bouncycastle.jcajce.PKCS12Key;
+import org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey;
+import org.bouncycastle.jcajce.interfaces.MLDSAPublicKey;
+import org.bouncycastle.jcajce.interfaces.MLKEMPrivateKey;
+import org.bouncycastle.jcajce.interfaces.MLKEMPublicKey;
+import org.bouncycastle.jcajce.spec.ContextParameterSpec;
+import org.bouncycastle.jcajce.spec.MLDSAParameterSpec;
+import org.bouncycastle.jcajce.spec.MLKEMParameterSpec;
+import org.bouncycastle.jcajce.util.BCJcaJceHelper;
+import org.bouncycastle.jcajce.util.JcaJceHelper;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentVerifierProvider;
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMKeyPairGenerator;
+import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.BigIntegers;
+import org.bouncycastle.util.Strings;
 import org.xipki.pkcs11.wrapper.Functions;
 import org.xipki.security.HashAlgo;
 import org.xipki.security.KeyPairBytes;
 import org.xipki.security.KeySpec;
 import org.xipki.security.OIDs;
 import org.xipki.security.SignAlgo;
-import org.xipki.security.bridge.*;
+import org.xipki.security.cmp.CmpCallback;
 import org.xipki.security.composite.CompositeKeyInfoConverter;
 import org.xipki.security.composite.CompositeMLDSAPrivateKey;
 import org.xipki.security.composite.CompositeMLDSAPublicKey;
 import org.xipki.security.composite.CompositeMLKEMPrivateKey;
 import org.xipki.security.composite.CompositeMLKEMPublicKey;
-import org.xipki.security.encap.KEMUtil;
 import org.xipki.security.exception.XiSecurityException;
 import org.xipki.security.pkcs12.KeyPairWithSubjectPublicKeyInfo;
 import org.xipki.security.pkcs12.KeyStoreWrapper;
@@ -61,6 +91,7 @@ import org.xipki.util.misc.StringUtil;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.PBEParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -91,24 +122,39 @@ import java.util.Optional;
  */
 public class KeyUtil {
 
+  private static final Object lock = new Object();
+
+  private static BouncyCastleProvider bcProv;
+
+  private static final JcaJceHelper helper = new BCJcaJceHelper();
+
+  private static SecureRandom random = new SecureRandom();
+
   public static final AlgorithmIdentifier ALGID_RSA = new AlgorithmIdentifier(
       OIDs.Algo.id_rsaEncryption, DERNull.INSTANCE);
 
-  private static String SM2_PROVIDER_NAME = BridgeKeyUtil.tradProviderName();
+  private static String SM2_PROVIDER_NAME = BouncyCastleProvider.PROVIDER_NAME;
 
-  private static String RSAPSSSHAKE_PROVIDER_NAME = BridgeKeyUtil.tradProviderName();
+  private static String RSAPSSSHAKE_PROVIDER_NAME = BouncyCastleProvider.PROVIDER_NAME;
 
   private KeyUtil() {
   }
 
   public static void addProviders() {
-    String tradProvName = BridgeKeyUtil.tradProviderName();
+    String tradProvName = BouncyCastleProvider.PROVIDER_NAME;
     boolean alreadyAdded = Security.getProvider(tradProvName) != null;
     if (alreadyAdded) {
       return;
     }
 
-    BridgeKeyUtil.addProviders();
+    if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+      synchronized (lock) {
+        if (bcProv == null) {
+          bcProv = new BouncyCastleProvider();
+        }
+        Security.addProvider(bcProv);
+      }
+    }
     boolean withSm2 = false;
     try {
       Signature.getInstance(SignAlgo.SM2_SM3.jceName(), tradProvName);
@@ -135,11 +181,11 @@ public class KeyUtil {
   }
 
   public static void setSecureRandom(SecureRandom pRandom) {
-    BridgeKeyUtil.setSecureRandom(pRandom);
+    random = Args.notNull(pRandom, "random");
   }
 
   public static SecureRandom random() {
-    return BridgeKeyUtil.random();
+    return random;
   }
 
   public static byte[] getSM2Z(byte[] userID, byte[] pubPoint) {
@@ -178,13 +224,13 @@ public class KeyUtil {
       keystore.load(is, password);
       return keystore;
     } catch (NoSuchAlgorithmException | ClassCastException
-            | CertificateException | IOException ex) {
+             | CertificateException | IOException ex) {
       throw new XiSecurityException(ex.getMessage(), ex);
     }
   }
 
   public static AsymmetricCipherKeyPair generateKeyPair(MLKEMKeyPairGenerator keyPairGenerator)  {
-    return BridgeKeyUtil.generateKeyPair(keyPairGenerator);
+    return keyPairGenerator.generateKeyPair();
   }
 
   public static KeyPair generateKeyPair(KeySpec keySpec, SecureRandom random)
@@ -231,7 +277,14 @@ public class KeyUtil {
             : (keySpec == KeySpec.MLDSA65) ? MLDSAParameterSpec.ml_dsa_65
             : MLDSAParameterSpec.ml_dsa_87;
 
-        return BridgeKeyUtil.generateMLDSAKeyPair(spec, random);
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("ML-DSA");
+        if (random == null) {
+          kpGen.initialize(spec);
+        } else {
+          kpGen.initialize(spec, random);
+        }
+
+        return kpGen.generateKeyPair();
       }
       case MLKEM512:
       case MLKEM768:
@@ -240,7 +293,14 @@ public class KeyUtil {
             : keySpec == KeySpec.MLKEM768 ? MLKEMParameterSpec.ml_kem_768
             : MLKEMParameterSpec.ml_kem_1024;
 
-        return BridgeKeyUtil.generateMLKEMKeyPair(spec, random);
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("ML-KEM");
+        if (random == null) {
+          kpGen.initialize(spec);
+        } else {
+          kpGen.initialize(spec, random);
+        }
+
+        return kpGen.generateKeyPair();
       }
       case P256:
       case P384:
@@ -390,13 +450,27 @@ public class KeyUtil {
   } // method getKeyPairGenerator
 
   public static PrivateKey getPrivateKey(PrivateKeyInfo skInfo) throws InvalidKeySpecException {
-    return CompositeKeyInfoConverter.supportsPrivateKey(skInfo.getPrivateKeyAlgorithm())
-        ? CompositeKeyInfoConverter.generatePrivate(skInfo) : BridgeKeyUtil.getPrivateKey(skInfo);
+    if (CompositeKeyInfoConverter.supportsPrivateKey(skInfo.getPrivateKeyAlgorithm())) {
+      return CompositeKeyInfoConverter.generatePrivate(skInfo);
+    }
+
+    try {
+      return BouncyCastleProvider.getPrivateKey(skInfo);
+    } catch (IOException ex) {
+      throw new InvalidKeySpecException(ex.getMessage(), ex);
+    }
   }
 
   public static PublicKey getPublicKey(SubjectPublicKeyInfo pkInfo) throws InvalidKeySpecException {
-    return CompositeKeyInfoConverter.supportsPublicKey(pkInfo.getAlgorithm())
-        ? CompositeKeyInfoConverter.generatePublic(pkInfo) : BridgeKeyUtil.getPublicKey(pkInfo);
+    if (CompositeKeyInfoConverter.supportsPublicKey(pkInfo.getAlgorithm())) {
+      return CompositeKeyInfoConverter.generatePublic(pkInfo);
+    }
+
+    try {
+      return BouncyCastleProvider.getPublicKey(pkInfo);
+    } catch (IOException ex) {
+      throw new InvalidKeySpecException(ex.getMessage(), ex);
+    }
   }
 
   public static RSAPublicKey getRSAPublicKey(RSAPublicKeySpec keySpec)
@@ -411,36 +485,54 @@ public class KeyUtil {
 
   public static void initSign(Signature sig, PrivateKey key, SecureRandom rnd)
       throws InvalidKeyException {
-    BridgeKeyUtil.initSign(sig, key, rnd);
+    if (rnd != null) {
+      sig.initSign(key, rnd);
+    } else {
+      sig.initSign(key);
+    }
   }
 
   public static void initVerify(Signature sig, PublicKey key) throws InvalidKeyException {
-    BridgeKeyUtil.initVerify(sig, key);
+    sig.initVerify(key);
   }
 
   public static void setContext(Signature sig, byte[] context)
       throws InvalidAlgorithmParameterException {
-    BridgeKeyUtil.setContext(sig, context);
+    if (context != null && context.length > 0) {
+      sig.setParameter(new ContextParameterSpec(context));
+    }
   }
 
   public static byte[] mgfShake(HashAlgo mgfDigest, byte[] Z, int length) {
-    return BridgeKeyUtil.mgfShake(mgfDigest.jceName(), Z, length);
+    Xof xof;
+    if (HashAlgo.SHAKE128 == mgfDigest) {
+      xof = new SHAKEDigest(128);
+    } else if (HashAlgo.SHAKE256 == mgfDigest) {
+      xof = new SHAKEDigest(256);
+    } else {
+      throw new IllegalArgumentException("invalid mgfHashAlgo " + mgfDigest);
+    }
+
+    xof.update(Z, 0, Z.length);
+    byte[] res = new byte[length];
+    xof.doFinal(res, 0, length);
+    return res;
   }
 
   public static MLDSAPublicKey wrapMLDSAPublicKey(PublicKey key) {
-    return BridgeKeyUtil.wrapMLDSAPublicKey(key);
+    return (org.bouncycastle.jcajce.interfaces.MLDSAPublicKey) key;
   }
 
   public static MLDSAPrivateKey wrapMLDSAPrivateKey(PrivateKey key) {
-    return BridgeKeyUtil.wrapMLDSAPrivateKey(key);
+    return (org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey) key;
   }
 
   public static MLKEMPublicKey wrapMLKEMPublicKey(PublicKey key) {
-    return BridgeKeyUtil.wrapMLKEMPublicKey(key);
+    return (org.bouncycastle.jcajce.interfaces.MLKEMPublicKey) key;
   }
 
   public static MLKEMPrivateKey wrapMLKEMPrivateKey(PrivateKey key) {
-    return BridgeKeyUtil.wrapMLKEMPrivateKey(key);
+    return (org.bouncycastle.jcajce.interfaces.MLKEMPrivateKey) key;
   }
 
   public static SubjectPublicKeyInfo createSubjectPublicKeyInfo(PublicKey publicKey)
@@ -691,16 +783,74 @@ public class KeyUtil {
   public static byte[] p12CalculatePbeMac(
         AlgorithmIdentifier macAlgorithm, byte[] salt, int itCount,
         char[] password, boolean wrongPkcs12Zero, byte[] data) throws Exception {
-    return BridgeKeyUtil.p12CalculatePbeMac(macAlgorithm, salt, itCount,
-        password, wrongPkcs12Zero, data);
+    ASN1ObjectIdentifier oid = macAlgorithm.getAlgorithm();
+    // id_PBMAC1: "1.2.840.113549.1.5.14"
+    if ("1.2.840.113549.1.5.14".equals(oid.getId())) {
+      PBMAC1Params pbmac1Params = PBMAC1Params.getInstance(macAlgorithm.getParameters());
+      if (pbmac1Params == null) {
+        throw new IOException("If the DigestAlgorithmIdentifier is id-PBMAC1, then " +
+            "the parameters field must contain valid PBMAC1-params parameters.");
+      }
+
+      if (PKCSObjectIdentifiers.id_PBKDF2.equals(
+          pbmac1Params.getKeyDerivationFunc().getAlgorithm())) {
+        PBKDF2Params pbkdf2Params = PBKDF2Params.getInstance(
+            pbmac1Params.getKeyDerivationFunc().getParameters());
+
+        if (pbkdf2Params.getKeyLength() == null) {
+          throw new IOException("Key length must be present when using PBMAC1.");
+        }
+
+        final HMac hMac = new HMac(getPrf(pbmac1Params.getMessageAuthScheme().getAlgorithm()));
+
+        PBEParametersGenerator generator = new PKCS5S2ParametersGenerator(
+            getPrf(pbkdf2Params.getPrf().getAlgorithm()));
+
+        generator.init(Strings.toUTF8ByteArray(password), pbkdf2Params.getSalt(),
+            BigIntegers.intValueExact(pbkdf2Params.getIterationCount()));
+
+        CipherParameters key = generator.generateDerivedParameters(
+            BigIntegers.intValueExact(pbkdf2Params.getKeyLength()) * 8);
+
+        Arrays.clear(generator.getPassword());
+
+        hMac.init(key);
+        hMac.update(data, 0, data.length);
+        byte[] res = new byte[hMac.getMacSize()];
+        hMac.doFinal(res, 0);
+        return res;
+      }
+    }
+
+    PBEParameterSpec defParams = new PBEParameterSpec(salt, itCount);
+    PKCS12Key key = new PKCS12Key(password, wrongPkcs12Zero);
+
+    try {
+      Mac mac = helper.createMac(oid.getId());
+      mac.init(key, defParams);
+      mac.update(data);
+      return mac.doFinal();
+    } finally {
+      Arrays.clear(key.getPassword());
+    }
+  }
+
+  private static Digest getPrf(ASN1ObjectIdentifier prfId) {
+    if (PKCSObjectIdentifiers.id_hmacWithSHA256.equals(prfId)) {
+      return new SHA256Digest();
+    } else if (PKCSObjectIdentifiers.id_hmacWithSHA512.equals(prfId)) {
+      return new SHA512Digest();
+    } else {
+      throw new IllegalArgumentException("unknown prf id " + prfId);
+    }
   }
 
   public static String tradProviderName() {
-    return BridgeKeyUtil.tradProviderName();
+    return BouncyCastleProvider.PROVIDER_NAME;
   }
 
   public static String pqcProviderName() {
-    return BridgeKeyUtil.pqcProviderName();
+    return BouncyCastleProvider.PROVIDER_NAME;
   }
 
   public static String providerName(String algo) {
@@ -713,25 +863,46 @@ public class KeyUtil {
         "RSAPSSIWTHSHAKE256", "SHAKE128WITHRSAPSS", "SHAKE256WITHRSAPSS")) {
       return RSAPSSSHAKE_PROVIDER_NAME;
     } else {
-      return BridgeKeyUtil.providerName(algo);
+      return BouncyCastleProvider.PROVIDER_NAME;
     }
   }
 
   public static byte[] crmfDecryptEncryptedKey(
       CertifiedKeyPair certifiedKeyPair, CmpCallback callback) throws GeneralSecurityException {
-    return BridgeKeyUtil.crmfDecryptEncryptedKey(certifiedKeyPair, callback);
+    return (certifiedKeyPair.getPrivateKey() == null) ? null
+        : callback.decrypt(certifiedKeyPair.getPrivateKey());
   }
 
   public static byte[] decapsulateKey(
       KeySpec keySpec, byte[] privateKeyValue, byte[] encapsulatedKey) {
-    BridgeMlkemVariant variant = KEMUtil.toBridgeMlkemVariant(keySpec);
-    return BridgeKeyUtil.decapsulateKey(variant, privateKeyValue, encapsulatedKey);
+    MLKEMParameters params = getMLKEMParameters(keySpec);
+    MLKEMPrivateKeyParameters priParams = new MLKEMPrivateKeyParameters(params, privateKeyValue);
+    return new MLKEMExtractor(priParams).extractSecret(encapsulatedKey);
+  }
+
+  private static MLKEMParameters getMLKEMParameters(KeySpec keySpec) {
+    switch (keySpec) {
+      case MLKEM512:
+        return MLKEMParameters.ml_kem_512;
+      case MLKEM768:
+        return MLKEMParameters.ml_kem_768;
+      case MLKEM1024:
+        return MLKEMParameters.ml_kem_1024;
+      default:
+        throw new IllegalArgumentException("invalid keySpec " + keySpec);
+    }
   }
 
   public static KeyPairBytes generateMlkemKeyPair(KeySpec keySpec, SecureRandom rnd) {
-    BridgeMlkemVariant variant = KEMUtil.toBridgeMlkemVariant(keySpec);
-    BridgeKeyPairBytes bytesPair = BridgeKeyUtil.generateMlkemKeyPair(variant, rnd);
-    return new KeyPairBytes(bytesPair.privateKey(), bytesPair.publicKey());
+    MLKEMParameters mlkemParams = getMLKEMParameters(keySpec);
+    MLKEMKeyPairGenerator kpGen = new MLKEMKeyPairGenerator();
+    MLKEMKeyGenerationParameters params = new MLKEMKeyGenerationParameters( rnd, mlkemParams);
+    kpGen.init(params);
+    AsymmetricCipherKeyPair keyPair = kpGen.generateKeyPair();
+
+    return new KeyPairBytes(
+        ((MLKEMPrivateKeyParameters) keyPair.getPrivate()).getEncoded(),
+        ((MLKEMPublicKeyParameters) keyPair.getPublic()).getEncoded());
   }
 
 }

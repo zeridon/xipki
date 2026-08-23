@@ -32,10 +32,7 @@ JRE/JDK, and the steps required to reproduce the bug.
 ## Get Started
 
 ### Binaries
-The binaries `xipki-setup-<version>-bclts.tar.gz` (using bouncycastle LTS libraries), 
-`xipki-setup-<version>-bcfips.tar.gz` (using bouncycastle FIPS libraries), and 
-`xipki-setup-<version>-thin.tar.gz` (without embedded JDBC drivers and bouncycastle libraries) 
-can be obtained in one of the following ways:
+The binary `xipki-setup-<version>.tar.gz` can be obtained in one of the following ways: 
   - Download the binary from https://github.com/xipki/xipki/releases
   - Download the binary from the central maven repository.
     ```
@@ -44,11 +41,9 @@ can be obtained in one of the following ways:
       <artifactId>xipki-setup</artifactId>
       <type>tar.gz</type>
       <version>placeholder-version</version>
-      <classifier>placeholder-classifier</classifier>
     </dependency>
     ```
-    Where `placeholder-version` is the version, e.g. 6.7.0; and 
-    `placeholder-classifier`is either `thin`, `bclts` and `bcfips`.
+    Where `placeholder-version` is the version, e.g. 6.7.0.
   - Build it from source
     - Get a copy of the project code, for example:
       ```sh
@@ -66,14 +61,7 @@ can be obtained in one of the following ways:
 ### Just Try The Demo
 
 1. Unpack the binary.
-   - For `xipki-setup-<version>-bclts.tar.gz` and `xipki-setup-<version>-fips.tar.gz`
-     just unpack it.
-   - For `xipki-setup-<version>-thin.tar.gz`
-     1. Unpack
-     2. Copy the JDBC drivers to `setup/jars/jdbc`.
-        See `README.md` in the target folder.
-     3. Copy the Bouncy Castle jars to `setup/jars/bouncycastle`. 
-        See `README.md` in the target folder.
+   - Unpack `xipki-setup-<version>.tar.gz` 
 2. In the unpacked folder `xipki-setup-<version>`:  
    Run `./demo.sh` to prepare the system and start the XiPKI console.
    
@@ -97,14 +85,14 @@ the folders `~/xipki_demo/ca-tomcat`, `~/xipki_demo/ocsp-tomcat`, and
 
 ### Install and Setup
 
-Unpack `xipki-setup-<version>-lts.tar.gz` or `xipki-setup-<version>-fips.tar.gz`, and then follow
+Unpack `xipki-setup-<version>.tar.gz` and then follow
 the instructions in `xipki-setup-<version>/INSTALL.md`.
 
 ## Features
 
 ### Supported Platform
 * OS
-  * Linux, Windows, MacOS
+  * Linux, MacOS
 * JRE / JDK
   * Java 11+.
 * Database

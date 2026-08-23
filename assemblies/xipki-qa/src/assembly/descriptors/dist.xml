@@ -44,7 +44,6 @@
       <outputDirectory>xipki-qa-cli</outputDirectory>
       <includes>
         <include>bin/xipki</include>
-        <include>bin/xipki.bat</include>
       </includes>
       <directoryMode>0755</directoryMode>
     </fileSet>
@@ -54,7 +53,6 @@
       <outputDirectory>xipki-qa-cli</outputDirectory>
       <excludes>
         <exclude>bin/xipki</exclude>
-        <exclude>bin/xipki.bat</exclude>
         <exclude>lib/bc*-lts8on*</exclude>
       </excludes>
       <fileMode>0644</fileMode>
@@ -99,7 +97,6 @@
         <exclude>xipki-mgmt-cli/**</exclude>
         <exclude>*.sh</exclude>
         <exclude>bin/xipki</exclude>
-        <exclude>*.bat</exclude>
         <exclude>setup/**</exclude>
         <exclude>docs/**</exclude>
         <exclude>INSTALL.md</exclude>

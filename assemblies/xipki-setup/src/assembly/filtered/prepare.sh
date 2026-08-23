@@ -17,7 +17,6 @@ shopt -s nullglob
 jdbc_jars=("$jars_jdbc_dir"/*.jar)
 bc_jars=("$jars_bc_dir"/*.jar)
 bcutil_lts_jars=("$jars_bc_dir"/bcutil-lts8on-*.jar)
-bcutil_fips_jars=("$jars_bc_dir"/bcutil-fips-*.jar)
 bcutil_std_jars=("$jars_bc_dir"/bcutil-jdk8on-*.jar)
 shopt -u nullglob
 
@@ -26,16 +25,6 @@ shopt -u nullglob
 
 cd "$script_dir"
 echo "change to folder: $(pwd)"
-
-if [ ${#bcutil_lts_jars[@]} -gt 0 ]; then
-  bcbridge_jar="$jars_xipki_dir"/bcbridge-lts*.jar;
-elif [ ${#bcutil_fips_jars[@]} -gt 0 ]; then
-  bcbridge_jar="$jars_xipki_dir"/bcbridge-fips*.jar;
-elif [ ${#bcutil_std_jars[@]} -gt 0 ]; then
-  bcbridge_jar="$jars_xipki_dir"/bcbridge-lts*.jar;
-else
-  error "none of bcutil-{lts8on|fips|jdk8on}-*.jar found in $jars_bc_dir"
-fi
 
 script_dir="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)"
 java_exec="${JAVA_HOME:+$JAVA_HOME/bin/}java"
@@ -70,13 +59,6 @@ rm -f xipki-cli/lib/ca-api*.jar \
 
 echo "Prepare tomcat"
 mkdir -p xipki-ca/tomcat/lib xipki-ocsp/tomcat/lib xipki-gateway/tomcat/lib
-
-echo "Copy bcbridge jar"
-cp $bcbridge_jar xipki-mgmt-cli/lib/
-cp $bcbridge_jar xipki-cli/lib/
-cp $bcbridge_jar xipki-ca/tomcat/lib/
-cp $bcbridge_jar xipki-ocsp/tomcat/lib/
-cp $bcbridge_jar xipki-gateway/tomcat/lib/
 
 echo "Copy bouncycastle jars"
 cp "$jars_bc_dir"/*.jar xipki-mgmt-cli/lib/

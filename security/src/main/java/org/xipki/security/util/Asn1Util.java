@@ -3,10 +3,7 @@
 
 package org.xipki.security.util;
 
-import org.bouncycastle.asn1.ASN1BitString;
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.ASN1OctetString;
-import org.bouncycastle.asn1.ASN1TaggedObject;
+import org.bouncycastle.asn1.*;
 import org.bouncycastle.asn1.cmp.PKIFreeText;
 import org.bouncycastle.asn1.crmf.EncryptedValue;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
@@ -17,7 +14,6 @@ import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.asn1.x509.qualified.BiometricData;
 import org.bouncycastle.asn1.x509.qualified.TypeOfBiometricData;
-import org.xipki.security.bridge.BridgeAsn1Util;
 
 import java.text.ParseException;
 import java.time.Instant;
@@ -29,127 +25,137 @@ import java.time.Instant;
  */
 public class Asn1Util {
 
+  private static final int cmp2021 = 3;
+
   public static boolean supportsCmpVersion(int version) {
-    return BridgeAsn1Util.supportsCmpVersion(version);
+    return version <= cmp2021;
   }
 
   public static ASN1Encodable getBaseObject(ASN1TaggedObject taggedObject) {
-    return BridgeAsn1Util.getBaseObject(taggedObject);
+    return taggedObject.getBaseObject();
   }
 
   public static ASN1Encodable getImplicitBaseObject(
       ASN1TaggedObject taggedObject, int baseObjTagNo) {
-    return BridgeAsn1Util.getImplicitBaseObject(taggedObject, baseObjTagNo);
+    return taggedObject.getBaseUniversal(false, baseObjTagNo);
   }
 
   public static String getTextAt(PKIFreeText pkiFreeText, int index) {
-    return BridgeAsn1Util.getTextAt(pkiFreeText, index);
+    return pkiFreeText.getStringAtUTF8(index).getString();
   }
 
   public static String getSourceDataUri(BiometricData biometricData) {
-    return BridgeAsn1Util.getSourceDataUri(biometricData);
+    ASN1IA5String ia5 = biometricData.getSourceDataUriIA5();
+    return (ia5 == null) ? null : ia5.getString();
   }
 
   public static byte[] getKeyIdentifier(AuthorityKeyIdentifier aki) {
-    return BridgeAsn1Util.getKeyIdentifier(aki);
+    return aki.getKeyIdentifierOctets();
   }
 
   public static byte[] getPublicKeyData(SubjectPublicKeyInfo ski) {
-    return BridgeAsn1Util.getPublicKeyData(ski);
+    return ski.getPublicKeyData().getOctets();
   }
 
   public static byte[] getECPublicKeyData(
       ECPrivateKey ecPrivateKey, PrivateKeyInfo privateKeyInfo) {
-    return BridgeAsn1Util.getECPublicKeyData(ecPrivateKey, privateKeyInfo);
+    if (ecPrivateKey.getPublicKey() != null) {
+      return ecPrivateKey.getPublicKey().getOctets();
+    }
+
+    return (privateKeyInfo.getPublicKeyData() == null) ? null
+        : privateKeyInfo.getPublicKeyData().getOctets();
   }
 
   public static String getBMPString(ASN1Encodable str) {
-    return BridgeAsn1Util.getBMPString(str);
+    return ASN1BMPString.getInstance(str).getString();
   }
 
   public static String getIA5String(ASN1Encodable str) {
-    return BridgeAsn1Util.getIA5String(str);
+    return ASN1IA5String.getInstance(str).getString();
   }
 
   public static String getPrintableString(ASN1Encodable str) {
-    return BridgeAsn1Util.getPrintableString(str);
+    return ASN1PrintableString.getInstance(str).getString();
   }
 
   public static String getUTF8String(ASN1Encodable str) {
-    return BridgeAsn1Util.getUTF8String(str);
+    return ASN1UTF8String.getInstance(str).getString();
   }
 
   public static boolean isIA5String(ASN1Encodable str) {
-    return BridgeAsn1Util.isIA5String(str);
+    return str instanceof ASN1IA5String;
   }
 
   public static boolean isUTF8String(ASN1Encodable str) {
-    return BridgeAsn1Util.isUTF8String(str);
+    return str instanceof ASN1UTF8String;
   }
 
   public static boolean isPrintableString(ASN1Encodable str) {
-    return BridgeAsn1Util.isPrintableString(str);
+    return str instanceof ASN1PrintableString;
   }
 
   public static boolean isT61String(ASN1Encodable str) {
-    return BridgeAsn1Util.isT61String(str);
+    return str instanceof ASN1T61String;
   }
 
   public static boolean isBMPString(ASN1Encodable str) {
-    return BridgeAsn1Util.isBMPString(str);
+    return str instanceof ASN1BMPString;
   }
 
   public static boolean isUniversalString(ASN1Encodable str) {
-    return BridgeAsn1Util.isUniversalString(str);
+    return str instanceof ASN1UniversalString;
   }
 
   public static byte[] getBitStringOctets(Object obj) {
-    return BridgeAsn1Util.getBitStringOctets(obj);
+    return ASN1BitString.getInstance(obj).getOctets();
   }
 
   public static byte[] getOctetStringOctets(Object obj) {
-    return BridgeAsn1Util.getOctetStringOctets(obj);
+    return ASN1OctetString.getInstance(obj).getOctets();
   }
 
   public static Instant getUTCTime(Object obj) throws ParseException {
-    return BridgeAsn1Util.getUTCTime(obj);
+    return ASN1UTCTime.getInstance(obj).getDate().toInstant();
   }
 
   public static Instant getGeneralizedTime(Object obj) throws ParseException {
-    return BridgeAsn1Util.getGeneralizedTime(obj);
-  }
-
-  public static ASN1BitString toASN1BitString(Object obj) {
-    return BridgeAsn1Util.toASN1BitString(obj);
+    return ASN1GeneralizedTime.getInstance(obj).getDate().toInstant();
   }
 
   public static ASN1OctetString toASN1OctetString(Object obj) {
-    return BridgeAsn1Util.toASN1OctetString(obj);
+    return ASN1OctetString.getInstance(obj);
   }
 
   public static byte[] getSignature(Certificate cert) {
-    return BridgeAsn1Util.getSignature(cert);
+    return cert.getSignature().getOctets();
   }
 
   public static byte[] getEncSymmKey(EncryptedValue encryptedValue) {
-    return BridgeAsn1Util.getEncSymmKey(encryptedValue);
+    return encryptedValue.getEncSymmKey().getOctets();
   }
 
   public static byte[] getEncValue(EncryptedValue encryptedValue) {
-    return BridgeAsn1Util.getEncValue(encryptedValue);
+    return encryptedValue.getEncValue().getOctets();
   }
 
   public static BiometricData buildBiometricData(
-      TypeOfBiometricData type, AlgorithmIdentifier hashAlgId,
-      byte[] biometricDataHash, String sourceDataUri) {
-    return BridgeAsn1Util.buildBiometricData(type, hashAlgId, biometricDataHash, sourceDataUri);
+        TypeOfBiometricData type, AlgorithmIdentifier hashAlgId,
+        byte[] biometricDataHash, String sourceDataUri) {
+    return new BiometricData(type, hashAlgId, new DEROctetString(biometricDataHash),
+      sourceDataUri == null ? null : new DERIA5String(sourceDataUri));
   }
 
   public static EncryptedValue buildEncryptedValue(
       AlgorithmIdentifier intendedAlg, AlgorithmIdentifier symmAlg, byte[] encSymmKey,
       AlgorithmIdentifier keyAlg, byte[] valueHint, byte[] encValue) {
-    return BridgeAsn1Util.buildEncryptedValue(intendedAlg, symmAlg,
-            encSymmKey, keyAlg, valueHint, encValue);
+    return new EncryptedValue(intendedAlg, symmAlg,
+        (encSymmKey == null ? null : new DERBitString(encSymmKey)), keyAlg,
+        (valueHint == null ? null : new DEROctetString(valueHint)), new DERBitString(encValue));
+  }
+
+  public static ASN1BitString toASN1BitString(Object obj) {
+    return ASN1BitString.getInstance(obj);
   }
 
 }

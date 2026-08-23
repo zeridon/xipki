@@ -48,35 +48,6 @@
               </configuration>
             </execution>
             <execution>
-              <id>bcfips-jars</id>
-              <phase>generate-resources</phase>
-              <goals>
-                <goal>copy</goal>
-              </goals>
-              <configuration>
-                <stripVersion>false</stripVersion>
-                <outputDirectory>${project.build.directory}/t2/setup/jars/bcfips</outputDirectory>
-                <artifactItems>
-                  <artifactItem>
-                    <groupId>org.bouncycastle</groupId>
-                    <artifactId>bcpkix-fips</artifactId>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.bouncycastle</groupId>
-                    <artifactId>bcpqc-fips</artifactId>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.bouncycastle</groupId>
-                    <artifactId>bc-fips</artifactId>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.bouncycastle</groupId>
-                    <artifactId>bcutil-fips</artifactId>
-                  </artifactItem>
-                </artifactItems>
-              </configuration>
-            </execution>
-            <execution>
               <id>bclts-jars</id>
               <phase>generate-resources</phase>
               <goals>
@@ -84,7 +55,7 @@
               </goals>
               <configuration>
                 <stripVersion>false</stripVersion>
-                <outputDirectory>${project.build.directory}/t2/setup/jars/bclts</outputDirectory>
+                <outputDirectory>${project.build.directory}/t2/setup/jars/bouncycastle</outputDirectory>
                 <artifactItems>
                   <artifactItem>
                     <groupId>org.bouncycastle</groupId>
@@ -97,29 +68,6 @@
                   <artifactItem>
                     <groupId>org.bouncycastle</groupId>
                     <artifactId>bcutil-lts8on</artifactId>
-                  </artifactItem>
-                </artifactItems>
-              </configuration>
-            </execution>
-            <execution>
-              <id>bcbridge-jars</id>
-              <phase>generate-resources</phase>
-              <goals>
-                <goal>copy</goal>
-              </goals>
-              <configuration>
-                <stripVersion>false</stripVersion>
-                <outputDirectory>${project.build.directory}/t2/setup/jars/xipki</outputDirectory>
-                <artifactItems>
-                  <artifactItem>
-                    <groupId>org.xipki</groupId>
-                    <artifactId>bcbridge-fips</artifactId>
-                    <version>${project.version}</version>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.xipki</groupId>
-                    <artifactId>bcbridge-lts8on</artifactId>
-                    <version>${project.version}</version>
                   </artifactItem>
                 </artifactItems>
               </configuration>

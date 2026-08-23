@@ -2,10 +2,6 @@
 
 set -e
 
-# FIPS or LTS
-BOUNCYCASTLE_MODE_CLIENT=LTS
-# FIPS or LTS
-BOUNCYCASTLE_MODE_SERVER=LTS
 TBDIR=~/test/xipki
 DATABASE_TYPE=h2
 TOMCAT_MAJOR_VERSION=10
@@ -85,13 +81,13 @@ mv "$tomcat_dir" dummy-tomcat
 cd "$script_dir"
 echo "change to folder: $(pwd)"
 
-rm -f xipki-qa-cli/lib/bc*-lts*.jar xipki-qa-cli/lib/bc*-fips-*.jar
+rm -f xipki-qa-cli/lib/bc*-lts*.jar
 
 mkdir -p xipki-ca/tomcat/lib xipki-ocsp/tomcat/lib xipki-gateway/tomcat/lib xipki-dummy/tomcat/lib
-rm -f xipki-ca/tomcat/lib/bc*-lts*.jar xipki-ca/tomcat/lib/bc*-fips-*.jar
-rm -f xipki-ocsp/tomcat/lib/bc*-lts*.jar xipki-ocsp/tomcat/lib/bc*-fips-*.jar
-rm -f xipki-gateway/tomcat/lib/bc*-lts*.jar xipki-gateway/tomcat/lib/bc*-fips-*.jar
-rm -f xipki-dummy/tomcat/lib/bc*-lts*.jar xipki-dummy/tomcat/lib/bc*-fips-*.jar
+rm -f xipki-ca/tomcat/lib/bc*-lts*.jar
+rm -f xipki-ocsp/tomcat/lib/bc*-lts*.jar
+rm -f xipki-gateway/tomcat/lib/bc*-lts*.jar
+rm -f xipki-dummy/tomcat/lib/bc*-lts*.jar
 
 echo "Copy JDBC jars"
 jars_dir=setup/jars
@@ -102,25 +98,11 @@ cp $jars_dir/jdbc/*.jar xipki-ocsp/tomcat/lib/
 cp $jars_dir/jdbc/*.jar xipki-gateway/tomcat/lib/
 cp $jars_dir/jdbc/*.jar xipki-dummy/tomcat/lib/
 
-if [ "$BOUNCYCASTLE_MODE_CLIENT" = "LTS" ]; then
-  echo "Client: copy BouncyCastle LTS jars"
-  cp $jars_dir/bclts/* xipki-qa-cli/lib/
-  cp $jars_dir/xipki/bcbridge-lts* xipki-qa-cli/lib/
-else
-  echo "Client: copy BouncyCastle FIPS jars to xipki-qa-cli"
-  cp $jars_dir/bcfips/* xipki-qa-cli/lib/
-  cp $jars_dir/xipki/bcbridge-fips* xipki-qa-cli/lib/
-fi
+echo "Client: copy BouncyCastle LTS jars"
+cp $jars_dir/bouncycastle/* xipki-qa-cli/lib/
 
-if [ "$BOUNCYCASTLE_MODE_SERVER" = "LTS" ]; then
-  echo "Server: copy BouncyCastle LTS jars to xipki-ca"
-  cp $jars_dir/bclts/* xipki-ca/tomcat/lib/
-  cp $jars_dir/xipki/bcbridge-lts* xipki-ca/tomcat/lib/
-else
-  echo "Server: copy BouncyCastle FIPS jars to xipki-ca"
-  cp $jars_dir/bcfips/* xipki-ca/tomcat/lib/
-  cp $jars_dir/xipki/bcbridge-fips* xipki-ca/tomcat/lib/
-fi
+echo "Server: copy BouncyCastle LTS jars to xipki-ca"
+cp $jars_dir/bouncycastle/* xipki-ca/tomcat/lib/
 
 echo "Copy JDBC & BouncyCastle jars to xipki-ocsp, xipki-gateway, and xipki-dummy"
 copy_tree_contents xipki-ca/tomcat/lib xipki-ocsp/tomcat/lib

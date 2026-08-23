@@ -4,8 +4,8 @@
 package org.xipki.security.composite;
 
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.jcajce.interfaces.MLKEMPublicKey;
 import org.xipki.security.KeySpec;
-import org.xipki.security.bridge.MLKEMPublicKey;
 import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.util.codec.Args;

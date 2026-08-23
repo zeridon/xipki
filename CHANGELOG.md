@@ -4,6 +4,8 @@ See also <https://github.com/xipki/xipki/releases>
 
 ## 6.7.1
 - Release date: 202x/mm/dd
+- All components
+  - bouncycastle: use only the lts8on jars, remove the fips jars.
 - xipki-ca
   - Added native support of RFC 5280 extensions
     - Subject Directory Properties (2.5.29.9)
@@ -101,16 +103,12 @@ See also <https://github.com/xipki/xipki/releases>
     - CCC-T-SBxDKisIntermediateCACert (1.3.6.1.4.1.41577.5.16)
     - CCC-U-SBxDKisRootCACert         (1.3.6.1.4.1.41577.5.17)
 - Dependencies
-  - bclts:         2.73.10 -> 2.73.12
-  - bc-fips:       2.1.2   -> 2.1.3
-  - bcpkix-fips:   2.1.10  -> 2.1.12
-  - bcpqc-fips:    2.0.0   -> 2.1.0
-  - bcutil-fips:   2.1.5   -> 2.1.7
-  - dnsjava        3.6.4   -> 3.6.5
-  - hikaricp:      7.0.2   -> 7.1.0
-  - jline:         4.0.9   -> 4.3.1
-  - mariadb jdbc:  3.5.7   -> 3.5.10
-  - postgres jdbc: 42.7.10 -> 42.7.13
+  - bouncycastle LTS: 2.73.10 -> 2.73.12.1
+  - dnsjava           3.6.4   -> 3.6.5
+  - hikaricp:         7.0.2   -> 7.1.0
+  - jline:            4.0.9   -> 4.3.1
+  - mariadb jdbc:     3.5.7   -> 3.5.10
+  - postgres jdbc:    42.7.10 -> 42.7.13
 
 ## 6.7.0
 - Release date: 2026/03/28

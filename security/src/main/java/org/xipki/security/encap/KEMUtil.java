@@ -4,15 +4,23 @@
 package org.xipki.security.encap;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Primitive;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.ASN1TaggedObject;
+import org.bouncycastle.asn1.BERTags;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.crypto.SecretWithEncapsulation;
+import org.bouncycastle.crypto.kems.MLKEMExtractor;
+import org.bouncycastle.crypto.kems.MLKEMGenerator;
+import org.bouncycastle.crypto.params.MLKEMParameters;
+import org.bouncycastle.crypto.params.MLKEMPrivateKeyParameters;
+import org.bouncycastle.crypto.params.MLKEMPublicKeyParameters;
 import org.xipki.security.HashAlgo;
 import org.xipki.security.KeySpec;
 import org.xipki.security.OIDs;
-import org.xipki.security.bridge.BridgeKEMUtil;
-import org.xipki.security.bridge.BridgeMlkemVariant;
 import org.xipki.security.composite.CompositeKemSuite;
 import org.xipki.security.composite.CompositeKemUtil;
 import org.xipki.security.composite.CompositeMLKEMPrivateKey;
@@ -36,6 +44,10 @@ import java.security.SecureRandom;
  * @author Lijun Liao (xipki)
  */
 public class KEMUtil {
+
+  private static final String id_ml_kem_512 = "2.16.840.1.101.3.4.4.1";
+  private static final String id_ml_kem_768 = "2.16.840.1.101.3.4.4.2";
+  private static final String id_ml_kem_1024 = "2.16.840.1.101.3.4.4.3";
 
   // macKey          = derive(masterKey, spki)
   // encapKey        = encapsulateKey(spki)
@@ -63,7 +75,13 @@ public class KEMUtil {
     if (OIDs.Algo.id_ml_kem_512.equals(algOid) || OIDs.Algo.id_ml_kem_768.equals(algOid) ||
         OIDs.Algo.id_ml_kem_1024.equals(algOid)) {
       alg = KemEncapsulation.ALG_KMAC_MLKEM_HMAC;
-      skEncap = new SecretWithEncap(BridgeKEMUtil.encapsulateKey(spki, rnd));
+
+      MLKEMGenerator gen = new MLKEMGenerator(rnd);
+      MLKEMParameters variant = getMLKEMVariant(spki.getAlgorithm());
+      MLKEMPublicKeyParameters pkParams =
+          new MLKEMPublicKeyParameters(variant, spki.getPublicKeyData().getOctets());
+
+      skEncap = new SecretWithEncap(gen.generateEncapsulated(pkParams));
     } else {
       CompositeKemSuite suite = CompositeKemSuite.getAlgoSuite(algId);
       if (suite == null) {
@@ -90,18 +108,20 @@ public class KEMUtil {
 
   public static SecretWithEncapsulation encapsulateKey(
       KeySpec keySpec, byte[] publicKeyData, SecureRandom rnd) {
-    BridgeMlkemVariant variant = toBridgeMlkemVariant(keySpec);
-    return BridgeKEMUtil.encapsulateKey(variant, publicKeyData, rnd);
+    MLKEMPublicKeyParameters pkParams = new MLKEMPublicKeyParameters(
+        getMLKEMParameters(keySpec), publicKeyData);
+    MLKEMGenerator gen = new MLKEMGenerator(rnd);
+    return gen.generateEncapsulated(pkParams);
   }
 
-  public static BridgeMlkemVariant toBridgeMlkemVariant(KeySpec keySpec) {
+  public static MLKEMParameters getMLKEMParameters(KeySpec keySpec) {
     switch (keySpec) {
       case MLKEM512:
-        return BridgeMlkemVariant.mlkem512;
+        return MLKEMParameters.ml_kem_512;
       case MLKEM768:
-        return BridgeMlkemVariant.mlkem768;
+        return MLKEMParameters.ml_kem_768;
       case MLKEM1024:
-        return BridgeMlkemVariant.mlkem1024;
+        return MLKEMParameters.ml_kem_1024;
       default:
         throw new IllegalArgumentException("invalid keySpec " + keySpec);
     }
@@ -116,16 +136,54 @@ public class KEMUtil {
 
     if (OIDs.Algo.id_ml_kem_512.equals(algOid) || OIDs.Algo.id_ml_kem_768.equals(algOid) ||
         OIDs.Algo.id_ml_kem_1024.equals(algOid)) {
-      byte[] decapKey = BridgeKEMUtil.decapsulateKey(skInfo, kemEncapsulation.encapKey());
+      MLKEMPrivateKeyParameters params = toPrivateParameters(skInfo);
+      byte[] decapKey = new MLKEMExtractor(params).extractSecret(kemEncapsulation.encapKey());
       return doKemDecryptSecret(decapKey, kemEncapsulation);
     } else {
       throw new IllegalArgumentException("The given private key is not an MLKEM key.");
     }
   }
 
+  private static MLKEMPrivateKeyParameters toPrivateParameters(PrivateKeyInfo skInfo) {
+    MLKEMParameters variant = getMLKEMVariant(skInfo.getPrivateKeyAlgorithm());
+    byte[] skData = skInfo.getPrivateKey().getOctets();
+    byte tag = skData[0];
+
+    if (tag == (BERTags.CONSTRUCTED | BERTags.SEQUENCE))  {
+      ASN1Sequence seq = ASN1Sequence.getInstance(skData);
+      byte[] expanded = ((ASN1OctetString) seq.getObjectAt(1)).getOctets();
+      return new MLKEMPrivateKeyParameters(variant, expanded);
+    } else if (tag == BERTags.OCTET_STRING) {
+      byte[] expanded = ASN1OctetString.getInstance(skData).getOctets();
+      return new MLKEMPrivateKeyParameters(variant, expanded);
+    } else if (tag == 0x0) {
+      ASN1Primitive asn1Obj = Asn1Util.getImplicitBaseObject(
+                  ASN1TaggedObject.getInstance(skData), BERTags.OCTET_STRING)
+                  .toASN1Primitive();
+      byte[] seed = ((ASN1OctetString) asn1Obj).getOctets();
+      return new MLKEMPrivateKeyParameters(variant, seed);
+    } else {
+      throw new IllegalArgumentException("invalid tag " + (0xFF & tag));
+    }
+  }
+
+  private static MLKEMParameters getMLKEMVariant(AlgorithmIdentifier algId) {
+    String oid = algId.getAlgorithm().getId();
+    if (oid.equals(id_ml_kem_512)) {
+      return MLKEMParameters.ml_kem_512;
+    } else if (oid.equals(id_ml_kem_768)) {
+      return MLKEMParameters.ml_kem_768;
+    } else if (oid.equals(id_ml_kem_1024)) {
+      return MLKEMParameters.ml_kem_1024;
+    } else {
+      throw new IllegalArgumentException("invalid MLKEM algId " + oid);
+    }
+  }
+
   public static byte[] decapsulateKey(KeySpec keySpec, byte[] skValue, byte[] encapKey) {
-    BridgeMlkemVariant variant = toBridgeMlkemVariant(keySpec);
-    return BridgeKEMUtil.decapsulateKey(variant, skValue, encapKey);
+    MLKEMPrivateKeyParameters dkObj =
+        new MLKEMPrivateKeyParameters(getMLKEMParameters(keySpec), skValue);
+    return new MLKEMExtractor(dkObj).extractSecret(encapKey);
   }
 
   public static byte[] compositeMlKemDecryptSecret(
