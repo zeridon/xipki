@@ -608,7 +608,9 @@ public class XijsonCertprofile extends Certprofile {
               "].biometricDataHash has incorrect length");
         }
 
-        String sourceDataUri = Asn1Util.getSourceDataUri(bd);
+        ASN1IA5String ia5 = bd.getSourceDataUriIA5();
+        String sourceDataUri = (ia5 == null) ? null : ia5.getString();
+
         TripleState occurrence = biometricInfo.includeSourceDataUri();
         if (occurrence == TripleState.forbidden) {
           sourceDataUri = null;
@@ -619,8 +621,10 @@ public class XijsonCertprofile extends Certprofile {
           }
         }
 
-        BiometricData newBiometricData = Asn1Util.buildBiometricData(
-            bdType, hashAlgo.algorithmIdentifier(), hashValue, sourceDataUri);
+        BiometricData newBiometricData = new BiometricData(
+            bdType, hashAlgo.algorithmIdentifier(), new DEROctetString(hashValue),
+            sourceDataUri == null ? null : new DERIA5String(sourceDataUri));
+
         vec.add(newBiometricData);
       }
 

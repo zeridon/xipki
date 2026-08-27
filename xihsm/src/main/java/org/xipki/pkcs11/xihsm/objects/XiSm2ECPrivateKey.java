@@ -18,7 +18,7 @@ import org.xipki.pkcs11.xihsm.util.HsmUtil;
 import org.xipki.pkcs11.xihsm.util.ObjectInitMethod;
 import org.xipki.pkcs11.xihsm.util.Origin;
 import org.xipki.security.HashAlgo;
-import org.xipki.security.util.KeyUtil;
+import org.xipki.security.util.GMUtil;
 import org.xipki.security.util.WeierstraussCurveEnum;
 import org.xipki.util.codec.Args;
 import org.xipki.util.codec.asn1.Asn1Util;
@@ -52,7 +52,7 @@ public class XiSm2ECPrivateKey extends XiWeierstrassECPrivateKey {
       throws HsmException {
     super(vendor, cku, newObjectMethod, handle, inToken, keyType, keyGenMechanism, ecParams, value);
     this.ecPoint = Args.notNull(ecPoint, "ecPoint");
-    this.za = KeyUtil.getSM2Z(null, ecPoint);
+    this.za = GMUtil.getSM2Z(null, ecPoint);
   }
 
   @Override

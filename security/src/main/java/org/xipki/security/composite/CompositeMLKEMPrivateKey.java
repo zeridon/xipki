@@ -47,7 +47,7 @@ public class CompositeMLKEMPrivateKey implements PrivateKey {
     PrivateKeyInfo tradSkInfo = KeyUtil.buildPrivateKeyInfo(
         suite.tradVariant().keySpec().algorithmIdentifier(), tradSk);
 
-    this.pqcKey =  KeyUtil.wrapMLKEMPrivateKey(KeyUtil.getPrivateKey(pqcSkInfo));
+    this.pqcKey =  (MLKEMPrivateKey) KeyUtil.getPrivateKey(pqcSkInfo);
     this.tradKey = KeyUtil.getPrivateKey(tradSkInfo);
   }
 

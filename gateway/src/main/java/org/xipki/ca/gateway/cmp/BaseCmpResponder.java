@@ -74,7 +74,6 @@ import org.xipki.security.pkix.JceX509Certificate;
 import org.xipki.security.pkix.X509Cert;
 import org.xipki.security.sign.ConcurrentSigner;
 import org.xipki.security.sign.KemHmacSignature;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.EcCurveEnum;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.security.util.SecretKeyWithAlias;
@@ -179,8 +178,6 @@ public abstract class BaseCmpResponder {
 
   private final KeyGenerator aesKeyGen;
 
-  private final boolean cmp2021Supported;
-
   static {
     errorCodeToPkiFailureMap.put(ErrorCode.ALREADY_ISSUED,     PKIFailureInfo.badRequest);
     errorCodeToPkiFailureMap.put(ErrorCode.BAD_CERT_TEMPLATE,  PKIFailureInfo.badCertTemplate);
@@ -206,8 +203,6 @@ public abstract class BaseCmpResponder {
     this.popControl = popControl;
     this.signers = signers;
     this.aesKeyGen = KeyGenerator.getInstance("AES");
-    this.cmp2021Supported = Asn1Util.supportsCmpVersion(cmp2021);
-    LOG.info("cmp2021 supported: {}", cmp2021Supported);
   }
 
   protected abstract PKIBody cmpEnrollCert(
@@ -829,7 +824,7 @@ public abstract class BaseCmpResponder {
     }
 
     int maxRespVersion = Math.min(cmpVersion.reqVersion, cmpVersion.respVersion);
-    if (maxRespVersion >= cmp2021 && cmp2021Supported) {
+    if (maxRespVersion >= cmp2021) {
       cmpVersion.respVersion = cmp2021;
       return postProcessCertInfoCmp2021(certReqId, requestor, cec, privateKeyinfo,
           ephemeralKeyPair);
@@ -898,8 +893,9 @@ public abstract class BaseCmpResponder {
         GCMParameters params = new GCMParameters(nonce, aesGcmTagByteLen);
         AlgorithmIdentifier symmAlg = new AlgorithmIdentifier(symmAlgOid, params);
 
-        encKey = Asn1Util.buildEncryptedValue(intendedAlg, symmAlg,
-            encSymmKey, keyAlg, null, encValue);
+        encKey = new EncryptedValue(intendedAlg, symmAlg,
+            (encSymmKey == null ? null : new DERBitString(encSymmKey)), keyAlg, null,
+            new DERBitString(encValue));
       } else {
         Requestor.SimplePasswordRequestor passwordRequestor =
             (Requestor.SimplePasswordRequestor) requestor;
@@ -934,8 +930,8 @@ public abstract class BaseCmpResponder {
 
         AlgorithmIdentifier symmAlg = new AlgorithmIdentifier(OIDs.Algo.id_PBES2, algParams);
 
-        encKey = Asn1Util.buildEncryptedValue(
-            intendedAlg, symmAlg, null, null, null, encValue);
+        encKey =  new EncryptedValue(intendedAlg, symmAlg, null, null, null,
+                    new DERBitString(encValue));
       }
     } catch (Throwable th) {
       String msg = "error while encrypting the private key";

@@ -20,7 +20,7 @@ import org.xipki.security.sign.Signer;
 import org.xipki.security.sign.SignerConf;
 import org.xipki.security.util.DigestOutputStream;
 import org.xipki.security.util.EcCurveEnum;
-import org.xipki.security.util.KeyUtil;
+import org.xipki.security.util.GMUtil;
 import org.xipki.security.util.PKCS1Util;
 import org.xipki.util.codec.Args;
 import org.xipki.util.codec.asn1.Asn1Util;
@@ -737,7 +737,7 @@ abstract class P11Signer implements Signer {
 
       if (identity.supportsSign(CKM_VENDOR_SM2)) {
         this.mechanism = CKM_VENDOR_SM2;
-        this.z = KeyUtil.getSM2Z(null, pubPointX, pubPointY);
+        this.z = GMUtil.getSM2Z(null, pubPointX, pubPointY);
         this.outputStream = new DigestOutputStream(hashAlgo.createDigest());
       } else if (identity.supportsSign(mech)) {
         this.mechanism = mech;

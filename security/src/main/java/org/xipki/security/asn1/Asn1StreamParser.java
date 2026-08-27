@@ -4,9 +4,10 @@
 package org.xipki.security.asn1;
 
 import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1GeneralizedTime;
+import org.bouncycastle.asn1.ASN1UTCTime;
 import org.bouncycastle.asn1.BERTags;
 import org.bouncycastle.asn1.x509.Time;
-import org.xipki.security.util.Asn1Util;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -141,9 +142,9 @@ public class Asn1StreamParser {
     bytesLen.set(bytes.length);
     try {
       if (tag == BERTags.UTC_TIME) {
-        return Asn1Util.getUTCTime(bytes);
+        return ASN1UTCTime.getInstance(bytes).getDate().toInstant();
       } else if (tag == BERTags.GENERALIZED_TIME) {
-        return Asn1Util.getGeneralizedTime(bytes);
+        return ASN1GeneralizedTime.getInstance(bytes).getDate().toInstant();
       } else {
         throw new IllegalArgumentException("invalid tag for " + name + ": " + tag);
       }

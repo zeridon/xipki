@@ -84,7 +84,7 @@ public class GMUtil {
   public static byte[] signSm2Sm3(
       BigInteger sk, byte[] userID, BigInteger pubPointX, BigInteger pubPointY,
       byte[] data, SecureRandom random) {
-    byte[] za = KeyUtil.getSM2Z(userID, pubPointX, pubPointY);
+    byte[] za = getSM2Z(userID, pubPointX, pubPointY);
     byte[] ehash = HashAlgo.SM3.hash(za, data);
     return signEhash(sk, ehash, random);
   }
@@ -96,7 +96,7 @@ public class GMUtil {
 
   public static boolean verifySm2Sm3(ECPoint publicPoint, byte[] userID, byte[] data,
                                     byte[] signature) throws SignatureException {
-    byte[] za = KeyUtil.getSM2Z(userID, publicPoint.getXCoord().toBigInteger(),
+    byte[] za = getSM2Z(userID, publicPoint.getXCoord().toBigInteger(),
                   publicPoint.getYCoord().toBigInteger());
     byte[] ehash = HashAlgo.SM3.hash(za, data);
     return verifyEhash(publicPoint, ehash, signature);

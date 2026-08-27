@@ -53,7 +53,6 @@ import org.xipki.security.pkix.CrlReason;
 import org.xipki.security.pkix.X509Cert;
 import org.xipki.security.scep.util.XiDigestCalculatorProvider;
 import org.xipki.security.sign.ConcurrentSigner;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.security.util.X509Util;
 import org.xipki.util.codec.Args;
@@ -149,7 +148,7 @@ class CmpAgent {
     }
     this.httpClient = new XiHttpClient(sslSocketFactory, hostnameVerifier);
     this.sendRequestorCert = sendRequestorCert;
-    this.cmpVersion = Asn1Util.supportsCmpVersion(cmp2021) ? cmp2021 : cmp2000;
+    this.cmpVersion = cmp2021;
     LOG.info("Use CMP version {}", cmpVersion);
   } // constructor
 
@@ -698,7 +697,7 @@ class CmpAgent {
       } else {
         PKIFreeText statusString = statusInfo.getStatusString();
         String errorMessage = (statusString == null) ? null
-            : Asn1Util.getTextAt(statusString, 0);
+            : statusString.getStringAtUTF8(0).getString();
 
         int failureInfo = 0;
         if (statusInfo.getFailInfo() != null) {
@@ -1002,7 +1001,7 @@ class CmpAgent {
 
       if (status != PKIStatus.GRANTED && status != PKIStatus.GRANTED_WITH_MODS) {
         PKIFreeText text = statusInfo.getStatusString();
-        String statusString = (text == null) ? null : Asn1Util.getTextAt(text, 0);
+        String statusString = (text == null) ? null : text.getStringAtUTF8(0).getString();
 
         ResultEntry resultEntry = new ResultEntry.Error(re.id(), status,
             statusInfo.getFailInfo().intValue(), statusString);

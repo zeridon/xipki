@@ -6,7 +6,6 @@ import org.bouncycastle.asn1.ASN1BitString;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.DERBitString;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.util.codec.Args;
 import org.xipki.util.codec.ipadress.IPAddress;
 
@@ -49,7 +48,7 @@ public class ASN1IPAddress extends ASN1Object {
     } else if (obj instanceof ASN1BitString) {
       return new ASN1IPAddress((ASN1BitString) obj);
     } else if (obj != null) {
-      return new ASN1IPAddress(Asn1Util.toASN1BitString(obj));
+      return new ASN1IPAddress(ASN1BitString.getInstance(obj));
     } else {
       throw new IllegalArgumentException("invalid obj: null");
     }

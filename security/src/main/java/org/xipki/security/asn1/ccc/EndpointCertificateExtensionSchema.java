@@ -4,7 +4,6 @@ package org.xipki.security.asn1.ccc;
 
 import org.bouncycastle.asn1.*;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.util.codec.Args;
 
 import java.math.BigInteger;
@@ -82,7 +81,6 @@ public class EndpointCertificateExtensionSchema extends ASN1Object {
     this.protocolVersion = new DEROctetString(
         Args.fixedLen(protocolVersion, "protocolVersion", 2));
     this.vehiclePK = Args.notNull(vehiclePK, "vehiclePK");
-
     this.initialKeySlot = new DEROctetString(
         Args.variableLen(initialKeySlot, "initialKeySlot", 1, 8));
 
@@ -244,7 +242,7 @@ public class EndpointCertificateExtensionSchema extends ASN1Object {
           }
         } else if (e instanceof ASN1TaggedObject) {
           int tag = ((ASN1TaggedObject) e).getTagNo();
-          ASN1Encodable value = Asn1Util.getBaseObject((ASN1TaggedObject) e);
+          ASN1Encodable value = ((ASN1TaggedObject) e).getBaseObject();
           if (tag == 0) {
             if (confidentialMailboxSize != null || privateMailboxSize != null
                 || accountInfoHash != null) {

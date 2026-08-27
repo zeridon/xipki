@@ -13,7 +13,6 @@ import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.x509.TBSCertificate;
 import org.bouncycastle.util.Pack;
 import org.xipki.security.OIDs;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.util.codec.Args;
 import org.xipki.util.codec.CodecException;
 import org.xipki.util.codec.json.JsonMap;
@@ -546,7 +545,7 @@ public class CtLog {
       throw new IOException("TBSCertificate contains either issuerUniqueID or subjectUniqueID");
     }
 
-    ASN1Sequence extns = (ASN1Sequence) Asn1Util.getBaseObject(taggedExtns).toASN1Primitive();
+    ASN1Sequence extns = (ASN1Sequence) taggedExtns.getBaseObject().toASN1Primitive();
     ASN1EncodableVector extnsVec = new ASN1EncodableVector(extns.size() - 1);
     final int size = extns.size();
     for (int i = 0; i < size; i++) {

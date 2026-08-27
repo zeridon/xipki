@@ -3,6 +3,7 @@
 
 package org.xipki.security.pkix;
 
+import org.bouncycastle.asn1.ASN1BitString;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
@@ -13,7 +14,6 @@ import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.TBSCertificate;
 import org.xipki.security.SignAlgo;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.util.codec.Args;
 
@@ -98,7 +98,7 @@ public class JceX509Certificate extends X509Certificate {
       if (extn == null) {
         keyUsage = null;
       } else {
-        DERBitString d = (DERBitString) Asn1Util.toASN1BitString(extn.getParsedValue());
+        DERBitString d = (DERBitString) ASN1BitString.getInstance(extn.getParsedValue());
         byte[] bytes = d.getBytes();
         int highestBitNo = Math.min(9, 8 * bytes.length - d.getPadBits());
 

@@ -11,7 +11,6 @@ import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1TaggedObject;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERTaggedObject;
-import org.xipki.security.util.Asn1Util;
 
 /**
  * RFC 8226:
@@ -81,7 +80,7 @@ public class JWTClaimConstraints extends ASN1Object {
       for (int i = 0; i < seqSize; i++) {
         ASN1TaggedObject tagO = (ASN1TaggedObject) seq.getObjectAt(i);
         int tagNo = tagO.getTagNo();
-        ASN1Encodable baseO = Asn1Util.getBaseObject(tagO);
+        ASN1Encodable baseO = tagO.getBaseObject();
         if (tagNo == 0) {
           if (permittedValues != null) {
             throw new IllegalArgumentException("invalid order of object at index " + i);

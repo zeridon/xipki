@@ -146,13 +146,11 @@ public class ProfileUtil {
           int idx = 0;
           if (size > 1) {
             ASN1TaggedObject taggedObj = ASN1TaggedObject.getInstance(reqSeq.getObjectAt(idx++));
-            nameAssigner = DirectoryString.getInstance(
-                              Asn1Util.getBaseObject(taggedObj)).getString();
+            nameAssigner = DirectoryString.getInstance(taggedObj.getBaseObject()).getString();
           }
 
           ASN1TaggedObject taggedObj = ASN1TaggedObject.getInstance(reqSeq.getObjectAt(idx));
-          String partyName = DirectoryString.getInstance(
-                              Asn1Util.getBaseObject(taggedObj)).getString();
+          String partyName = DirectoryString.getInstance(taggedObj.getBaseObject()).getString();
 
           ASN1EncodableVector vector = new ASN1EncodableVector();
           if (nameAssigner != null) {
@@ -240,11 +238,11 @@ public class ProfileUtil {
       ASN1Primitive sAttrValue = reqAttrValues.getObjectAt(0).toASN1Primitive();
 
       if (SubjectDirectoryAttributeType.title.oid().equals(attrType)) {
-        if (Asn1Util.isT61String(sAttrValue) ||
-            Asn1Util.isPrintableString(sAttrValue) ||
-            Asn1Util.isUniversalString(sAttrValue) ||
-            Asn1Util.isUTF8String(sAttrValue) ||
-            Asn1Util.isBMPString(sAttrValue)) {
+        if (sAttrValue instanceof ASN1T61String ||
+            sAttrValue instanceof ASN1PrintableString ||
+            sAttrValue instanceof ASN1UniversalString ||
+            sAttrValue instanceof ASN1UTF8String ||
+            sAttrValue instanceof ASN1BMPString) {
           int sLen = ((ASN1String) sAttrValue).getString().length();
           if (sLen == 0) {
             throw new BadCertTemplateException("invalid length of title: 0");
@@ -254,7 +252,7 @@ public class ProfileUtil {
         return new Attribute(attrType, new DERSet(sAttrValue));
       } else if (SubjectDirectoryAttributeType.countryOfCitizenship.oid().equals(attrType) ||
                  SubjectDirectoryAttributeType.countryOfResidence.oid().equals(attrType)) {
-        String country = Asn1Util.getPrintableString(sAttrValue);
+        String country = ASN1PrintableString.getInstance(sAttrValue).getString();
         if (!SubjectDnSpec.isValidCountryAreaCode(country)) {
           throw new BadCertTemplateException(
               "invalid country (" + attrType.getId() + "): " + country);

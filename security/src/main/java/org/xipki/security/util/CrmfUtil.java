@@ -83,7 +83,7 @@ public class CrmfUtil {
       throw new XiSecurityException("unsupported keyAlg " + keyOid.getId());
     }
 
-    byte[] ECIESCiphertextValue = Asn1Util.getEncSymmKey(ev);
+    byte[] ECIESCiphertextValue = ev.getEncSymmKey().getOctets();
     return unwrapCrmfSymmetricKey(ECIESCiphertextValue, privateKey);
   }
 

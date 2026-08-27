@@ -207,8 +207,7 @@ public class PKCS12KeyStore implements PKCSObjectIdentifiers, NISTObjectIdentifi
           ASN1Encodable extnValue = exts.getExtensionParsedValue(Extension.authorityKeyIdentifier);
           if (extnValue != null) {
             AuthorityKeyIdentifier aki = AuthorityKeyIdentifier.getInstance(extnValue);
-
-            byte[] keyID = Asn1Util.getKeyIdentifier(aki);
+            byte[] keyID = aki.getKeyIdentifierOctets();
             if (keyID != null) {
               nextC = chainCerts.get(new CertId(keyID));
             }
@@ -1023,7 +1022,7 @@ public class PKCS12KeyStore implements PKCSObjectIdentifiers, NISTObjectIdentifi
   }
 
   private static String getAlias(String alias, ASN1Primitive attr) throws IOException {
-    String newAlias = Asn1Util.getBMPString(attr);
+    String newAlias = ASN1BMPString.getInstance(attr).getString();
     if (alias != null && !alias.equals(newAlias)) {
       throw new IOException("attempt to add existing attribute with different value");
     }

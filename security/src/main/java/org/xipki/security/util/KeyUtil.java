@@ -188,18 +188,6 @@ public class KeyUtil {
     return random;
   }
 
-  public static byte[] getSM2Z(byte[] userID, byte[] pubPoint) {
-    return GMUtil.getSM2Z(userID, pubPoint);
-  }
-
-  public static byte[] getSM2Z(byte[] userID, BigInteger pubPointX, BigInteger pubPointY) {
-    return GMUtil.getSM2Z(userID, pubPointX, pubPointY);
-  }
-
-  public static boolean isSm2primev1Curve(BigInteger curveOrder) {
-    return GMUtil.isSm2primev1Curve(curveOrder);
-  }
-
   public static PKCS12KeyStore loadPKCS12KeyStore(InputStream is, char[] password)
       throws XiSecurityException {
     PKCS12KeyStore ks = new PKCS12KeyStore();
@@ -227,10 +215,6 @@ public class KeyUtil {
              | CertificateException | IOException ex) {
       throw new XiSecurityException(ex.getMessage(), ex);
     }
-  }
-
-  public static AsymmetricCipherKeyPair generateKeyPair(MLKEMKeyPairGenerator keyPairGenerator)  {
-    return keyPairGenerator.generateKeyPair();
   }
 
   public static KeyPair generateKeyPair(KeySpec keySpec, SecureRandom random)
@@ -519,22 +503,6 @@ public class KeyUtil {
     return res;
   }
 
-  public static MLDSAPublicKey wrapMLDSAPublicKey(PublicKey key) {
-    return (org.bouncycastle.jcajce.interfaces.MLDSAPublicKey) key;
-  }
-
-  public static MLDSAPrivateKey wrapMLDSAPrivateKey(PrivateKey key) {
-    return (org.bouncycastle.jcajce.interfaces.MLDSAPrivateKey) key;
-  }
-
-  public static MLKEMPublicKey wrapMLKEMPublicKey(PublicKey key) {
-    return (org.bouncycastle.jcajce.interfaces.MLKEMPublicKey) key;
-  }
-
-  public static MLKEMPrivateKey wrapMLKEMPrivateKey(PrivateKey key) {
-    return (org.bouncycastle.jcajce.interfaces.MLKEMPrivateKey) key;
-  }
-
   public static SubjectPublicKeyInfo createSubjectPublicKeyInfo(PublicKey publicKey)
       throws InvalidKeyException {
     Args.notNull(publicKey, "publicKey");
@@ -670,7 +638,7 @@ public class KeyUtil {
       algo = SignAlgo.RSAPSS_SHA256;
     } else if (key instanceof ECPrivateKey) {
       BigInteger order = ((ECPrivateKey) key).getParams().getOrder();
-      if (KeyUtil.isSm2primev1Curve(order)) {
+      if (GMUtil.isSm2primev1Curve(order)) {
         algo = SignAlgo.SM2_SM3;
       } else {
         int orderBitLength = order.bitLength();

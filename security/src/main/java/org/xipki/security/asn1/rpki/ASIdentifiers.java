@@ -10,7 +10,6 @@ import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1TaggedObject;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERTaggedObject;
-import org.xipki.security.util.Asn1Util;
 
 /**
  * ASIdentifiers.
@@ -48,9 +47,9 @@ public class ASIdentifiers extends ASN1Object {
         ASN1TaggedObject to = (ASN1TaggedObject) obj;
         int tag = to.getTagNo();
         if (tag == 0) {
-          asnum = ASIdentifierChoice.getInstance(Asn1Util.getBaseObject(to));
+          asnum = ASIdentifierChoice.getInstance(to.getBaseObject());
         } else if (tag == 1) {
-          rdi = ASIdentifierChoice.getInstance(Asn1Util.getBaseObject(to));
+          rdi = ASIdentifierChoice.getInstance(to.getBaseObject());
         } else {
           throw new IllegalArgumentException("Bad tag: " + tag);
         }

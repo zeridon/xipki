@@ -30,7 +30,6 @@ import org.xipki.security.asn1.stir.TNAuthorizationList;
 import org.xipki.security.asn1.stir.TNEntry;
 import org.xipki.security.asn1.stir.TelephoneNumberRange;
 import org.xipki.security.asn1.tcg.*;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.util.codec.ipadress.IPAddress;
 import org.xipki.util.codec.ipadress.IPAddressFamily;
@@ -240,8 +239,9 @@ public class GenerateExtensions {
     HashAlgo hashAlgo = HashAlgo.SHA256;
     byte[] bioHash = fixedBytes(hashAlgo.length(), 0x12);
     String biometricUri = "https://myorg.org/?id=123";
-    BiometricData bioData = Asn1Util.buildBiometricData(
-        bioType, hashAlgo.algorithmIdentifier(), bioHash, biometricUri);
+    BiometricData bioData = new BiometricData(
+        bioType, hashAlgo.algorithmIdentifier(), new DEROctetString(bioHash),
+        new DERIA5String(biometricUri));
     extensions.add(new Extension(OIDs.Extn.biometricInfo, false,
         new DERSequence(bioData).getEncoded()));
 

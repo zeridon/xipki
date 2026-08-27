@@ -99,7 +99,7 @@ class X509ExtensionChecker {
 
   void checkExtnAuthorityKeyId(StringBuilder failureMsg, byte[] extnValue, IssuerInfo issuerInfo) {
     AuthorityKeyIdentifier asn1 = AuthorityKeyIdentifier.getInstance(extnValue);
-    byte[] keyIdentifier = Asn1Util.getKeyIdentifier(asn1);
+    byte[] keyIdentifier = asn1.getKeyIdentifierOctets();
 
     if (keyIdentifier == null) {
       failureMsg.append("keyIdentifier is 'absent', but expected 'present'; ");
@@ -611,7 +611,7 @@ class X509ExtensionChecker {
   void checkScts(StringBuilder failureMsg, byte[] extensionValue) {
     // just check the syntax
     try {
-      ASN1OctetString octet = Asn1Util.toASN1OctetString(extensionValue);
+      ASN1OctetString octet = ASN1OctetString.getInstance(extensionValue);
       CtLog.SignedCertificateTimestampList sctList =
           CtLog.SignedCertificateTimestampList.getInstance(octet.getOctets());
       int size = sctList.sctList().size();
@@ -1368,12 +1368,12 @@ class X509ExtensionChecker {
         int idx = 0;
         if (size > 1) {
           DirectoryString ds = DirectoryString.getInstance(
-              Asn1Util.getBaseObject(ASN1TaggedObject.getInstance(reqSeq.getObjectAt(idx++))));
+              ASN1TaggedObject.getInstance(reqSeq.getObjectAt(idx++)).getBaseObject());
           nameAssigner = ds.getString();
         }
 
         DirectoryString ds = DirectoryString.getInstance(
-            Asn1Util.getBaseObject(ASN1TaggedObject.getInstance(reqSeq.getObjectAt(idx))));
+            ASN1TaggedObject.getInstance(reqSeq.getObjectAt(idx)).getBaseObject());
         String partyName = ds.getString();
 
         ASN1EncodableVector vector = new ASN1EncodableVector();

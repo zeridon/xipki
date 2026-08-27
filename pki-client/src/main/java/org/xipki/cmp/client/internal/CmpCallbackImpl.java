@@ -32,7 +32,6 @@ import org.xipki.security.OIDs;
 import org.xipki.security.cmp.CmpCallback;
 import org.xipki.security.exception.XiSecurityException;
 import org.xipki.security.sign.ConcurrentSigner;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.CrmfUtil;
 import org.xipki.security.util.KeyUtil;
 
@@ -156,7 +155,7 @@ public class CmpCallbackImpl implements CmpCallback {
 
       cipher.init(Cipher.DECRYPT_MODE, key, gcmParamSpec);
 
-      return cipher.doFinal(Asn1Util.getEncValue(ev));
+      return cipher.doFinal(ev.getEncValue().getOctets());
     } catch (GeneralSecurityException ex) {
       throw new GeneralSecurityException( "Error while decrypting the EncryptedValue", ex);
     }
@@ -268,7 +267,7 @@ public class CmpCallbackImpl implements CmpCallback {
           new GCMParameterSpec(params.getIcvLen() << 3, params.getNonce());
       dataCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(symmKey, "AES"), algParams);
 
-      byte[] encValue = Asn1Util.getEncValue(ev);
+      byte[] encValue = ev.getEncValue().getOctets();
       return dataCipher.doFinal(encValue);
     } catch (GeneralSecurityException ex) {
       throw new GeneralSecurityException("Error while decrypting the EncryptedValue", ex);

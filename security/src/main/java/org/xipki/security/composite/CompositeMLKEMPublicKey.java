@@ -47,7 +47,7 @@ public class CompositeMLKEMPublicKey implements PublicKey {
     SubjectPublicKeyInfo tradPkInfo = new SubjectPublicKeyInfo(
         suite.tradVariant().keySpec().algorithmIdentifier(), tradPk);
 
-    this.pqcKey =  KeyUtil.wrapMLKEMPublicKey(KeyUtil.getPublicKey(pqcPkInfo));
+    this.pqcKey =  (MLKEMPublicKey) KeyUtil.getPublicKey(pqcPkInfo);
     this.tradKey = KeyUtil.getPublicKey(tradPkInfo);
   }
 

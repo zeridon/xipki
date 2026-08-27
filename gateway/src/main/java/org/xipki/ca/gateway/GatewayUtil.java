@@ -16,7 +16,6 @@ import org.xipki.security.exception.ErrorCode;
 import org.xipki.security.exception.OperationException;
 import org.xipki.security.pkix.DHSigStaticKeyCertPair;
 import org.xipki.security.sign.KemHmacSignature;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.EcCurveEnum;
 import org.xipki.security.util.SecretKeyWithAlias;
 import org.xipki.security.util.X509Util;
@@ -96,7 +95,7 @@ public class GatewayUtil {
     } else if (OIDs.Xipki.id_alg_KEM_HMAC_SHA256.equals(algOid)) {
       KemHmacSignature sig;
       try {
-        sig = KemHmacSignature.decode(Asn1Util.getBitStringOctets(csr.getSignature()));
+        sig = KemHmacSignature.decode(csr.getSignature().getOctets());
       } catch (CodecException e) {
         return false;
       }

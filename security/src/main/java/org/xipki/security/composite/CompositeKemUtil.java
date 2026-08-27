@@ -4,6 +4,7 @@
 package org.xipki.security.composite;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.DERNull;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.sec.ECPrivateKey;
@@ -23,7 +24,6 @@ import org.xipki.security.OIDs;
 import org.xipki.security.encap.KEMUtil;
 import org.xipki.security.encap.SecretWithEncap;
 import org.xipki.security.exception.XiSecurityException;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.security.util.PKCS1Util;
 import org.xipki.util.io.IoUtil;
@@ -204,7 +204,7 @@ public class CompositeKemUtil {
         try {
           PrivateKeyInfo privateKeyInfo = new PrivateKeyInfo(
               new AlgorithmIdentifier(OIDs.Algo.id_rsaEncryption, DERNull.INSTANCE),
-              Asn1Util.toASN1OctetString(sk));
+              ASN1OctetString.getInstance(sk));
           RSAPrivateKey jceSk = (RSAPrivateKey) KeyUtil.getPrivateKey(privateKeyInfo);
           BigInteger modulus = jceSk.getModulus();
           Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");

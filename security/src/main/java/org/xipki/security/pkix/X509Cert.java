@@ -265,7 +265,7 @@ public class X509Cert {
     if (authorityKeyId == null) {
       byte[] extnValue = getCoreExtValue(OIDs.Extn.authorityKeyIdentifier);
       if (extnValue != null) {
-        authorityKeyId = Asn1Util.getKeyIdentifier(AuthorityKeyIdentifier.getInstance(extnValue));
+        authorityKeyId = AuthorityKeyIdentifier.getInstance(extnValue).getKeyIdentifierOctets();
       }
     }
 
@@ -338,7 +338,7 @@ public class X509Cert {
     }
     byte[] digestValue = key.suite().ph().hash(m);
     boolean valid = CompositeSigUtil.verifyHash(key, new byte[0], digestValue,
-                      Asn1Util.getSignature(cert));
+        cert.getSignature().getOctets());
     if (!valid) {
       throw new SignatureException("certificate does not verify with supplied key");
     }
@@ -357,7 +357,7 @@ public class X509Cert {
       throw new CertificateException("error encoding TBSCertificate");
     }
 
-    if (!signature.verify(Asn1Util.getSignature(cert))) {
+    if (!signature.verify(cert.getSignature().getOctets())) {
       throw new SignatureException("certificate does not verify with supplied key");
     }
   }
@@ -419,7 +419,7 @@ public class X509Cert {
     }
     addIndent(sb, level + 1).append("Data:\n");
     printTbsCert(sb, level + 2, cert);
-    printSignature(sb, level, cert.getSignatureAlgorithm(), Asn1Util.getSignature(cert));
+    printSignature(sb, level, cert.getSignatureAlgorithm(), cert.getSignature().getOctets());
 
     sb.deleteCharAt(sb.length() - 1);
     return sb.toString();
@@ -437,7 +437,7 @@ public class X509Cert {
     StringBuilder sb = new StringBuilder(1000);
     addIndent(sb, level).append("Certificate:\n");
     printTbsCert(sb, level + 1, cert);
-    printSignature(sb, level, cert.getSignatureAlgorithm(), Asn1Util.getSignature(cert));
+    printSignature(sb, level, cert.getSignatureAlgorithm(), cert.getSignature().getOctets());
 
     sb.deleteCharAt(sb.length() - 1);
     return sb.toString();
@@ -644,7 +644,7 @@ public class X509Cert {
         }
       } else if (Extension.authorityKeyIdentifier.equals(oid)) {
         AuthorityKeyIdentifier aki = AuthorityKeyIdentifier.getInstance(extnValue);
-        byte[] bytes = Asn1Util.getKeyIdentifier(aki);
+        byte[] bytes = aki.getKeyIdentifierOctets();
         Hex.append(sb, bytes, 0, bytes.length, ":", 20, "  ".repeat(level1));
         if (aki.getAuthorityCertIssuer() != null) {
           addIndent(sb, level1).append("Issuer: ");

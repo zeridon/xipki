@@ -7,7 +7,6 @@ import org.bouncycastle.asn1.ASN1BitString;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.DERBitString;
-import org.xipki.security.util.Asn1Util;
 
 /**
  * The PlatformFirmwareUpdateCompliance object.
@@ -33,7 +32,7 @@ public class PlatformFirmwareUpdateCompliance extends ASN1Object {
     if (obj instanceof PlatformFirmwareUpdateCompliance) {
       return (PlatformFirmwareUpdateCompliance)obj;
     } else if (obj != null) {
-      return new PlatformFirmwareUpdateCompliance(Asn1Util.toASN1BitString(obj));
+      return new PlatformFirmwareUpdateCompliance(ASN1BitString.getInstance(obj));
     }
 
     return null;

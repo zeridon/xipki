@@ -3,8 +3,11 @@
 
 package org.xipki.ocsp.server.store;
 
+import org.bouncycastle.asn1.ASN1BitString;
+import org.bouncycastle.asn1.ASN1GeneralizedTime;
 import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.ASN1UTCTime;
 import org.bouncycastle.asn1.BERTags;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
@@ -21,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.xipki.security.OIDs;
 import org.xipki.security.asn1.Asn1StreamParser;
 import org.xipki.security.pkix.CrlReason;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.security.util.KeyUtil;
 import org.xipki.security.util.X509Util;
 import org.xipki.util.codec.Args;
@@ -218,9 +220,9 @@ public class CrlStreamParser extends Asn1StreamParser {
           int tag = coreExtValue[0] & 0xFF;
           try {
             if (tag == BERTags.UTC_TIME) {
-              invalidityDate = Asn1Util.getUTCTime(coreExtValue);
+              invalidityDate = ASN1UTCTime.getInstance(coreExtValue).getDate().toInstant();
             } else if (tag == BERTags.GENERALIZED_TIME) {
-              invalidityDate = Asn1Util.getGeneralizedTime(coreExtValue);
+              invalidityDate = ASN1GeneralizedTime.getInstance(coreExtValue).getDate().toInstant();
             } else {
               throw new IllegalArgumentException("invalid tag " + tag);
             }
@@ -424,7 +426,7 @@ public class CrlStreamParser extends Asn1StreamParser {
       }
 
       bytes = readBlock(BERTags.BIT_STRING, instream, "signature");
-      this.signature = Asn1Util.getBitStringOctets(bytes);
+      this.signature = ASN1BitString.getInstance(bytes).getOctets();
     }
   } // constructor
 

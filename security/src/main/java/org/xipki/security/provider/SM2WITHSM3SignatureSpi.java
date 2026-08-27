@@ -101,7 +101,14 @@ public class SM2WITHSM3SignatureSpi extends SignatureSpi {
       this.sk = asn1Sk.getKey();
       this.jceSk = (ECPrivateKey) privateKey;
 
-      byte[] pkData = Asn1Util.getECPublicKeyData(asn1Sk, skInfo);
+      byte[] pkData;
+      if (asn1Sk.getPublicKey() != null) {
+        pkData = asn1Sk.getPublicKey().getOctets();
+      } else {
+        pkData = (skInfo.getPublicKeyData() == null) ? null
+          : skInfo.getPublicKeyData().getOctets();
+      }
+
       if (pkData != null) {
         try {
           this.pk = WeierstraussCurveEnum.SM2.decodePoint(pkData);

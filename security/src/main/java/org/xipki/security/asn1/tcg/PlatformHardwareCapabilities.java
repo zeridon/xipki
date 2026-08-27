@@ -7,7 +7,6 @@ import org.bouncycastle.asn1.ASN1BitString;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.DERBitString;
-import org.xipki.security.util.Asn1Util;
 
 /**
  * The PlatformHardwareCapabilities object.
@@ -39,7 +38,7 @@ public class PlatformHardwareCapabilities extends ASN1Object {
     if (obj instanceof PlatformHardwareCapabilities) {
       return (PlatformHardwareCapabilities)obj;
     } else if (obj != null) {
-      return new PlatformHardwareCapabilities(Asn1Util.toASN1BitString(obj));
+      return new PlatformHardwareCapabilities(ASN1BitString.getInstance(obj));
     }
 
     return null;

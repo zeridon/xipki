@@ -387,7 +387,8 @@ public class CmpResponder extends BaseCmpResponder {
         event.setStatus(AuditStatus.FAILED);
         PKIFreeText statusStr = statusObj.getStatusString();
         if (statusStr != null) {
-          event.addEventData(CaAuditConstants.NAME_message, Asn1Util.getTextAt(statusStr, 0));
+          event.addEventData(CaAuditConstants.NAME_message,
+              statusStr.getStringAtUTF8(0).getString());
         }
       }
     }
@@ -540,13 +541,13 @@ public class CmpResponder extends BaseCmpResponder {
         Extension ext = exts.getExtension(OIDs.Extn.authorityKeyIdentifier);
         if (ext != null) {
           AuthorityKeyIdentifier tAki = AuthorityKeyIdentifier.getInstance(ext.getParsedValue());
-          if (Asn1Util.getKeyIdentifier(tAki) == null) {
+          if (tAki.getKeyIdentifierOctets() == null) {
             return buildErrorMsgPkiBody(rejection, badCertTemplate, "issuer's AKI not present");
           }
 
           if (aki == null) {
-            aki = Asn1Util.getKeyIdentifier(tAki);
-          } else if (!Arrays.equals(aki, Asn1Util.getKeyIdentifier(tAki))) {
+            aki = tAki.getKeyIdentifierOctets();
+          } else if (!Arrays.equals(aki, tAki.getKeyIdentifierOctets())) {
             return buildErrorMsgPkiBody(rejection, badCertTemplate,
                 "not all AKIs are of the same");
           }

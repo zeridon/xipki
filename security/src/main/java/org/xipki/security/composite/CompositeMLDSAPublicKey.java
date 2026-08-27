@@ -47,7 +47,7 @@ public class CompositeMLDSAPublicKey implements PublicKey {
     SubjectPublicKeyInfo tradPkInfo = new SubjectPublicKeyInfo(
         suite.tradVariant().keySpec().algorithmIdentifier(), tradPk);
 
-    this.pqcKey = KeyUtil.wrapMLDSAPublicKey(KeyUtil.getPublicKey(pqcPkInfo));
+    this.pqcKey = (MLDSAPublicKey) KeyUtil.getPublicKey(pqcPkInfo);
     this.tradKey = KeyUtil.getPublicKey(tradPkInfo);
   }
 

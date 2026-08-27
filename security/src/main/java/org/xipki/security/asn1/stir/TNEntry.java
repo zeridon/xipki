@@ -113,7 +113,7 @@ public class TNEntry extends ASN1Object {
     } else if (obj instanceof ASN1TaggedObject) {
       ASN1TaggedObject tObj = (ASN1TaggedObject) obj;
       int tag = tObj.getTagNo();
-      ASN1Encodable tBase = Asn1Util.getBaseObject(tObj);
+      ASN1Encodable tBase = tObj.getBaseObject();
       if (tag == 0) {
         return ofSpc(Asn1Util.getIA5String(tBase));
       } else if (tag == 1) {

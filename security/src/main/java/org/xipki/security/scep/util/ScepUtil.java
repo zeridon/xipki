@@ -4,8 +4,10 @@
 package org.xipki.security.scep.util;
 
 import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1GeneralizedTime;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.ASN1Set;
+import org.bouncycastle.asn1.ASN1UTCTime;
 import org.bouncycastle.asn1.BERTags;
 import org.bouncycastle.asn1.cms.Attribute;
 import org.bouncycastle.asn1.cms.AttributeTable;
@@ -19,7 +21,6 @@ import org.bouncycastle.cert.jcajce.JcaCertStore;
 import org.bouncycastle.cms.CMSException;
 import org.bouncycastle.cms.CMSSignedDataGenerator;
 import org.xipki.security.pkix.X509Cert;
-import org.xipki.security.util.Asn1Util;
 import org.xipki.util.codec.Args;
 
 import java.security.cert.CRLException;
@@ -129,9 +130,9 @@ public class ScepUtil {
       int tag = encoded[0] & 0xFF;
       try {
         if (tag == BERTags.UTC_TIME) {
-          return Asn1Util.getUTCTime(encoded);
+          return ASN1UTCTime.getInstance(encoded).getDate().toInstant();
         } else if (tag == BERTags.GENERALIZED_TIME) {
-          return Asn1Util.getGeneralizedTime(encoded);
+          return ASN1GeneralizedTime.getInstance(encoded).getDate().toInstant();
         } else {
           throw new IllegalArgumentException("invalid tag " + tag);
         }

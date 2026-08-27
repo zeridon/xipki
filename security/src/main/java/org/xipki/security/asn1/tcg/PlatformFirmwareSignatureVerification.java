@@ -7,7 +7,6 @@ import org.bouncycastle.asn1.ASN1BitString;
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.DERBitString;
-import org.xipki.security.util.Asn1Util;
 
 /**
  * The PlatformFirmwareSignatureVerification object.
@@ -31,7 +30,7 @@ public class PlatformFirmwareSignatureVerification extends ASN1Object {
     if (obj instanceof PlatformFirmwareSignatureVerification) {
       return (PlatformFirmwareSignatureVerification)obj;
     } else if (obj != null) {
-      return new PlatformFirmwareSignatureVerification(Asn1Util.toASN1BitString(obj));
+      return new PlatformFirmwareSignatureVerification(ASN1BitString.getInstance(obj));
     }
 
     return null;
