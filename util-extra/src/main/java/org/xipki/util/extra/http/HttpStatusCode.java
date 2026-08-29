@@ -3,9 +3,9 @@
 package org.xipki.util.extra.http;
 
 /**
+ * Http Status Code interface.
  *
  * @author Lijun Liao (xipki)
- * Http Status Code interface.
  */
 public interface HttpStatusCode {
 

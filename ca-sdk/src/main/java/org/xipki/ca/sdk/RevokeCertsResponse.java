@@ -9,7 +9,7 @@ import org.xipki.util.codec.cbor.CborDecoder;
 import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
- * Revoke Certs Response response payload.
+ * Revoke Certs Response payload.
  *
  * @author Lijun Liao (xipki)
  */

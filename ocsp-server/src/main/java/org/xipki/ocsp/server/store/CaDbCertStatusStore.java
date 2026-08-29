@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * CA DB Cert Status Store store definition.
+ * CA DB Cert Status Store definition.
  *
  * @author Lijun Liao (xipki)
  */

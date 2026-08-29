@@ -213,8 +213,6 @@ public class V1KeyUsages {
 
   /**
    * Usage.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Usage {
 

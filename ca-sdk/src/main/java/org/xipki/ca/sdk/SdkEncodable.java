@@ -10,9 +10,9 @@ import org.xipki.util.codec.cbor.CborEncodable;
 import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
+ * Sdk Encodable.
  *
  * @author Lijun Liao (xipki)
- * Sdk Encodable.
  */
 
 public abstract class SdkEncodable implements CborEncodable {

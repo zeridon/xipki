@@ -22,8 +22,6 @@ public class Asn1Parser {
 
   /**
    * Tag Class enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum TagClass {
     UNIVERSAL, APPLICATION, CONTEXT_SPECIFIC, PRIVATE
@@ -31,8 +29,6 @@ public class Asn1Parser {
 
   /**
    * Asn1 Object.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Asn1Object {
 

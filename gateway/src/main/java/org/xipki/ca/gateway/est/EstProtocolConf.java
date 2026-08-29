@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Est Protocol configuration.
  *
  * @author Lijun Liao (xipki)
- * Est Protocol Conf configuration.
  */
 
 public class EstProtocolConf extends GatewayConf.ProtocolConf {

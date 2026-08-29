@@ -11,9 +11,8 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.math.BigInteger;
 
 /**
- *
+ * Old Cert information.
  * @author Lijun Liao (xipki)
- * Old Cert Info information.
  */
 
 public class OldCertInfo extends SdkEncodable {
@@ -107,8 +106,6 @@ public class OldCertInfo extends SdkEncodable {
 
   /**
    * By Issuer And Serial.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ByIssuerAndSerial extends SdkEncodable {
 
@@ -152,8 +149,6 @@ public class OldCertInfo extends SdkEncodable {
 
   /**
    * By Sha1 Fp And Serial.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class BySha1FpAndSerial extends SdkEncodable {
 
@@ -197,8 +192,6 @@ public class OldCertInfo extends SdkEncodable {
 
   /**
    * By Subject.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class BySubject extends SdkEncodable {
 

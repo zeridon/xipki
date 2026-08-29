@@ -17,9 +17,9 @@ import org.xipki.util.misc.StringUtil;
 import java.util.List;
 
 /**
- * Change CA Entry entry.
- * @author Lijun Liao (xipki)
+ * Change CA Entry.
  *
+ * @author Lijun Liao (xipki)
  */
 
 public class ChangeCaEntry extends MgmtEntry {

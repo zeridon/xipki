@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Qaconf Type type definition.
+ * Qaconf type definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -23,8 +23,6 @@ public class QaconfType {
 
   /**
    * Certificate profile definition.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Certprofile extends FileOrValue {
 
@@ -57,9 +55,7 @@ public class QaconfType {
   }
 
   /**
-   * Issuer issuer definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Issuer definition.
    */
   public static class Issuer {
 

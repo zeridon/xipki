@@ -6,10 +6,9 @@ package org.xipki.ca.api.mgmt.entry;
 import org.xipki.util.codec.json.JsonEncodable;
 
 /**
- * Mgmt Entry entry.
+ * Mgmt Entry.
  *
  * @author Lijun Liao (xipki)
- *
  */
 public abstract class MgmtEntry implements JsonEncodable {
 

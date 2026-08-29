@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Subject Control control settings.
+ * Subject Control settings.
  *
  * @author Lijun Liao (xipki)
  */

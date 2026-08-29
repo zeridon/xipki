@@ -14,12 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * General Subtree Type type definition.
+ * General Subtree Type definition.
  *
  * @author Lijun Liao (xipki)
- *
  */
-
 public class GeneralSubtreeType implements JsonEncodable {
 
   private String rfc822Name;

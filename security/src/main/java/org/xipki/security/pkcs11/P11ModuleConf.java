@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * P11 Module Conf configuration.
+ * P11 Module configuration.
  *
  * @author Lijun Liao (xipki)
  */
@@ -163,8 +163,6 @@ public class P11ModuleConf {
 
   /**
    * P11 Mechanism Filter.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11MechanismFilter {
 
@@ -198,8 +196,6 @@ public class P11ModuleConf {
 
   /**
    * P11 Passwords Retriever.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11PasswordsRetriever {
 

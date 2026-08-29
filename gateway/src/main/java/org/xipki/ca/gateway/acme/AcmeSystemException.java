@@ -4,7 +4,7 @@
 package org.xipki.ca.gateway.acme;
 
 /**
- * ACME System Exception exception type.
+ * ACME System Exception type.
  *
  * @author Lijun Liao (xipki)
  */

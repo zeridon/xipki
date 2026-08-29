@@ -36,7 +36,7 @@ import java.util.Map;
 import static org.xipki.util.codec.Base64.decodeFast;
 
 /**
- * ACME Utility classs
+ * ACME Utility class
  * @author Lijun Liao (xipki)
  */
 final class AcmeUtils {

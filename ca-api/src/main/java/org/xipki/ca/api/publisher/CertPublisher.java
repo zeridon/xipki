@@ -14,8 +14,7 @@ import org.xipki.util.extra.exception.CertPublisherException;
 import java.io.Closeable;
 
 /**
- * Cert Publisher.
- * must extend this class.
+ * Cert Publisher must extend this class.
  *
  * @author Lijun Liao (xipki)
  */

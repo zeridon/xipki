@@ -17,7 +17,8 @@ import java.security.spec.KeySpec;
 
 /**
  * Password Hash.
- * @author havoc AT defuse.ca: http://crackstation.net/hashing-security.htm
+ *
+ * @author havoc@defuse.ca: http://crackstation.net/hashing-security.htm
  */
 public class PasswordHash {
 

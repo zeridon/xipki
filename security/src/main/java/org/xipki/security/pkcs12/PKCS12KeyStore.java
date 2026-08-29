@@ -55,7 +55,7 @@ import java.util.Set;
 import java.util.Vector;
 
 /**
- * PKCS12 Key Store store definition.
+ * PKCS12 Key Store definition.
  */
 public class PKCS12KeyStore implements PKCSObjectIdentifiers, NISTObjectIdentifiers {
 

@@ -16,10 +16,9 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * V1 General Name Type type definition.
+ * V1 General Name Type definition.
  *
  * @author Lijun Liao (xipki)
- *
  */
 
 public class V1GeneralNameType {

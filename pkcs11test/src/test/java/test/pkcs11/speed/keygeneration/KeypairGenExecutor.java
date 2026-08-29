@@ -24,8 +24,6 @@ public abstract class KeypairGenExecutor extends Pkcs11Executor {
 
   /**
    * Nested class MyRunnable.
-   *
-   * @author Lijun Liao (xipki)
    */
   public class MyRunnable implements Runnable {
 

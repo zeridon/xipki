@@ -9,7 +9,7 @@ import org.xipki.pkcs11.xihsm.util.HsmUtil;
 import org.xipki.util.codec.Args;
 
 /**
- * Store Slot Info information.
+ * Store Slot information.
  *
  * @author Lijun Liao (xipki)
  */

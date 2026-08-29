@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * XEDDSA PARAMS.
+ * <pre>
  * typedef struct CK_XEDDSA_PARAMS {
  *       CK_XEDDSA_HASH_TYPE  hash;
  * } CK_XEDDSA_PARAMS;

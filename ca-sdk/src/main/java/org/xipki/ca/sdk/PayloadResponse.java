@@ -9,9 +9,9 @@ import org.xipki.util.codec.cbor.CborDecoder;
 import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
+ * Payload Response payload.
  *
  * @author Lijun Liao (xipki)
- * Payload Response response payload.
  */
 
 public class PayloadResponse extends SdkResponse {

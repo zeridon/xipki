@@ -9,10 +9,9 @@ import org.xipki.util.codec.Args;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Keypair Gen Control control settings.
+ * Keypair Gen Control settings.
  *
  * @author Lijun Liao (xipki)
- *
  */
 public class KeypairGenControl {
 

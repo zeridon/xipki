@@ -4,11 +4,10 @@
 package org.xipki.util.extra.http;
 
 /**
- * Xi Http Client Exception exception type.
+ * Xi Http Client Exception type.
  *
  * @author Lijun Liao (xipki)
  */
-
 public class XiHttpClientException extends Exception {
 
   public XiHttpClientException(String message, Throwable cause) {

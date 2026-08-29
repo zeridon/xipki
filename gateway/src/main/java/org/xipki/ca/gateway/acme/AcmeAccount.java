@@ -27,8 +27,6 @@ public class AcmeAccount {
 
   /**
    * Data.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Data implements JsonEncodable {
 

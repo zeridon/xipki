@@ -8,7 +8,7 @@ import org.xipki.util.extra.audit.AuditLevel;
 import org.xipki.util.extra.audit.AuditStatus;
 
 /**
- * Http Resp Audit Exception exception type.
+ * Http Resp Audit Exception type.
  *
  * @author Lijun Liao (xipki)
  */

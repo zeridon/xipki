@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Crl DB Cert Status Store store definition.
+ * Crl DB Cert Status Store definition.
  * database.
  *
  * @author Lijun Liao (xipki)

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CA Certstore store definition.
+ * CA Certstore definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -121,9 +121,7 @@ public class CaCertstore implements JsonEncodable {
   }
 
   /**
-   * Cert certificate record.
-   *
-   * @author Lijun Liao (xipki)
+   * Certificate record.
    */
   public static class Cert extends IdentifiedDbObject {
 
@@ -322,8 +320,6 @@ public class CaCertstore implements JsonEncodable {
 
   /**
    * Certs.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Certs implements JsonEncodable {
 
@@ -360,9 +356,7 @@ public class CaCertstore implements JsonEncodable {
   } // class Certs
 
   /**
-   * Crl CRL record.
-   *
-   * @author Lijun Liao (xipki)
+   * Crl record.
    */
   public static class Crl extends IdentifiedDbObject {
 
@@ -414,8 +408,6 @@ public class CaCertstore implements JsonEncodable {
 
   /**
    * Crls.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Crls implements JsonEncodable {
 
@@ -451,8 +443,6 @@ public class CaCertstore implements JsonEncodable {
 
   /**
    * Id Name.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class IdName implements JsonEncodable {
 
@@ -500,8 +490,6 @@ public class CaCertstore implements JsonEncodable {
 
   /**
    * CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Ca extends IdName {
 

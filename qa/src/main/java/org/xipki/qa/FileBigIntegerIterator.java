@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * File Big Integer Iterator iterator.
+ * File Big Integer iterator.
  *
  * @author Lijun Liao (xipki)
  */

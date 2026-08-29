@@ -24,8 +24,6 @@ public class IPAddress {
 
   /**
    * Context enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum Context {
     PREFIX,

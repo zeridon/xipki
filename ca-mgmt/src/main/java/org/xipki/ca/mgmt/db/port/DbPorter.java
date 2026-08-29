@@ -36,8 +36,6 @@ public class DbPorter extends DbToolBase {
 
   /**
    * OCSP DB Entry Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum OcspDbEntryType {
     CERT("certs", "CERT", 1);
@@ -70,8 +68,6 @@ public class DbPorter extends DbToolBase {
 
   /**
    * CA DB Entry Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum CaDbEntryType {
     CERT("certs", "CERT", 1),
@@ -104,9 +100,7 @@ public class DbPorter extends DbToolBase {
   } // class CaDbEntryType
 
   /**
-   * DB Port File Name Iterator iterator.
-   *
-   * @author Lijun Liao (xipki)
+   * DB Port File Name iterator.
    */
   public static class DbPortFileNameIterator implements Iterator<String>, Closeable {
 

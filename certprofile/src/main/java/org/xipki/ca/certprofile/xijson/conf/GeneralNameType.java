@@ -18,9 +18,7 @@ import java.util.Set;
  * General Name Type definition.
  *
  * @author Lijun Liao (xipki)
- *
  */
-
 public class GeneralNameType implements JsonEncodable {
 
   private final Set<GeneralNameTag> modes;

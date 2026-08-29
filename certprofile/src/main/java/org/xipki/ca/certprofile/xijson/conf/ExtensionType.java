@@ -15,9 +15,7 @@ import org.xipki.util.extra.type.SubjectKeyIdentifierControl;
  * Extension Type definition.
  *
  * @author Lijun Liao (xipki)
- *
  */
-
 public class ExtensionType implements JsonEncodable {
 
   private final ExtensionID type;

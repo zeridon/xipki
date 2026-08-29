@@ -8,7 +8,7 @@ import org.xipki.util.codec.json.JsonMap;
 import org.xipki.util.extra.type.SubjectKeyIdentifierControl;
 
 /**
- * V1 Subject Key Identifier Control control settings.
+ * V1 Subject Key Identifier Control settings.
  *
  * @author Lijun Liao (xipki)
  */

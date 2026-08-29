@@ -11,7 +11,7 @@ import org.xipki.pkcs11.wrapper.PKCS11T;
 import java.util.Arrays;
 
 /**
- * Ck Type type definition.
+ * Ck Type definition.
  * @author Lijun Liao (xipki)
  */
 public abstract class CkType {

@@ -10,7 +10,7 @@ import org.xipki.security.pkix.X509Cert;
 import org.xipki.util.codec.Args;
 
 /**
- * Certificate Info information.
+ * Certificate information.
  *
  * @author Lijun Liao (xipki)
  */

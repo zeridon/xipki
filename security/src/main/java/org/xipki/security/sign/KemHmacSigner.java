@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Kem Hmac Signer signer definition.
+ * Kem Hmac Signer definition.
  *
  * @author Lijun Liao (xipki)
  */

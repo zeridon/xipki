@@ -26,17 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CA Entry entry.
- * @author Lijun Liao (xipki)
+ * CA Entry.
  *
+ * @author Lijun Liao (xipki)
  */
 
 public class CaEntry extends MgmtEntry {
 
   /**
-   * CA Signer Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * CA Signer configuration.
    */
   public static class CaSignerConf {
 

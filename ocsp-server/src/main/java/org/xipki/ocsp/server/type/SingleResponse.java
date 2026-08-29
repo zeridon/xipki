@@ -6,7 +6,7 @@ package org.xipki.ocsp.server.type;
 import java.time.Instant;
 
 /**
- * Single Response response payload.
+ * Single Response payload.
  *
  * @author Lijun Liao (xipki)
  */

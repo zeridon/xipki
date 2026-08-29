@@ -42,8 +42,6 @@ public class AcmeDataSource {
 
   /**
    * Id Checker interface.
-   *
-   * @author Lijun Liao (xipki)
    */
   public interface IdChecker {
 

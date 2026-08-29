@@ -118,8 +118,6 @@ public class SubjectKeyIdentifierControl implements JsonEncodable {
 
   /**
    * Subject Key Identifier Method enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum SubjectKeyIdentifierMethod {
     METHOD1,
@@ -128,8 +126,6 @@ public class SubjectKeyIdentifierControl implements JsonEncodable {
 
   /**
    * Truncate Method enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum TruncateMethod {
     LEFT,

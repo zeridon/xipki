@@ -16,7 +16,7 @@ import org.xipki.util.extra.exception.CertprofileException;
 import java.util.Map;
 
 /**
- * V1 Keypair Generation Type type definition.
+ * V1 Keypair Generation Type definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -135,8 +135,6 @@ public class V1KeypairGenerationType {
 
   /**
    * Key Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum KeyType {
     RSA, EC, DSA, ED25519, ED448, X25519, X448, MLDSA, MLKEM

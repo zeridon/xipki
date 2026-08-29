@@ -5,7 +5,7 @@ package org.xipki.pkcs11.xihsm.mgr;
 import java.util.List;
 
 /**
- * Module Init Conf configuration.
+ * Module Init configuration.
  *
  * @author Lijun Liao (xipki)
  */
@@ -22,9 +22,7 @@ public class ModuleInitConf {
   }
 
   /**
-   * Slot slot definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Slot definition.
    */
   public static final class Slot {
     private final long id;

@@ -83,9 +83,7 @@ import java.util.Iterator;
 public class CrlStreamParser extends Asn1StreamParser {
 
   /**
-   * Revoked Cert certificate record.
-   *
-   * @author Lijun Liao (xipki)
+   * Revoked certificate record.
    */
   public static class RevokedCert {
 
@@ -143,9 +141,7 @@ public class CrlStreamParser extends Asn1StreamParser {
   } // class RevokedCert
 
   /**
-   * Revoked Certs Iterator iterator.
-   *
-   * @author Lijun Liao (xipki)
+   * Revoked Certs iterator.
    */
   public class RevokedCertsIterator implements Iterator<RevokedCert>, Closeable {
 

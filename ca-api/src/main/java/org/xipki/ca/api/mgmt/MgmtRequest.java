@@ -31,8 +31,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Or Change DB Schema.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddOrChangeDbSchema extends MgmtRequest {
 
@@ -68,8 +66,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add CA Alias.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddCaAlias extends CaNameRequest {
 
@@ -100,8 +96,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddCa extends MgmtRequest {
 
@@ -129,8 +123,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Certprofile.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddCertprofile extends MgmtRequest {
 
@@ -159,8 +151,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Certprofile To CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddCertprofileToCa extends CaNameRequest {
 
@@ -193,8 +183,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Keypair Gen.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddKeypairGen extends MgmtRequest {
 
@@ -223,8 +211,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Publisher.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddPublisher extends MgmtRequest {
 
@@ -253,8 +239,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Publisher To CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddPublisherToCa extends CaNameRequest {
 
@@ -285,8 +269,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Requestor.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddRequestor extends MgmtRequest {
 
@@ -315,8 +297,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Requestor To CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddRequestorToCa extends CaNameRequest {
 
@@ -348,8 +328,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to add Signer.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class AddSigner extends MgmtRequest {
 
@@ -396,8 +374,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to change CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ChangeCa extends MgmtRequest {
 
@@ -426,8 +402,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to change Signer.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ChangeSigner extends MgmtRequest {
 
@@ -493,8 +467,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to change Type Conf Entity.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ChangeTypeConfEntity extends MgmtRequest {
 
@@ -540,8 +512,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to export Conf.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ExportConf extends MgmtRequest {
 
@@ -607,8 +577,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to generate Cert.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GenerateCert extends AbstractGenerateCert {
 
@@ -642,8 +610,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to generate Key Cert.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GenerateKeyCert extends AbstractGenerateCert {
 
@@ -676,8 +642,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to generate Cross Certificate.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GenerateCrossCertificate extends CaNameRequest {
 
@@ -746,8 +710,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to generate Root CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GenerateRootCa extends MgmtRequest {
 
@@ -831,8 +793,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to get Cert.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetCert extends MgmtRequest {
 
@@ -980,8 +940,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to get Crl.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetCrl extends CaNameRequest {
 
@@ -1012,8 +970,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to list Certificates.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ListCertificates extends CaNameRequest {
 
@@ -1102,8 +1058,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to load Conf.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class LoadConf extends MgmtRequest {
 
@@ -1132,8 +1086,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to name.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Name extends MgmtRequest {
 
@@ -1162,8 +1114,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to remove Certificate.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RemoveCertificate extends CaNameRequest {
 
@@ -1194,8 +1144,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to remove Entity From CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RemoveEntityFromCa extends CaNameRequest {
 
@@ -1226,8 +1174,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to republish Certificates.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RepublishCertificates extends CaNameRequest {
 
@@ -1267,8 +1213,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to revoke CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RevokeCa extends CaNameRequest {
 
@@ -1304,8 +1248,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to revoke Certificate.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RevokeCertificate extends CaNameRequest {
 
@@ -1360,8 +1302,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to unsuspend Certificate.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class UnsuspendCertificate extends CaNameRequest {
 
@@ -1393,8 +1333,6 @@ public abstract class MgmtRequest extends MgmtMessage {
 
   /**
    * Request to token Info P11.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class TokenInfoP11 extends MgmtRequest {
 

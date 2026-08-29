@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Key Usage Control control settings.
+ * Key Usage Control settings.
  *
  * @author Lijun Liao (xipki)
  */
@@ -47,8 +47,6 @@ public class KeyUsageControl {
 
   /**
    * Key Single Usages.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class KeySingleUsages {
 

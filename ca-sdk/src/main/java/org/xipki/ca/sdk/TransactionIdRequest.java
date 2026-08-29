@@ -9,9 +9,9 @@ import org.xipki.util.codec.cbor.CborDecoder;
 import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
+ * Transaction Id Request payload.
  *
  * @author Lijun Liao (xipki)
- * Transaction Id Request request payload.
  */
 
 public class TransactionIdRequest extends SdkRequest {

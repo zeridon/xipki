@@ -68,7 +68,7 @@ import static org.xipki.ca.server.CaUtil.encodeCertchain;
 import static org.xipki.ca.server.CaUtil.parseCert;
 
 /**
- * DB CA Conf Store store definition.
+ * DB CA Conf Store definition.
  *
  * @author Lijun Liao (xipki)
  */

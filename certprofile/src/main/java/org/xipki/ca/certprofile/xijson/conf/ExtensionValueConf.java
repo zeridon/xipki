@@ -58,7 +58,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
- * Extension Value Conf configuration.
+ * Extension Value configuration.
  *
  * @author Lijun Liao (xipki)
  */
@@ -125,14 +125,12 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // class BasicConstraints
 
   /**
-   * Biometric Info information.
+   * Biometric information.
    */
   public static class BiometricInfo implements JsonEncodable {
 
     /**
      * Biometric Type enumeration.
-     *
-     * @author Lijun Liao (xipki)
      */
     public enum BiometricType {
 
@@ -477,8 +475,6 @@ public abstract class ExtensionValueConf implements JsonEncodable {
 
   /**
    * Access.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Access implements JsonEncodable {
 
@@ -573,8 +569,6 @@ public abstract class ExtensionValueConf implements JsonEncodable {
 
   /**
    * Smime Capability.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class SmimeCapability implements JsonEncodable {
 
@@ -752,9 +746,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // class QcStatements
 
   /**
-   * Range2 Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Range2 Type definition.
    */
   public static class Range2Type implements JsonEncodable {
 
@@ -787,9 +779,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // method Range2Type
 
   /**
-   * QC Statement Value Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * QC Statement Value Type definition.
    */
   public static class QcStatementValueType implements JsonEncodable {
 
@@ -868,9 +858,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // class QcStatementValueType
 
   /**
-   * QC Statement Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * QC Statement Type definition.
    */
   public static class QcStatementType implements JsonEncodable {
 
@@ -907,9 +895,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   }
 
   /**
-   * Pds Location Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Pds Location Type definition.
    */
   public static class PdsLocationType implements JsonEncodable {
 
@@ -942,9 +928,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // class QcEuLimitValueType
 
   /**
-   * QC Eu Limit Value Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * QC Eu Limit Value Type definition.
    */
   public static class QcEuLimitValueType implements JsonEncodable {
 
@@ -1060,9 +1044,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   }
 
   /**
-   * Policy Id Mapping Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Policy Id Mapping Type definition.
    */
   public static class PolicyIdMappingType implements JsonEncodable {
 
@@ -1391,8 +1373,6 @@ public abstract class ExtensionValueConf implements JsonEncodable {
 
   /**
    * Policy Qualifier Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum PolicyQualifierType {
     cpsUri,
@@ -1401,8 +1381,6 @@ public abstract class ExtensionValueConf implements JsonEncodable {
 
   /**
    * Policy Qualifier.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class PolicyQualifier implements JsonEncodable {
 
@@ -1436,9 +1414,7 @@ public abstract class ExtensionValueConf implements JsonEncodable {
   } // class PolicyQualifier
 
   /**
-   * Certificate Policy Information Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Certificate Policy Information Type definition.
    */
   public static class CertificatePolicyInformationType implements JsonEncodable {
 

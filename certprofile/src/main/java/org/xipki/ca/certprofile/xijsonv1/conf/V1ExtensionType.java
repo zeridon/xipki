@@ -24,7 +24,7 @@ import org.xipki.util.codec.json.JsonMap;
 import java.util.Collection;
 
 /**
- * V1 Extension Type type definition.
+ * V1 Extension Type definition.
  *
  * @author Lijun Liao (xipki)
  */

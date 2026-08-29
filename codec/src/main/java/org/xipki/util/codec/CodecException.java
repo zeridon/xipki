@@ -5,9 +5,9 @@ package org.xipki.util.codec;
 import java.io.IOException;
 
 /**
+ * Codec Exception type.
  *
  * @author Lijun Liao (xipki)
- * Codec Exception exception type.
  */
 public class CodecException extends Exception {
 
@@ -24,9 +24,7 @@ public class CodecException extends Exception {
   }
 
   /**
-   * Codec IOException exception type.
-   *
-   * @author Lijun Liao (xipki)
+   * Codec IOException type.
    */
   public static final class CodecIOException extends CodecException {
 
@@ -44,7 +42,7 @@ public class CodecException extends Exception {
   }
 
   /**
-   * Duplicated Key Exception exception type.
+   * Duplicated Key Exception type.
    */
   public static final class DuplicatedKeyException extends CodecException {
 
@@ -67,7 +65,7 @@ public class CodecException extends Exception {
   }
 
   /**
-   * Unexpected Char Exception exception type.
+   * Unexpected Char Exception type.
    */
   public static final class UnexpectedCharException extends CodecException {
 

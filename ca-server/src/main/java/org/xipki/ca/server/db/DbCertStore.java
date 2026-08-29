@@ -77,7 +77,7 @@ import static org.xipki.security.exception.ErrorCode.NOT_PERMITTED;
 import static org.xipki.security.exception.ErrorCode.SYSTEM_FAILURE;
 
 /**
- * DB Cert Store store definition.
+ * DB Cert Store definition.
  *
  * @author Lijun Liao (xipki)
  */

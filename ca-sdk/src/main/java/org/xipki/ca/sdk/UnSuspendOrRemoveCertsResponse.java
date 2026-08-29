@@ -9,8 +9,7 @@ import org.xipki.util.codec.cbor.CborDecoder;
 import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
- * Un Suspend Or Remove Certs Response response payload.
- * certificates.
+ * Suspend, Unsuspend Or Remove Certs Response payload.
  *
  * @author Lijun Liao (xipki)
  */

@@ -67,8 +67,6 @@ public class OIDs {
 
   /**
    * CMP.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class CMP {
 
@@ -97,8 +95,6 @@ public class OIDs {
 
   /**
    * CMC.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class CMC {
 
@@ -108,8 +104,6 @@ public class OIDs {
 
   /**
    * X509.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class X509 {
 
@@ -146,8 +140,6 @@ public class OIDs {
 
   /**
    * ACME.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class ACME {
 
@@ -158,8 +150,6 @@ public class OIDs {
 
   /**
    * Xipki.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Xipki {
 
@@ -202,8 +192,6 @@ public class OIDs {
 
   /**
    * Policy Identifier.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class PolicyIdentifier {
 
@@ -261,8 +249,6 @@ public class OIDs {
 
   /**
    * Policy Qualifier Id.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class PolicyQualifierId {
 
@@ -273,8 +259,6 @@ public class OIDs {
 
   /**
    * DN.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class DN {
 
@@ -480,8 +464,6 @@ public class OIDs {
   // extended key usage
   /**
    * XKU.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class XKU {
 
@@ -705,8 +687,6 @@ public class OIDs {
 
   /**
    * Extn.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Extn {
 
@@ -1059,8 +1039,6 @@ public class OIDs {
 
   /**
    * Secg.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Secg {
 
@@ -1076,8 +1054,6 @@ public class OIDs {
 
   /**
    * Algo.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Algo {
 
@@ -1284,8 +1260,6 @@ public class OIDs {
 
   /**
    * Curve.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Curve {
 
@@ -1334,8 +1308,6 @@ public class OIDs {
 
   /**
    * Composite.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Composite {
     // composite_sigs
@@ -1437,8 +1409,6 @@ public class OIDs {
 
   /**
    * CMS.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CMS {
 
@@ -1453,8 +1423,6 @@ public class OIDs {
 
   /**
    * Misc.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Misc {
 
@@ -1468,8 +1436,6 @@ public class OIDs {
 
   /**
    * PKCS9.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class PKCS9 {
 
@@ -1486,8 +1452,6 @@ public class OIDs {
 
   /**
    * OCSP.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class OCSP {
 
@@ -1510,8 +1474,6 @@ public class OIDs {
 
   /**
    * QCS.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class QCS {
 
@@ -1549,8 +1511,6 @@ public class OIDs {
 
   /**
    * SCEP.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class Scep {
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Authz Response response payload.
+ * Authz Response payload.
  *
  * @author Lijun Liao (xipki)
  */

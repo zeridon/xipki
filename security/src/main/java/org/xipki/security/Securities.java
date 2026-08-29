@@ -34,9 +34,7 @@ import java.util.List;
 public class Securities implements Closeable {
 
   /**
-   * Security Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Security configuration.
    */
   public static class SecurityConf {
 

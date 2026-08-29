@@ -10,7 +10,7 @@ import org.xipki.util.codec.json.JsonMap;
 import java.util.List;
 
 /**
- * Orders Response response payload.
+ * Orders Response payload.
  *
  * @author Lijun Liao (xipki)
  */

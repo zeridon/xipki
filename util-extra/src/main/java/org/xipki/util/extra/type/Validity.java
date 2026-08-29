@@ -19,8 +19,6 @@ public class Validity implements Comparable<Validity> {
 
   /**
    * Unit enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum Unit {
 

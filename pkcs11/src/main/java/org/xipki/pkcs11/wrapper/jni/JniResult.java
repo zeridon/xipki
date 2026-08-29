@@ -15,7 +15,7 @@ import org.xipki.pkcs11.wrapper.type.CkTokenInfo;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Jni Result result.
+ * Jni result.
  *
  * @author Lijun Liao (xipki)
  */

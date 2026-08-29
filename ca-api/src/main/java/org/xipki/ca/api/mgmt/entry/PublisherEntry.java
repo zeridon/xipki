@@ -11,9 +11,9 @@ import org.xipki.util.extra.misc.CompareUtil;
 import org.xipki.util.misc.StringUtil;
 
 /**
- * Publisher Entry entry.
- * @author Lijun Liao (xipki)
+ * Publisher Entry.
  *
+ * @author Lijun Liao (xipki)
  */
 
 public class PublisherEntry extends MgmtEntry {

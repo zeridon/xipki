@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Order Response response payload.
+ * Order Response payload.
  *
  * @author Lijun Liao (xipki)
  */

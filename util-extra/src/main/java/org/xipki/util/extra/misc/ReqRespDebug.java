@@ -15,9 +15,7 @@ import java.util.List;
 public class ReqRespDebug {
 
   /**
-   * Req Resp Pair pair.
-   *
-   * @author Lijun Liao (xipki)
+   * Req Resp Pair.
    */
   public static class ReqRespPair {
 

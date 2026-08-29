@@ -4,7 +4,7 @@
 package org.xipki.util.extra.exception;
 
 /**
- * Cert Publisher Exception exception type.
+ * Cert Publisher Exception type.
  *
  * @author Lijun Liao (xipki)
  */

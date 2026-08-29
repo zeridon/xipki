@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * V1 Subject To Subject Alt Name Type type definition.
+ * V1 Subject To Subject Alt Name Type definition.
  * extension.
  *
  * @author Lijun Liao (xipki)

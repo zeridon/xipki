@@ -16,7 +16,7 @@ import org.bouncycastle.asn1.x500.X500Name;
 import org.xipki.ca.api.profile.ctrl.RdnControl;
 import org.xipki.ca.api.profile.ctrl.StringType;
 import org.xipki.ca.api.profile.ctrl.SubjectControl;
-import org.xipki.ca.api.profile.ctrl.TextVadidator;
+import org.xipki.ca.api.profile.ctrl.TextValidator;
 import org.xipki.qa.ValidationIssue;
 import org.xipki.security.OIDs;
 import org.xipki.security.exception.BadCertTemplateException;
@@ -152,7 +152,7 @@ public class X509SubjectChecker {
     }
 
     if (rdnControl != null) {
-      TextVadidator pattern = rdnControl.pattern();
+      TextValidator pattern = rdnControl.pattern();
       if (pattern != null) {
         boolean matches = pattern.isValid(atvTextValue);
         if (!matches) {

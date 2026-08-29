@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * OCSP Server Conf configuration.
+ * OCSP Server configuration.
  *
  * @author Lijun Liao (xipki)
  */
@@ -33,8 +33,6 @@ public class OcspServerConf {
 
   /**
    * Embed Certs Mode enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum EmbedCertsMode {
     NONE,
@@ -44,8 +42,6 @@ public class OcspServerConf {
 
   /**
    * Cert Collection.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CertCollection {
 
@@ -82,8 +78,6 @@ public class OcspServerConf {
 
   /**
    * Nonce.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Nonce {
 
@@ -124,8 +118,6 @@ public class OcspServerConf {
 
   /**
    * Request Option options.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RequestOption {
 
@@ -271,8 +263,6 @@ public class OcspServerConf {
 
   /**
    * Certpath Validation.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CertpathValidation {
 
@@ -317,8 +307,6 @@ public class OcspServerConf {
 
   /**
    * Responder.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Responder {
 
@@ -409,8 +397,6 @@ public class OcspServerConf {
 
   /**
    * Response Cache.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ResponseCache {
 
@@ -442,8 +428,6 @@ public class OcspServerConf {
 
   /**
    * Response Option options.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ResponseOption {
 
@@ -553,9 +537,7 @@ public class OcspServerConf {
   } // class ResponseOption
 
   /**
-   * Signer signer definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Signer definition.
    */
   public static class Signer {
 
@@ -615,9 +597,7 @@ public class OcspServerConf {
   } // class Signer
 
   /**
-   * Store store definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Store definition.
    */
   public static class Store {
 
@@ -763,8 +743,6 @@ public class OcspServerConf {
 
   /**
    * Source.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Source {
 
@@ -801,8 +779,6 @@ public class OcspServerConf {
 
   /**
    * CA Certs.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CaCerts {
 

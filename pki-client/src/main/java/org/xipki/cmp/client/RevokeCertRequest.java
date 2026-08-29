@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Revoke Cert Request request payload.
+ * Revoke Cert Request payload.
  *
  * @author Lijun Liao (xipki)
  */
@@ -22,8 +22,6 @@ public class RevokeCertRequest {
 
   /**
    * Entry entry.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Entry extends UnsuspendCertRequest.Entry {
 

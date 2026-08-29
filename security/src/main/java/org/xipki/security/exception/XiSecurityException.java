@@ -4,7 +4,7 @@
 package org.xipki.security.exception;
 
 /**
- * Xi Security Exception exception type.
+ * Xi Security Exception type.
  *
  * @author Lijun Liao (xipki)
  */

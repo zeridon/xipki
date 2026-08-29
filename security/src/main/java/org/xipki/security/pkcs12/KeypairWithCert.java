@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Keypair With Cert certificate record.
+ * Keypair With certificate record.
  *
  * @author Lijun Liao (xipki)
  */

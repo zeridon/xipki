@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * CA Profile Entry entry.
+ * CA Profile Entry.
  *
  * @author Lijun Liao (xipki)
  */

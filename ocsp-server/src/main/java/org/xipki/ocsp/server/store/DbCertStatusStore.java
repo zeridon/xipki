@@ -52,7 +52,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * DB Cert Status Store store definition.
+ * DB Cert Status Store definition.
  *
  * @author Lijun Liao (xipki)
  */

@@ -4,9 +4,9 @@
 package org.xipki.security.pkix;
 
 /**
+ * Key Cert Bytes Pair.
  *
  * @author Lijun Liao (xipki)
- * Key Cert Bytes Pair pair.
  */
 public class KeyCertBytesPair {
 

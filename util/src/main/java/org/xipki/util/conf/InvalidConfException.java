@@ -4,7 +4,7 @@
 package org.xipki.util.conf;
 
 /**
- * Invalid Conf Exception exception type.
+ * Invalid Conf Exception type.
  *
  * @author Lijun Liao (xipki)
  */

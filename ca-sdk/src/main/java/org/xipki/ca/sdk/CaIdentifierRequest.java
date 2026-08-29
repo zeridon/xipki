@@ -13,9 +13,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.io.IOException;
 
 /**
+ * CA Identifier Request payload.
  *
  * @author Lijun Liao (xipki)
- * CA Identifier Request request payload.
  */
 public class CaIdentifierRequest extends SdkRequest{
 

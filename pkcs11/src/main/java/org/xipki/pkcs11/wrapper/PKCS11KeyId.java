@@ -116,8 +116,6 @@ public class PKCS11KeyId {
 
   /**
    * Key Id Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum KeyIdType {
     SECRET_KEY,

@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Enroll Cert Request request payload.
+ * Enroll Cert Request payload.
  *
  * @author Lijun Liao (xipki)
  */
@@ -22,8 +22,6 @@ public class EnrollCertRequest {
 
   /**
    * Enroll Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum EnrollType {
 
@@ -36,8 +34,6 @@ public class EnrollCertRequest {
 
   /**
    * Entry entry.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Entry extends IdentifiedObject {
 

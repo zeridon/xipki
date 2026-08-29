@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * OCSP Response Exception exception type.
+ * OCSP Response Exception type.
  *
  * @author Lijun Liao (xipki)
  */
@@ -18,9 +18,7 @@ import java.util.Map;
 public abstract class OcspResponseException extends Exception {
 
   /**
-   * Invalid Response response payload.
-   *
-   * @author Lijun Liao (xipki)
+   * Invalid Response payload.
    */
   public static class InvalidResponse extends OcspResponseException {
 
@@ -36,8 +34,6 @@ public abstract class OcspResponseException extends Exception {
 
   /**
    * OCSP Nonce Unmatched.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class OcspNonceUnmatched extends OcspResponseException {
 
@@ -55,8 +51,6 @@ public abstract class OcspResponseException extends Exception {
 
   /**
    * OCSP Target Unmatched.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class OcspTargetUnmatched extends OcspResponseException {
 
@@ -72,8 +66,6 @@ public abstract class OcspResponseException extends Exception {
 
   /**
    * Responder Unreachable.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ResponderUnreachable extends OcspResponseException {
 
@@ -89,8 +81,6 @@ public abstract class OcspResponseException extends Exception {
 
   /**
    * Unsuccessful.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Unsuccessful extends OcspResponseException {
 

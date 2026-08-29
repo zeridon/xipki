@@ -9,7 +9,7 @@ import org.xipki.util.extra.type.Range;
 import org.xipki.util.misc.StringUtil;
 
 /**
- * Rdn Control control settings.
+ * Rdn Control settings.
  *
  * @author Lijun Liao (xipki)
  */
@@ -21,7 +21,7 @@ public class RdnControl {
 
   private final ASN1ObjectIdentifier type;
 
-  private TextVadidator pattern;
+  private TextValidator pattern;
 
   private StringType stringType;
 
@@ -69,7 +69,7 @@ public class RdnControl {
     return stringType;
   }
 
-  public TextVadidator pattern() {
+  public TextValidator pattern() {
     return pattern;
   }
 
@@ -85,7 +85,7 @@ public class RdnControl {
     this.stringLengthRange = stringLengthRange;
   }
 
-  public void setPattern(TextVadidator pattern) {
+  public void setPattern(TextValidator pattern) {
     this.pattern = pattern;
   }
 

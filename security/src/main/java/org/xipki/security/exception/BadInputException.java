@@ -4,7 +4,7 @@
 package org.xipki.security.exception;
 
 /**
- * Bad Input Exception exception type.
+ * Bad Input Exception type.
  *
  * @author Lijun Liao (xipki)
  */

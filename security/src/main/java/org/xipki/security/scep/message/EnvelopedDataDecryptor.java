@@ -30,8 +30,6 @@ public final class EnvelopedDataDecryptor {
 
   /**
    * Enveloped Data Decryptor Instance.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static final class EnvelopedDataDecryptorInstance {
 

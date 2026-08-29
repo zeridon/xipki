@@ -7,7 +7,7 @@ import org.xipki.ca.api.profile.ctrl.GeneralNameTag;
 import org.xipki.ca.api.profile.ctrl.RdnControl;
 import org.xipki.ca.api.profile.ctrl.StringType;
 import org.xipki.ca.api.profile.ctrl.SubjectDnSpec;
-import org.xipki.ca.api.profile.ctrl.TextVadidator;
+import org.xipki.ca.api.profile.ctrl.TextValidator;
 import org.xipki.ca.api.profile.id.AttributeType;
 import org.xipki.util.codec.Args;
 import org.xipki.util.codec.CodecException;
@@ -15,7 +15,7 @@ import org.xipki.util.codec.json.JsonEncodable;
 import org.xipki.util.codec.json.JsonMap;
 
 /**
- * Rdn Type type definition.
+ * Rdn Type definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -132,7 +132,7 @@ public class RdnType implements JsonEncodable {
         : new RdnControl(type.oid(), value);
 
     if (regex != null) {
-      ret.setPattern(TextVadidator.compile(regex));
+      ret.setPattern(TextValidator.compile(regex));
     }
 
     ret.setToSAN(toSAN);

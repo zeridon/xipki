@@ -8,7 +8,7 @@ import org.xipki.security.pkix.X509Cert;
 import org.xipki.util.codec.Args;
 
 /**
- * Authority Cert Store store definition.
+ * Authority Cert Store definition.
  *
  * @author Lijun Liao (xipki)
  */

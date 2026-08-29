@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CSR Control control settings.
+ * CSR Control settings.
  *
  * @author Lijun Liao (xipki)
  */
@@ -134,9 +134,7 @@ public class CsrControl {
   }
 
   /**
-   * CSR Control Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * CSR Control configuration.
    */
   public static class CsrControlConf {
 

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Keypair Gen Entry entry.
+ * Keypair Gen Entry.
  * @author Lijun Liao (xipki)
  */
 

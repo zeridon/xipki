@@ -10,7 +10,7 @@ import org.xipki.security.util.KeyUtil;
 import java.security.SecureRandom;
 
 /**
- * CA Enroll Bench Key Entry entry.
+ * CA Enroll Bench Key entry.
  *
  * @author Lijun Liao (xipki)
  */

@@ -5,18 +5,18 @@ package org.xipki.ca.api.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.xipki.ca.api.profile.ctrl.TextVadidator;
+import org.xipki.ca.api.profile.ctrl.TextValidator;
 
 /**
  * TextValidator test.
- * @author Lijun Liao (xipki)
  *
+ * @author Lijun Liao (xipki)
  */
 public class TextValidatorTest {
 
   @Test
   public void testFQDN() {
-    TextVadidator tv = TextVadidator.compile(":FQDN");
+    TextValidator tv = TextValidator.compile(":FQDN");
 
     String[] strs = {"pki.goog", "abc.com", "*.abc.com", "abc.local", "a.root"};
     for (String str : strs) {

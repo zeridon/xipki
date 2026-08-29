@@ -18,7 +18,9 @@ import static org.xipki.util.codec.cbor.CborConstants.TYPE_TEXT_STRING;
 
 /**
  * Stream Cbor Decoder.
- * {@link InputStream}.
+ *
+ * @author J.W. Janssen <j.w.janssen@lxtreme.nl>
+ * @author Lijun Liao (xipki)
  */
 public class StreamCborDecoder extends CborDecoder {
 

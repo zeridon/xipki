@@ -8,9 +8,9 @@ import org.xipki.util.codec.CodecException;
 import java.io.IOException;
 
 /**
+ * Cbor Encodable interface.
  *
  * @author Lijun Liao (xipki)
- * Cbor Encodable interface.
  */
 public interface CborEncodable {
 

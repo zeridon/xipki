@@ -24,8 +24,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Functions.
- * that are used by several classes in this package.
+ * Functions that are used by several classes in this package.
  *
  * @author Lijun Liao (xipki)
  */

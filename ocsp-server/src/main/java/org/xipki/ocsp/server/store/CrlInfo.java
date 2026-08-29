@@ -15,7 +15,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 
 /**
- * Crl Info information.
+ * Crl information.
  *
  * @author Lijun Liao (xipki)
  */

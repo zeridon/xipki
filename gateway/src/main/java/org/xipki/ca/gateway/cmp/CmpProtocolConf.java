@@ -15,9 +15,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
+ * CMP Protocol configuration.
  *
  * @author Lijun Liao (xipki)
- * CMP Protocol Conf configuration.
  */
 
 public class CmpProtocolConf extends GatewayConf.ProtocolConf {
@@ -77,9 +77,7 @@ public class CmpProtocolConf extends GatewayConf.ProtocolConf {
   }
 
   /**
-   * CMP Control Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * CMP Control configuration.
    */
 
   public static class CmpControlConf {

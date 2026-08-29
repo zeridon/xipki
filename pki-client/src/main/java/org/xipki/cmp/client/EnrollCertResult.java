@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Enroll Cert Result result.
+ * Enroll Cert result.
  *
  * @author Lijun Liao (xipki)
  */
@@ -21,8 +21,6 @@ public class EnrollCertResult {
 
   /**
    * Certified Key Pair Or Error.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CertifiedKeyPairOrError {
 

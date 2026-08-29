@@ -12,9 +12,9 @@ import java.math.BigInteger;
 import java.time.Instant;
 
 /**
+ * Get CRLRequest payload.
  *
  * @author Lijun Liao (xipki)
- * Get CRLRequest request payload.
  */
 
 public class GetCRLRequest extends SdkRequest {

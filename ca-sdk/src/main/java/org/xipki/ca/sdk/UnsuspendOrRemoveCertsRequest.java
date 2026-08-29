@@ -11,9 +11,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.math.BigInteger;
 
 /**
+ * Unsuspend Or Remove Certs Request payload.
  *
  * @author Lijun Liao (xipki)
- * Unsuspend Or Remove Certs Request request payload.
  */
 
 public class UnsuspendOrRemoveCertsRequest extends CaIdentifierRequest {

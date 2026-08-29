@@ -68,8 +68,6 @@ public abstract class JniResp {
 
   /**
    * Jni Err Resp.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class JniErrResp extends JniResp {
 
@@ -104,8 +102,6 @@ public abstract class JniResp {
 
   /**
    * Jni Long Resp.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class JniLongResp extends JniResp {
 
@@ -136,8 +132,6 @@ public abstract class JniResp {
 
   /**
    * Jni Simple Resp.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class JniSimpleResp extends JniResp {
 

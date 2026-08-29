@@ -14,7 +14,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * Public CA Info information.
+ * Public CA Info.
  *
  * @author Lijun Liao (xipki)
  */

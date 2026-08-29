@@ -13,7 +13,7 @@ import org.xipki.util.extra.type.Validity.Unit;
 import org.xipki.util.misc.StringUtil;
 
 /**
- * Revoke Suspended Control control settings.
+ * Revoke Suspended Control settings.
  *
  * <p>Example configuration
  *<pre>

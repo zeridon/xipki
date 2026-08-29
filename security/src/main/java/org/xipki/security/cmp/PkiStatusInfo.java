@@ -9,7 +9,7 @@ import org.xipki.security.util.Asn1Util;
 import org.xipki.util.codec.Args;
 
 /**
- * Pki Status Info information.
+ * Pki Status information.
  *
  * @author Lijun Liao (xipki)
  */

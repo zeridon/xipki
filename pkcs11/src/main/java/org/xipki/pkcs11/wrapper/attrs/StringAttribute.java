@@ -6,8 +6,7 @@ package org.xipki.pkcs11.wrapper.attrs;
 import java.nio.charset.StandardCharsets;
 
 /**
- * String Attribute.
- * as specified by PKCS#11.
+ * String Attribute, as specified by PKCS#11.
  *
  * @author Lijun Liao (xipki)
  */

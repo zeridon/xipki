@@ -40,7 +40,7 @@ import static org.xipki.pkcs11.wrapper.PKCS11T.*;
 
 /**
  * Session.
- * application gets a Session object by calling openSession on a certain Token
+ * Application gets a Session object by calling openSession on a certain Token
  * object. Having the session object, the application may login the user, if
  * required.
  * If the application does not need the session any longer, it should close the

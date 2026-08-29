@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * SCEP Protocol configuration.
  *
  * @author Lijun Liao (xipki)
- * SCEP Protocol Conf configuration.
  */
 
 public class ScepProtocolConf extends GatewayConf.ProtocolConf {

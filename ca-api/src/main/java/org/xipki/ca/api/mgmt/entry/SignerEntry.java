@@ -19,9 +19,9 @@ import org.xipki.util.misc.StringUtil;
 import java.security.cert.CertificateEncodingException;
 
 /**
- * Signer Entry entry.
- * @author Lijun Liao (xipki)
+ * Signer Entry.
  *
+ * @author Lijun Liao (xipki)
  */
 
 public class SignerEntry extends MgmtEntry {

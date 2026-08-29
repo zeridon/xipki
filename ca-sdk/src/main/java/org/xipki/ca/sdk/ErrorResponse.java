@@ -11,7 +11,7 @@ import org.xipki.util.codec.cbor.CborDecoder;
 import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
- * Error Response response payload.
+ * Error Response payload.
  *
  * @author Lijun Liao (xipki)
  */

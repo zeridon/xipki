@@ -12,7 +12,7 @@ import org.xipki.util.io.FileOrBinary;
 import java.util.List;
 
 /**
- * CMP Client Conf configuration.
+ * CMP Client configuration.
  *
  * @author Lijun Liao (xipki)
  */
@@ -21,8 +21,6 @@ public class CmpClientConf {
 
   /**
    * Responder.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Responder {
 
@@ -75,8 +73,6 @@ public class CmpClientConf {
 
     /**
      * Pbm Mac.
-     *
-     * @author Lijun Liao (xipki)
      */
     public static class PbmMac {
 
@@ -105,8 +101,6 @@ public class CmpClientConf {
 
     /**
      * Signature.
-     *
-     * @author Lijun Liao (xipki)
      */
     public static class Signature {
 

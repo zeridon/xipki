@@ -22,17 +22,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * Gateway configuration.
  *
  * @author Lijun Liao (xipki)
- * Gateway Conf configuration.
  */
-
 public class GatewayConf {
 
   /**
    * Supported Protocols.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class SupportedProtocols {
 
@@ -199,11 +196,8 @@ public class GatewayConf {
   }
 
   /**
-   *
-   * @author Lijun Liao (xipki)
-   * CA Name Signer Conf configuration.
+   * CA Name Signer configuration.
    */
-
   public static class CaNameSignerConf {
 
     private final List<String> names;
@@ -232,9 +226,7 @@ public class GatewayConf {
   }
 
   /**
-   *
-   * @author Lijun Liao (xipki)
-   * CA Name Signers Conf configuration.
+   * CA Name Signers configuration.
    */
 
   public static class CaNameSignersConf {
@@ -274,9 +266,7 @@ public class GatewayConf {
   }
 
   /**
-   * CA Profile Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * CA Profile configuration.
    */
   public static class CaProfileConf {
 
@@ -312,9 +302,7 @@ public class GatewayConf {
   }
 
   /**
-   * CA Profiles Control control settings.
-   *
-   * @author Lijun Liao (xipki)
+   * CA Profiles Control settings.
    */
   public static class CaProfilesControl {
 
@@ -372,9 +360,7 @@ public class GatewayConf {
   }
 
   /**
-   * Pop Control Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Pop Control configuration.
    */
   public static class PopControlConf {
 
@@ -414,11 +400,8 @@ public class GatewayConf {
   }
 
   /**
-   *
-   * @author Lijun Liao (xipki)
-   * Protocol Conf configuration.
+   * Protocol configuration.
    */
-
   public static class ProtocolConf {
 
     private final Boolean logReqResp;
@@ -457,11 +440,8 @@ public class GatewayConf {
   }
 
   /**
-   *
-   * @author Lijun Liao (xipki)
-   * Signer Conf configuration.
+   * Signer configuration.
    */
-
   public static class SignerConf {
 
     private final List<FileOrBinary> certs;

@@ -16,7 +16,7 @@ import org.xipki.ca.api.profile.ctrl.StringType;
 import org.xipki.ca.api.profile.ctrl.SubjectControl;
 import org.xipki.ca.api.profile.ctrl.SubjectDnSpec;
 import org.xipki.ca.api.profile.ctrl.SubjectInfo;
-import org.xipki.ca.api.profile.ctrl.TextVadidator;
+import org.xipki.ca.api.profile.ctrl.TextValidator;
 import org.xipki.ca.api.profile.id.OtherNameID;
 import org.xipki.ca.api.profile.id.SubjectDirectoryAttributeType;
 import org.xipki.security.OIDs;
@@ -317,7 +317,7 @@ public class ProfileUtil {
     String tmpText = text.trim();
 
     if (option != null) {
-      TextVadidator pattern = option.pattern();
+      TextValidator pattern = option.pattern();
       if (pattern != null && !pattern.isValid(tmpText)) {
         throw new BadCertTemplateException(String.format(
             "invalid subject %s '%s' against regex '%s'", typeDesc, tmpText, pattern.pattern()));

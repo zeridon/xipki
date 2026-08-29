@@ -15,16 +15,12 @@ import java.util.List;
 
 /**
  * OCSP Certstore store definition.
- *
- * @author Lijun Liao (xipki)
  */
 
 public class OcspCertstore implements JsonEncodable {
 
   /**
-   * Cert certificate record.
-   *
-   * @author Lijun Liao (xipki)
+   * Cert record.
    */
   public static class Cert extends IdentifiedDbObject {
 
@@ -189,9 +185,7 @@ public class OcspCertstore implements JsonEncodable {
   } // class Cert
 
   /**
-   * Issuer issuer definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Issuer definition.
    */
   public static class Issuer implements JsonEncodable {
 
@@ -240,9 +234,7 @@ public class OcspCertstore implements JsonEncodable {
   } // class Issuer
 
   /**
-   * Crl Info information.
-   *
-   * @author Lijun Liao (xipki)
+   * Crl information.
    */
   public static class CrlInfo implements JsonEncodable {
 

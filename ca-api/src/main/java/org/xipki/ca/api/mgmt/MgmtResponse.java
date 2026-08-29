@@ -36,8 +36,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get DB Schemas.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetDbSchemas extends MgmtResponse {
 
@@ -70,8 +68,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing key Cert Bytes.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class KeyCertBytes extends MgmtResponse {
 
@@ -108,8 +104,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing byte Array.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ByteArray extends MgmtResponse {
 
@@ -138,8 +132,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetCa extends MgmtResponse {
 
@@ -168,8 +160,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get CA System Status.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetCaSystemStatus extends MgmtResponse {
 
@@ -198,8 +188,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get SimpleProfileInfo.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetSimpleCertprofileInfo extends MgmtResponse {
 
@@ -229,8 +217,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Certprofile.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetCertprofile extends MgmtResponse {
 
@@ -288,8 +274,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Cert.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetCert extends MgmtResponse {
 
@@ -365,8 +349,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Keypair Gen.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetKeypairGen extends MgmtResponse {
 
@@ -395,8 +377,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Publisher.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetPublisher extends MgmtResponse {
 
@@ -425,8 +405,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Requestor.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetRequestor extends MgmtResponse {
 
@@ -455,8 +433,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Requestors For CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetRequestorsForCa extends MgmtResponse {
 
@@ -495,8 +471,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing get Signer.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GetSigner extends MgmtResponse {
 
@@ -525,8 +499,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing list Certificates.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ListCertificates extends MgmtResponse {
 
@@ -560,8 +532,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing string Response.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class StringResponse extends MgmtResponse {
 
@@ -590,8 +560,6 @@ public abstract class MgmtResponse extends MgmtMessage {
 
   /**
    * Response containing string Set.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class StringSet extends MgmtResponse {
 

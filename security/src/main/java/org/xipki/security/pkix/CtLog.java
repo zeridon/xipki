@@ -188,8 +188,6 @@ public class CtLog {
 
   /**
    * Hash Algorithm enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum HashAlgorithm {
     none((byte) 0),
@@ -222,8 +220,6 @@ public class CtLog {
 
   /**
    * Signature Algorithm enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum SignatureAlgorithm {
     anonymous((byte) 0),
@@ -584,9 +580,7 @@ public class CtLog {
   }
 
   /**
-   * Add Pre Chain Request request payload.
-   *
-   * @author Lijun Liao (xipki)
+   * Add Pre Chain request payload.
    */
   public static class AddPreChainRequest {
 
@@ -612,9 +606,7 @@ public class CtLog {
 
   // Do not change the variable name, and the get- and set-methods.
   /**
-   * Add Pre Chain Response response payload.
-   *
-   * @author Lijun Liao (xipki)
+   * Add Pre Chain Response payload.
    */
   public static class AddPreChainResponse {
 

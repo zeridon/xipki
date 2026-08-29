@@ -22,7 +22,9 @@ import static org.xipki.util.codec.cbor.CborConstants.*;
 
 /**
  * Cbor Decoder.
- * {@link InputStream}.
+ *
+ * @author J.W. Janssen <j.w.janssen@lxtreme.nl>
+ * @author Lijun Liao (xipki)
  */
 public abstract class CborDecoder implements AutoCloseable {
 

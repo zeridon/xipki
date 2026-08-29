@@ -16,9 +16,9 @@ import org.xipki.util.misc.StringUtil;
 import java.security.cert.CertificateException;
 
 /**
- * Requestor Entry entry.
- * @author Lijun Liao (xipki)
+ * Requestor Entry.
  *
+ * @author Lijun Liao (xipki)
  */
 
 public class RequestorEntry extends MgmtEntry {

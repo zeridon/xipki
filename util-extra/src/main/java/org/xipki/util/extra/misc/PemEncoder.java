@@ -11,14 +11,11 @@ import org.xipki.util.misc.StringUtil;
  * Pem Encoder.
  *
  * @author Lijun Liao (xipki)
- *
  */
 public class PemEncoder {
 
   /**
    * Pem Label enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum PemLabel {
     /**

@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * ACME Protocol Conf configuration.
+ * ACME Protocol configuration.
  *
  * @author Lijun Liao (xipki)
  */
@@ -62,8 +62,6 @@ public class AcmeProtocolConf extends GatewayConf.ProtocolConf {
 
   /**
    * CA profile definition.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CaProfile {
 
@@ -100,8 +98,6 @@ public class AcmeProtocolConf extends GatewayConf.ProtocolConf {
 
   /**
    * ACME configuration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Acme {
 
@@ -365,9 +361,7 @@ public class AcmeProtocolConf extends GatewayConf.ProtocolConf {
   }
 
   /**
-   * Cleanup Order Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Cleanup Order configuration.
    */
   public static class CleanupOrderConf {
 

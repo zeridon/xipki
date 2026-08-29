@@ -11,7 +11,7 @@ import org.xipki.util.codec.Args;
 import java.time.Instant;
 
 /**
- * Cert Status Info information.
+ * Cert Status information.
  *
  * @author Lijun Liao (xipki)
  */
@@ -20,8 +20,6 @@ public class CertStatusInfo {
 
   /**
    * Cert Status enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum CertStatus {
     GOOD,
@@ -34,8 +32,6 @@ public class CertStatusInfo {
 
   /**
    * Unknown Cert Behaviour enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum UnknownCertBehaviour {
     unknown,
@@ -47,8 +43,6 @@ public class CertStatusInfo {
 
   /**
    * Unknown Issuer Behaviour enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum UnknownIssuerBehaviour {
     unknown,

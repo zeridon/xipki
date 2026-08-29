@@ -359,8 +359,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Import CA DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ImportCaDb extends DbPortWorker {
 
@@ -443,8 +441,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Import CA Cert Store DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ImportCaCertStoreDb extends DbPortWorker {
 
@@ -510,8 +506,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Export CA DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ExportCaDb extends ExportCaCertStoreDb {
 
@@ -582,8 +576,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Export CA Cert Store DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ExportCaCertStoreDb extends DbPortWorker {
 
@@ -665,8 +657,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Export OCSP DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ExportOcspDb extends DbPortWorker {
 
@@ -741,8 +731,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Import OCSP DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ImportOcspDb extends DbPortWorker {
 
@@ -794,8 +782,6 @@ public abstract class DbPortWorker extends DbWorker {
 
   /**
    * Import OCSP From CA DB.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ImportOcspFromCaDb extends DbPortWorker {
 

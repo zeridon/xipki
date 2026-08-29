@@ -4,7 +4,7 @@
 package org.xipki.ocsp.server;
 
 /**
- * OCSP Resp With Cache Info information.
+ * OCSP Resp With Cache information.
  *
  * @author Lijun Liao (xipki)
  */
@@ -12,9 +12,7 @@ package org.xipki.ocsp.server;
 public class OcspRespWithCacheInfo {
 
   /**
-   * Response Cache Info information.
-   *
-   * @author Lijun Liao (xipki)
+   * Response Cache information.
    */
   public static final class ResponseCacheInfo {
 

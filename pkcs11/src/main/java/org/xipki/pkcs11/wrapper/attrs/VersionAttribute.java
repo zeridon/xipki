@@ -6,8 +6,7 @@ package org.xipki.pkcs11.wrapper.attrs;
 import org.xipki.pkcs11.wrapper.type.CkVersion;
 
 /**
- * Version Attribute.
- * as specified by PKCS#11.
+ * Version Attribute, as specified by PKCS#11.
  *
  * @author Lijun Liao (xipki)
  */

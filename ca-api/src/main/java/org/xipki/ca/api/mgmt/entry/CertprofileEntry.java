@@ -11,9 +11,9 @@ import org.xipki.util.extra.misc.CompareUtil;
 import org.xipki.util.misc.StringUtil;
 
 /**
- * Certprofile Entry entry.
- * @author Lijun Liao (xipki)
+ * Certprofile Entry.
  *
+ * @author Lijun Liao (xipki)
  */
 
 public class CertprofileEntry extends MgmtEntry {

@@ -7,7 +7,7 @@ import org.xipki.util.codec.CodecException;
 import org.xipki.util.codec.json.JsonMap;
 
 /**
- * SCEP Control control settings.
+ * SCEP Control settings.
  *
  * @author Lijun Liao (xipki)
  */

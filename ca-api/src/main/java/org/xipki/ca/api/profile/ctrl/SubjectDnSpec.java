@@ -29,10 +29,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
- * Subject Dn Spec.
+ * Subject DN Spec.
  *
  * @author Lijun Liao (xipki)
- *
  */
 public class SubjectDnSpec {
 
@@ -76,7 +75,7 @@ public class SubjectDnSpec {
 
   private static final Map<ASN1ObjectIdentifier, Range> RANGES = new HashMap<>();
 
-  private static final Map<ASN1ObjectIdentifier, TextVadidator> PATTERNS = new HashMap<>();
+  private static final Map<ASN1ObjectIdentifier, TextValidator> PATTERNS = new HashMap<>();
 
   private static final Map<ASN1ObjectIdentifier, StringControl> STRING_CONTROLS = new HashMap<>();
 
@@ -190,7 +189,7 @@ public class SubjectDnSpec {
 
     // DATE_OF_BIRTH
     conf(ids, OIDs.DN.dateOfBirth, RANGE_DATE_OF_BIRTH, null);
-    PATTERNS.put(OIDs.DN.dateOfBirth, TextVadidator.DATE_OF_BIRTH);
+    PATTERNS.put(OIDs.DN.dateOfBirth, TextValidator.DATE_OF_BIRTH);
 
     // domainComponent
     conf(ids, OIDs.DN.domainComponent, null, StringControl.IA5);
@@ -200,7 +199,7 @@ public class SubjectDnSpec {
 
     // gender
     conf(ids, OIDs.DN.gender, RANGE_GENDER, StringControl.Printable);
-    PATTERNS.put(OIDs.DN.gender, TextVadidator.GENDER);
+    PATTERNS.put(OIDs.DN.gender, TextValidator.GENDER);
 
     // generation qualifier
     conf(ids, OIDs.DN.generationQualifier, RANGE_1_64, StringControl.PrintableOrUtf8);
@@ -290,17 +289,17 @@ public class SubjectDnSpec {
         OIDs.Matter.matter_vvs_id };
     for (ASN1ObjectIdentifier oid : oids) {
       conf(ids, oid, RANGE_16_16, StringControl.Utf8);
-      PATTERNS.put(oid, TextVadidator.UPPER_HEX);
+      PATTERNS.put(oid, TextValidator.UPPER_HEX);
     }
 
     conf(ids, OIDs.Matter.matter_noc_cat, RANGE_8_8, StringControl.Utf8);
-    PATTERNS.put(OIDs.Matter.matter_noc_cat, TextVadidator.UPPER_HEX);
+    PATTERNS.put(OIDs.Matter.matter_noc_cat, TextValidator.UPPER_HEX);
 
     conf(ids, OIDs.Matter.matter_oid_vid, RANGE_4_4, StringControl.PrintableOrUtf8);
-    PATTERNS.put(OIDs.Matter.matter_oid_vid, TextVadidator.UPPER_HEX);
+    PATTERNS.put(OIDs.Matter.matter_oid_vid, TextValidator.UPPER_HEX);
 
     conf(ids, OIDs.Matter.matter_oid_pid, RANGE_4_4, StringControl.PrintableOrUtf8);
-    PATTERNS.put(OIDs.Matter.matter_oid_pid, TextVadidator.UPPER_HEX);
+    PATTERNS.put(OIDs.Matter.matter_oid_pid, TextValidator.UPPER_HEX);
   }
 
   private SubjectDnSpec() {

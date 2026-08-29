@@ -8,7 +8,7 @@ import org.xipki.util.codec.json.JsonMap;
 import org.xipki.util.io.FileOrBinary;
 
 /**
- * Ssl Conf configuration.
+ * Ssl configuration.
  *
  * @author Lijun Liao (xipki)
  */

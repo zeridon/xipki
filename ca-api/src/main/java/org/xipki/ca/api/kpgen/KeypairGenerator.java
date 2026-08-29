@@ -60,8 +60,7 @@ public abstract class KeypairGenerator implements Closeable {
         assert tokens != null;
         for (String token : tokens) {
           try {
-            KeySpec keySpec = KeySpec.ofKeySpec(token);
-            keyspecs.add(keySpec);
+            keyspecs.add(KeySpec.ofKeySpec(token));
           } catch (NoSuchAlgorithmException e) {
             LOG.warn("ignored unknown keyspec {}", token);
           }

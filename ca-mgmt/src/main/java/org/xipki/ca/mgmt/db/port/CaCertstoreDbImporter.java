@@ -427,12 +427,12 @@ class CaCertstoreDbImporter extends DbPorter {
 
           stmt.setLong(idx++, DateUtil.toEpochSecond(tbsCert.getStartDate().getDate()));
           stmt.setLong(idx++, DateUtil.toEpochSecond(tbsCert.getEndDate().getDate()));
-          setInt(stmt, idx++,  cert.rev());
-          setInt(stmt, idx++,  cert.rr());
+          setInt( stmt, idx++, cert.rev());
+          setInt( stmt, idx++, cert.rr());
           setLong(stmt, idx++, cert.rt());
           setLong(stmt, idx++, cert.rit());
-          setInt(stmt, idx++,  cert.pid());
-          setInt(stmt, idx++,  cert.caId());
+          setInt( stmt, idx++, cert.pid());
+          setInt( stmt, idx++, cert.caId());
 
           setInt(stmt, idx++, cert.rid());
           Extension extension = tbsCert.getExtensions().getExtension(OIDs.Extn.basicConstraints);

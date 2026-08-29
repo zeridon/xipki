@@ -6,7 +6,7 @@ package org.xipki.util.password;
 import java.security.GeneralSecurityException;
 
 /**
- * Password Resolver Exception exception type.
+ * Password Resolver Exception type.
  *
  * @author Lijun Liao (xipki)
  */

@@ -38,12 +38,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Xijson Certprofile Type type definition.
+ * Xijson Certprofile Type definition.
  *
  * @author Lijun Liao (xipki)
- *
  */
-
 public class XijsonCertprofileType implements JsonEncodable {
 
   private Map<String, String> metadata;

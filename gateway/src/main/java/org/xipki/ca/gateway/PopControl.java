@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Pop Control control settings.
+ * Pop Control settings.
  *
  * @author Lijun Liao (xipki)
  */

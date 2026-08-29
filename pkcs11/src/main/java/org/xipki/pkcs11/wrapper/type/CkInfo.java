@@ -12,7 +12,7 @@ import org.xipki.pkcs11.wrapper.jni.JniUtil;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Ck Info information.
+ * Ck information.
  * driver for a specific token.
  *
  * <pre>

@@ -4,8 +4,7 @@
 package org.xipki.pkcs11.wrapper.attrs;
 
 /**
- * Template Attribute.
- * as specified by PKCS#11.
+ * Template Attribute, as specified by PKCS#11.
  *
  * @author Lijun Liao (xipki)
  */

@@ -18,8 +18,8 @@ import java.util.Map;
 
 /**
  * Result Row.
- * @author Lijun Liao (xipki)
  *
+ * @author Lijun Liao (xipki)
  */
 class ResultRow {
 

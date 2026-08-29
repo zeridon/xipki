@@ -39,7 +39,7 @@ import static org.xipki.pkcs11.wrapper.PKCS11T.CKR_GENERAL_ERROR;
 import static org.xipki.pkcs11.wrapper.PKCS11T.CKR_OBJECT_HANDLE_INVALID;
 
 /**
- * File Persist Store store definition.
+ * File Persist Store definition.
  *
  * @author Lijun Liao (xipki)
  */

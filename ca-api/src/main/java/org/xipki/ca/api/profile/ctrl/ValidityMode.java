@@ -13,8 +13,8 @@ import org.xipki.util.codec.Args;
  *  <li>CUTOFF: Use CA's notAfter.</li>
  *  <li>BY_CA:  by CA.</li>
  * </ul>
- * @author Lijun Liao (xipki)
  *
+ * @author Lijun Liao (xipki)
  */
 public enum ValidityMode {
 

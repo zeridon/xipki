@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Issuer Info information.
+ * Issuer information.
  *
  * @author Lijun Liao (xipki)
  */

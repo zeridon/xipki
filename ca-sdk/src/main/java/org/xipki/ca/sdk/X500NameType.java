@@ -14,9 +14,9 @@ import org.xipki.util.codec.cbor.CborType;
 import java.io.IOException;
 
 /**
+ * X500 Name type definition.
  *
  * @author Lijun Liao (xipki)
- * X500 Name Type type definition.
  */
 
 public class X500NameType extends SdkEncodable {

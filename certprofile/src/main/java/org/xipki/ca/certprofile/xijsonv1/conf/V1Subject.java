@@ -55,9 +55,7 @@ public class V1Subject {
   }
 
   /**
-   * Value Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Value Type definition.
    */
   public static class ValueType {
 
@@ -88,9 +86,7 @@ public class V1Subject {
   }
 
   /**
-   * V1 Rdn Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * V1 Rdn Type definition.
    */
   public static class V1RdnType {
 

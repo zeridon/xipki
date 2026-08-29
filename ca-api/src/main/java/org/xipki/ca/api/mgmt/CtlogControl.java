@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Ctlog Control control settings.
+ * Ctlog Control settings.
  * Need to be implemented in a later version.
  *
  * @author Lijun Liao (xipki)

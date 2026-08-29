@@ -11,7 +11,7 @@ import org.xipki.util.codec.json.JsonMap;
 import java.util.List;
 
 /**
- * Account Response response payload.
+ * Account Response payload.
  *
  * @author Lijun Liao (xipki)
  */

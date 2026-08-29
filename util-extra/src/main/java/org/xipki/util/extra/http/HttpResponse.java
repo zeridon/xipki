@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Http Response payload.
  *
  * @author Lijun Liao (xipki)
- * Http Response response payload.
  */
 
 public class HttpResponse {

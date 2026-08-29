@@ -4,7 +4,7 @@
 package org.xipki.util.extra.audit;
 
 /**
- * Audit Service Runtime Exception exception type.
+ * Audit Service Runtime Exception type.
  *
  * @author Lijun Liao (xipki)
  */

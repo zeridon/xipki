@@ -173,8 +173,6 @@ public class CborDiag {
 
   /**
    * My Input Stream.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class MyInputStream {
 

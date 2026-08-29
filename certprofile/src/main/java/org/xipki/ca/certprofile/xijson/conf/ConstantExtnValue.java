@@ -82,8 +82,6 @@ public class ConstantExtnValue implements JsonEncodable {
 
   /**
    * Type enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum Type {
     ASN1,

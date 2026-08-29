@@ -11,9 +11,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.math.BigInteger;
 
 /**
+ * Confirm Certs Request payload.
  *
  * @author Lijun Liao (xipki)
- * Confirm Certs Request request payload.
  */
 
 public class ConfirmCertsRequest extends SdkRequest {
@@ -51,8 +51,6 @@ public class ConfirmCertsRequest extends SdkRequest {
 
   /**
    * Entry entry.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Entry extends SdkEncodable {
 

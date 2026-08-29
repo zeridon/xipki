@@ -185,8 +185,6 @@ public class RSAPSSSHAKESignatureSpi extends SignatureSpi {
 
   /**
    * RSAPSSSHAKE128.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RSAPSSSHAKE128 extends RSAPSSSHAKESignatureSpi {
 
@@ -198,8 +196,6 @@ public class RSAPSSSHAKESignatureSpi extends SignatureSpi {
 
   /**
    * RSAPSSSHAKE256.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RSAPSSSHAKE256 extends RSAPSSSHAKESignatureSpi {
 

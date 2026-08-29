@@ -19,16 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * P11 System Conf configuration.
+ * P11 System configuration.
  *
  * @author Lijun Liao (xipki)
  */
 public class P11SystemConf {
 
   /**
-   * Mechanism Filter Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Mechanism Filter configuration.
    */
   public static class MechanismFilterConf {
 
@@ -77,9 +75,7 @@ public class P11SystemConf {
   } // class MechanismFilter
 
   /**
-   * Mechanism Set Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Mechanism Set configuration.
    */
   public static class MechanismSetConf {
 
@@ -121,9 +117,7 @@ public class P11SystemConf {
   } // class MechanismSet
 
   /**
-   * Module Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Module configuration.
    */
   public static class ModuleConf {
 
@@ -303,9 +297,7 @@ public class P11SystemConf {
   } // class Module
 
   /**
-   * Native Library Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Native Library configuration.
    */
   public static class NativeLibraryConf {
 
@@ -356,9 +348,7 @@ public class P11SystemConf {
   } // class NativeLibrary
 
   /**
-   * Password Set Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Password Set configuration.
    */
   public static class PasswordSetConf {
 
@@ -396,9 +386,7 @@ public class P11SystemConf {
   } // class PasswordSet
 
   /**
-   * Slot Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Slot configuration.
    */
   public static class SlotConf {
 

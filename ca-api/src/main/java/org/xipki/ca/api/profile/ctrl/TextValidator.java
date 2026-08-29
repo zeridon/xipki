@@ -9,13 +9,13 @@ import org.xipki.util.misc.StringUtil;
 import java.util.regex.Pattern;
 
 /**
- * Text Vadidator.
+ * Text Validator.
  *
  * @author Lijun Liao (xipki)
  */
-public abstract class TextVadidator {
+public abstract class TextValidator {
 
-  private static class RegexValidator extends TextVadidator {
+  private static class RegexValidator extends TextValidator {
 
     private final Pattern pattern;
 
@@ -35,7 +35,7 @@ public abstract class TextVadidator {
 
   } // class RegexValidator
 
-  private static class FQDNValidator extends TextVadidator {
+  private static class FQDNValidator extends TextValidator {
 
     @Override
     public boolean isValid(String value) {
@@ -49,31 +49,31 @@ public abstract class TextVadidator {
 
   } // class FQDNValidator
 
-  public static final TextVadidator COUNTRY = new RegexValidator("[A-Za-z]{2}");
+  public static final TextValidator COUNTRY = new RegexValidator("[A-Za-z]{2}");
 
-  public static final TextVadidator NUMBER = new RegexValidator("[\\d]{1,}");
+  public static final TextValidator NUMBER = new RegexValidator("[\\d]{1,}");
 
-  public static final TextVadidator DATE_OF_BIRTH = new RegexValidator(
+  public static final TextValidator DATE_OF_BIRTH = new RegexValidator(
       "^(19|20)\\d\\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])120000Z");
 
-  public static final TextVadidator GENDER = new RegexValidator("M|m|F|f");
+  public static final TextValidator GENDER = new RegexValidator("M|m|F|f");
 
-  public static final TextVadidator FQDN = new FQDNValidator();
+  public static final TextValidator FQDN = new FQDNValidator();
 
-  public static final TextVadidator UPPER_HEX = new RegexValidator("[0-9A-F]{2,}");
+  public static final TextValidator UPPER_HEX = new RegexValidator("[0-9A-F]{2,}");
 
-  public static final TextVadidator LOWER_HEX = new RegexValidator("[0-9a-f]{2,}");
+  public static final TextValidator LOWER_HEX = new RegexValidator("[0-9a-f]{2,}");
 
-  private static final LruCache<String, TextVadidator> cache = new LruCache<>(200);
+  private static final LruCache<String, TextValidator> cache = new LruCache<>(200);
 
-  private TextVadidator() {
+  private TextValidator() {
   }
 
   public abstract boolean isValid(String value);
 
   public abstract String pattern();
 
-  public static TextVadidator compile(String regex) {
+  public static TextValidator compile(String regex) {
     if (StringUtil.orEqualsIgnoreCase(regex, ":COUNTRY", "COUNTRY")) {
       return COUNTRY;
     } else if (StringUtil.orEqualsIgnoreCase(regex, ":DATE_OF_BIRTH", "DATE_OF_BIRTH")) {
@@ -83,7 +83,7 @@ public abstract class TextVadidator {
     } else if (StringUtil.orEqualsIgnoreCase(regex, ":NUMBER", "NUMBER")) {
       return NUMBER;
     } else {
-      TextVadidator validator = cache.get(regex);
+      TextValidator validator = cache.get(regex);
       if (validator == null) {
         validator = new RegexValidator(regex);
         cache.put(regex, validator);

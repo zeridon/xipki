@@ -13,7 +13,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 
 /**
- * Cert List Info information.
+ * Cert List information.
  *
  * @author Lijun Liao (xipki)
  */

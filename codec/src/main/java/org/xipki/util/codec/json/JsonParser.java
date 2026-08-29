@@ -27,7 +27,8 @@ import java.util.Arrays;
 
 /**
  * Json Parser.
- * consecutive JSON messages one by one.
+ * Consecutive JSON messages one by one.
+ *
  * @author lukasz.bownik@gmail.com
  * @author Lijun Liao (xipki)
  */

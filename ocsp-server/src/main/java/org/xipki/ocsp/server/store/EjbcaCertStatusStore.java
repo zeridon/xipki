@@ -55,7 +55,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Ejbca Cert Status Store store definition.
+ * Ejbca Cert Status Store definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -543,10 +543,7 @@ public class EjbcaCertStatusStore extends OcspStore {
 
   /**
    * IssuerEntry for the EJBCA database.
-   *
-   * @author Lijun Liao (xipki)
    */
-
   private static class EjbcaIssuerEntry {
 
     private final String id;
@@ -655,10 +652,7 @@ public class EjbcaCertStatusStore extends OcspStore {
 
   /**
    * IssuerStore for the EJBCA database.
-   *
-   * @author Lijun Liao (xipki)
    */
-
   private static class EjbcaIssuerStore {
 
     private final List<EjbcaIssuerEntry> entries;

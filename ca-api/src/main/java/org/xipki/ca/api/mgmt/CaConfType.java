@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CA Conf Type type definition.
+ * CA Conf Type definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -43,8 +43,6 @@ public class CaConfType {
 
   /**
    * CA System.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CaSystem implements JsonEncodable {
 
@@ -283,8 +281,6 @@ public class CaConfType {
 
   /**
    * CA Has Requestor.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class CaHasRequestor implements JsonEncodable {
 
@@ -329,9 +325,7 @@ public class CaConfType {
   } // class CaHasRequestor
 
   /**
-   * CA Info information.
-   *
-   * @author Lijun Liao (xipki)
+   * CA information.
    */
   public static class CaInfo implements JsonEncodable {
 
@@ -441,9 +435,7 @@ public class CaConfType {
   } // class CaInfo
 
   /**
-   * Id Name Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Id Name configuration.
    */
   public static class IdNameConf implements JsonEncodable {
 
@@ -493,8 +485,6 @@ public class CaConfType {
 
   /**
    * CA.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Ca extends IdNameConf {
 
@@ -600,8 +590,6 @@ public class CaConfType {
 
   /**
    * Gen Self Issued.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class GenSelfIssued implements JsonEncodable {
 
@@ -678,9 +666,7 @@ public class CaConfType {
   } // class GenSelfIssued
 
   /**
-   * Name Type Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Name Type configuration.
    */
   public static class NameTypeConf extends IdNameConf {
 
@@ -725,8 +711,6 @@ public class CaConfType {
 
   /**
    * Requestor.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Requestor extends IdNameConf {
 
@@ -793,9 +777,7 @@ public class CaConfType {
   } // class Requestor
 
   /**
-   * Signer signer definition.
-   *
-   * @author Lijun Liao (xipki)
+   * Signer definition.
    */
   public static class Signer extends NameTypeConf {
 

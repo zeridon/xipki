@@ -7,8 +7,7 @@ import org.xipki.pkcs11.wrapper.Category;
 import org.xipki.pkcs11.wrapper.PKCS11T;
 
 /**
- * Long Attribute.
- * as specified by PKCS#11.
+ * Long Attribute, as specified by PKCS#11.
  *
  * @author Lijun Liao (xipki)
  */

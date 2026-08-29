@@ -14,11 +14,14 @@ import org.xipki.util.codec.CodecException;
 import static org.xipki.util.codec.cbor.CborConstants.*;
 
 /**
- * Cbor Type type definition.
+ * Cbor Type definition.
  * <p>
  * The major type is encoded in the upper three bits of each initial byte. The
  * lower 5 bytes represent any additional information.
  * </p>
+ *
+ * @author J.W. Janssen <j.w.janssen@lxtreme.nl>
+ * @author Lijun Liao (xipki)
  */
 public class CborType {
   private final int m_major;

@@ -11,7 +11,7 @@ import org.xipki.util.codec.json.JsonMap;
 import java.util.List;
 
 /**
- * V1 Algorithm Type type definition.
+ * V1 Algorithm Type definition.
  *
  * @author Lijun Liao (xipki)
  */

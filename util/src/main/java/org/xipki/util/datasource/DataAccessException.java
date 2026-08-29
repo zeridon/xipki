@@ -21,7 +21,7 @@ package org.xipki.util.datasource;
 import org.xipki.util.codec.Args;
 
 /**
- * Data Access Exception exception type.
+ * Data Access Exception type.
  *
  * @author Rod Johnson
  */

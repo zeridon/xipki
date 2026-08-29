@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * V1 Key Parameters Type type definition.
+ * V1 Key Parameters Type definition.
  *
  * @author Lijun Liao (xipki)
  */
@@ -22,9 +22,7 @@ import java.util.List;
 public class V1KeyParametersType {
 
   /**
-   * EC Parameters Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * EC Parameters Type definition.
    */
   public static class EcParametersType {
 
@@ -47,9 +45,7 @@ public class V1KeyParametersType {
   } // class EcParametersType
 
   /**
-   * RSA Parameters Type type definition.
-   *
-   * @author Lijun Liao (xipki)
+   * RSA Parameters Type definition.
    */
   public static class RsaParametersType {
 

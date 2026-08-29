@@ -15,7 +15,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 
 /**
- * OCSP Store store definition.
+ * OCSP Store definition.
  *
  * @author Lijun Liao (xipki)
  */

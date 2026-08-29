@@ -36,8 +36,6 @@ public abstract class Requestor {
 
   /**
    * Pbm Mac CMP Requestor.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class PbmMacCmpRequestor extends Requestor {
 
@@ -85,8 +83,6 @@ public abstract class Requestor {
 
   /**
    * Signature CMP Requestor.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class SignatureCmpRequestor extends Requestor {
 

@@ -21,9 +21,7 @@ import org.xipki.util.extra.misc.ReflectiveUtil;
 public class Audits {
 
   /**
-   * Audit Conf configuration.
-   *
-   * @author Lijun Liao (xipki)
+   * Audit configuration.
    */
   public static class AuditConf {
 

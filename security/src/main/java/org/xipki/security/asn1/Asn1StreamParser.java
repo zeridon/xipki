@@ -24,8 +24,6 @@ public class Asn1StreamParser {
 
   /**
    * My Int.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class MyInt {
 

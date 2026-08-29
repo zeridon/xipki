@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * V1 Biometric Info information.
+ * V1 Biometric information.
  *
  * @author Lijun Liao (xipki)
  */

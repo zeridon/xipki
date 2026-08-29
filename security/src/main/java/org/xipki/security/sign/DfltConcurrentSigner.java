@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Dflt Concurrent Signer signer definition.
+ * Dflt Concurrent Signer definition.
  *
  * @author Lijun Liao (xipki)
  */

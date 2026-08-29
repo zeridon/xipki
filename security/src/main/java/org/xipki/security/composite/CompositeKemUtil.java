@@ -251,9 +251,6 @@ public class CompositeKemUtil {
     }
   }
 
-  /**
-   * @author Lijun Liao (xipki)
-   */
   private enum WeierstraussCurveEnum {
 
     P256(OIDs.Curve.secp256r1),

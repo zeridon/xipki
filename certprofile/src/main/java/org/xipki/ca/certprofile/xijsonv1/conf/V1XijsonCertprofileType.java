@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * V1 Xijson Certprofile Type type definition.
+ * V1 Xijson Certprofile Type definition.
  *
  * @author Lijun Liao (xipki)
  */

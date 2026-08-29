@@ -33,8 +33,6 @@ public abstract class  P11Params {
 
   /**
    * P11 Byte Array Params.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11ByteArrayParams extends P11Params {
 
@@ -104,8 +102,6 @@ public abstract class  P11Params {
 
   /**
    * P11 RSAPkcs Pss Params.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11RSAPkcsPssParams extends P11RSAPkcsPssOrOaepParams {
 
@@ -125,8 +121,6 @@ public abstract class  P11Params {
 
   /**
    * P11 RSAPkcs Oaep Params.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11RSAPkcsOaepParams extends P11RSAPkcsPssOrOaepParams {
 
@@ -149,8 +143,6 @@ public abstract class  P11Params {
 
   /**
    * P11 Eddsa Params.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11EddsaParams extends P11Params {
 
@@ -172,8 +164,6 @@ public abstract class  P11Params {
 
   /**
    * P11 Sign Additional Context.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11SignAdditionalContext extends P11Params {
 
@@ -199,8 +189,6 @@ public abstract class  P11Params {
 
   /**
    * P11 Ecdh1 Derive Params.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class P11Ecdh1DeriveParams extends P11Params {
 

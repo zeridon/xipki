@@ -11,9 +11,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.math.BigInteger;
 
 /**
+ * Get Cert Request payload.
  *
  * @author Lijun Liao (xipki)
- * Get Cert Request request payload.
  */
 
 public class GetCertRequest extends SdkRequest {

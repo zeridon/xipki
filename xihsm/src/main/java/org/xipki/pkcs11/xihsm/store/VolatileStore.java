@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Volatile Store store definition.
+ * Volatile Store definition.
  *
  * @author Lijun Liao (xipki)
  */

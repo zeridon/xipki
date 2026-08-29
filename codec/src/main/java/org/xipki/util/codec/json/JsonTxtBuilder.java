@@ -26,7 +26,8 @@ import java.util.List;
 
 /**
  * Json Txt Builder.
- * consecutive JSON messages one by one.
+ * Consecutive JSON messages one by one.
+ *
  * @author lukasz.bownik@gmail.com
  * @author Lijun Liao (xipki)
  */

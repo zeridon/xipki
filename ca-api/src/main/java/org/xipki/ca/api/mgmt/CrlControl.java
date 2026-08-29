@@ -16,7 +16,7 @@ import org.xipki.util.misc.StringUtil;
 import java.util.List;
 
 /**
- * Crl Control control settings.
+ * Crl Control settings.
  *<pre>
  * Example configuration
  *

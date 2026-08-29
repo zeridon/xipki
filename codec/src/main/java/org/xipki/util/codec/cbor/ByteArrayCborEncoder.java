@@ -16,6 +16,9 @@ import java.io.IOException;
 
 /**
  * Byte Array Cbor Encoder.
+ *
+ * @author J.W. Janssen <j.w.janssen@lxtreme.nl>
+ * @author Lijun Liao (xipki)
  */
 public class ByteArrayCborEncoder extends CborEncoder implements AutoCloseable {
 

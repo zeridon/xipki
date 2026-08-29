@@ -11,8 +11,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * Byte Array Attribute.
- * as specified by PKCS#11.
+ * Byte Array Attribute, as specified by PKCS#11.
  *
  * @author Lijun Liao (xipki)
  */

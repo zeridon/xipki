@@ -26,7 +26,7 @@ import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 
 /**
- * AESGmac Content Signer signer definition.
+ * AESGmac Content Signer definition.
  * @author Lijun Liao (xipki)
  */
 public class AESGmacContentSigner implements Signer {

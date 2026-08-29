@@ -13,9 +13,9 @@ import java.math.BigInteger;
 import java.time.Instant;
 
 /**
+ * Revoke Certs Request payload.
  *
  * @author Lijun Liao (xipki)
- * Revoke Certs Request request payload.
  */
 
 public class RevokeCertsRequest extends CaIdentifierRequest {
@@ -51,8 +51,6 @@ public class RevokeCertsRequest extends CaIdentifierRequest {
 
   /**
    * Entry entry.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Entry extends SdkEncodable {
 

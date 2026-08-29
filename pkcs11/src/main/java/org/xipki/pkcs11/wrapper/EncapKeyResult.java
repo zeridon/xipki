@@ -4,7 +4,7 @@
 package org.xipki.pkcs11.wrapper;
 
 /**
- * Encap Key Result result.
+ * Encap Key Result.
  *
  * @author Lijun Liao (xipki)
  */

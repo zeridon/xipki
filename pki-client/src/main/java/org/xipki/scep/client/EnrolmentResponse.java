@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Enrolment Response response payload.
+ * Enrolment Response payload.
  *
  * @author Lijun Liao (xipki)
  */

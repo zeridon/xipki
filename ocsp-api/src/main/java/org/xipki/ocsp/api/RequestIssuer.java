@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- * Request Issuer issuer definition.
+ * Request Issuer definition.
  *
  * @author Lijun Liao (xipki)
  */

@@ -4,7 +4,7 @@
 package org.xipki.ocsp.api;
 
 /**
- * OCSP Store Exception exception type.
+ * OCSP Store Exception type.
  *
  * @author Lijun Liao (xipki)
  */

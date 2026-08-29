@@ -32,8 +32,6 @@ public class BatchReplace {
 
   /**
    * Includes.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Includes {
     private Set<String> suffixes;
@@ -58,8 +56,6 @@ public class BatchReplace {
 
   /**
    * Excludes.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Excludes {
     private Set<String> dirs;

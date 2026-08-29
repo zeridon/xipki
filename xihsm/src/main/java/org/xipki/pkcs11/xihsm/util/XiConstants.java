@@ -19,8 +19,6 @@ public class XiConstants {
 
   /**
    * P11 MLDSA Variant enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum P11MldsaVariant {
 
@@ -70,8 +68,6 @@ public class XiConstants {
 
   /**
    * P11 MLKEM Variant enumeration.
-   *
-   * @author Lijun Liao (xipki)
    */
   public enum P11MlkemVariant {
 

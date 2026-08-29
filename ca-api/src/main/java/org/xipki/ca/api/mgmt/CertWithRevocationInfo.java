@@ -7,7 +7,7 @@ import org.xipki.ca.api.CertWithDbId;
 import org.xipki.security.pkix.CertRevocationInfo;
 
 /**
- * Cert With Revocation Info information.
+ * Cert With Revocation information.
  *
  * @author Lijun Liao (xipki)
  */

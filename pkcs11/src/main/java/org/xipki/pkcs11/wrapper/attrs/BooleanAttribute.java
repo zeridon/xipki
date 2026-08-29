@@ -4,8 +4,7 @@
 package org.xipki.pkcs11.wrapper.attrs;
 
 /**
- * Boolean Attribute.
- * as specified by PKCS#11.
+ * Boolean Attribute, as specified by PKCS#11.
  *
  * @author Lijun Liao (xipki)
  */

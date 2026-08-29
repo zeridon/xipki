@@ -816,9 +816,6 @@ public class GenerateCerts {
     }
   }
 
-  /**
-   * @author Lijun Liao (xipki)
-   */
   private static class KeyWithCert {
 
     private final X509Cert cert;

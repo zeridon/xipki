@@ -319,9 +319,8 @@ public class EstResponder {
       }
 
       switch (command) {
-        case CMD_ucaps: {
+        case CMD_ucaps:
           return toHttpResponse(HttpRespContent.ofOk(CT_text_plain,false, ucapsResp));
-        }
         case CMD_cacerts: {
           byte[][] certsBytes = sdk.cacerts(caName);
           return toHttpResponse(HttpRespContent.ofOk(CT_pkcs7_mime,
@@ -332,14 +331,11 @@ public class EstResponder {
           return toHttpResponse(HttpRespContent.ofOk(CT_pem_file,
               StringUtil.toUtf8Bytes(X509Util.encodeCertificates(certsBytes))));
         }
-        case CMD_ucacert: {
-          byte[] certBytes = sdk.cacert(caName);
-          return toHttpResponse(HttpRespContent.ofOk(CT_pkix_cert, true, certBytes));
-        }
-        case CMD_ucrlinfo: {
-          byte[] crlInfo = sdk.currentCrlInfo(caName);
-          return toHttpResponse(HttpRespContent.ofOk(CT_text_plain,false, crlInfo));
-        }
+        case CMD_ucacert:
+          return toHttpResponse(HttpRespContent.ofOk(CT_pkix_cert, true, sdk.cacert(caName)));
+        case CMD_ucrlinfo:
+          return toHttpResponse(HttpRespContent.ofOk(CT_text_plain,false,
+              sdk.currentCrlInfo(caName)));
         case CMD_ucrl: {
           byte[] crlBytes = sdk.currentCrl(caName);
           if (crlBytes == null) {
@@ -351,9 +347,8 @@ public class EstResponder {
 
           return toHttpResponse(HttpRespContent.ofOk(CT_pkix_crl, true, crlBytes));
         }
-        case CMD_csrattrs: {
+        case CMD_csrattrs:
           return toHttpResponse(getCsrAttrs(caName, profile));
-        }
         case CMD_fullcmc: {
           String message = "unsupported command '" + command + "'";
           LOG.error(message);

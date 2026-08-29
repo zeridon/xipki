@@ -7,7 +7,7 @@ import org.xipki.pkcs11.wrapper.type.CkSlotInfo;
 import org.xipki.util.codec.Args;
 
 /**
- * Slot slot definition.
+ * Slot definition.
  * can get a token object if there is one present, by calling getToken.
  * This may look like this:
  * <pre><code>

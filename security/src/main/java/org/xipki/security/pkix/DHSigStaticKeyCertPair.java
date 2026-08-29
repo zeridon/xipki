@@ -11,7 +11,7 @@ import java.security.PrivateKey;
 import java.util.Arrays;
 
 /**
- * DHSig Static Key Cert Pair pair.
+ * DHSig Static Key Cert Pair.
  * RFC 6955.
  *
  * @author Lijun Liao (xipki)

@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * CA Name SCEP Signers.
  *
  * @author Lijun Liao (xipki)
- * CA Name SCEP Signers.
  */
 public class CaNameScepSigners {
 

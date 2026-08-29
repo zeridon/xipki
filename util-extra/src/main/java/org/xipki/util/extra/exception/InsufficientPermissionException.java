@@ -4,7 +4,7 @@
 package org.xipki.util.extra.exception;
 
 /**
- * Insufficient Permission Exception exception type.
+ * Insufficient Permission Exception type.
  *
  * @author Lijun Liao (xipki)
  */

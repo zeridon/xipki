@@ -10,7 +10,7 @@ import org.xipki.util.codec.Args;
 import java.security.KeyPair;
 
 /**
- * Key Info Pair pair.
+ * Key Info Pair.
  *
  * @author Lijun Liao (xipki)
  */

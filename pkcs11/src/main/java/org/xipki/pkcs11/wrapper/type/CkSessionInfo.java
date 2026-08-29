@@ -15,7 +15,7 @@ import static org.xipki.pkcs11.wrapper.PKCS11T.CKF_RW_SESSION;
 import static org.xipki.pkcs11.wrapper.PKCS11T.CKF_SERIAL_SESSION;
 
 /**
- * Ck Session Info information.
+ * Ck Session information.
  * <pre>
  * typedef struct CK_SESSION_INFO {
  *   CK_SLOT_ID    slotID;

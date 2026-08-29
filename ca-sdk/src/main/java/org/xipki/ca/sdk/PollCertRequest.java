@@ -11,9 +11,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.math.BigInteger;
 
 /**
+ * Poll Cert Request payload.
  *
  * @author Lijun Liao (xipki)
- * Poll Cert Request request payload.
  */
 
 public class PollCertRequest extends CaIdentifierRequest {
@@ -56,8 +56,6 @@ public class PollCertRequest extends CaIdentifierRequest {
 
   /**
    * Entry entry.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Entry extends SdkEncodable {
 

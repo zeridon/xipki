@@ -4,7 +4,7 @@
 package org.xipki.scep.client;
 
 /**
- * SCEP Client Exception exception type.
+ * SCEP Client Exception type.
  *
  * @author Lijun Liao (xipki)
  */
@@ -24,9 +24,7 @@ public class ScepClientException extends Exception {
   }
 
   /**
-   * Operation Not Supported Exception exception type.
-   *
-   * @author Lijun Liao (xipki)
+   * Operation Not Supported Exception type.
    */
   public static class OperationNotSupportedException extends ScepClientException {
 

@@ -20,8 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.xipki.pkcs11.wrapper.Category.CKM;
 
 /**
- * Ck Mechanism.
- * constants defined for all mechanisms that PKCS#11 version 2.11 defines.
+ * Ck Mechanism constants defined for all mechanisms that PKCS#11 version 2.11 defines.
  *
  * <pre>
  * typedef struct CK_MECHANISM {

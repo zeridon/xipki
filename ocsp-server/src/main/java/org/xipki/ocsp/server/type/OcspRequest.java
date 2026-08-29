@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * OCSP Request request payload.
+ * OCSP Request payload.
  *
  * @author Lijun Liao (xipki)
  */

@@ -56,7 +56,7 @@ import java.util.Optional;
 import java.util.Vector;
 
 /**
- * X509 Cert certificate record.
+ * X509 certificate record.
  *
  * @author Lijun Liao (xipki)
  */

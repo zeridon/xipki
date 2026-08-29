@@ -7,7 +7,6 @@ package org.xipki.util.codec;
  * Hex.
  *
  * @author Lijun Liao (xipki)
- *
  */
 public class Hex {
 

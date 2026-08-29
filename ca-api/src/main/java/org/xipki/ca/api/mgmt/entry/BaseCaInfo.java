@@ -24,8 +24,7 @@ import org.xipki.util.misc.StringUtil;
 import java.util.List;
 
 /**
- * Base CA Info information.
- * classes.
+ * Base CA information.
  *
  * @author Lijun Liao (xipki)
  */
@@ -178,7 +177,9 @@ public class BaseCaInfo {
   public final void setSnSize(int snSize) {
     if (snSize > CaManager.MAX_SERIALNUMBER_SIZE) {
       this.snSize = CaManager.MAX_SERIALNUMBER_SIZE;
-    } else this.snSize = Math.max(snSize, CaManager.MIN_SERIALNUMBER_SIZE);
+    } else {
+      this.snSize = Math.max(snSize, CaManager.MIN_SERIALNUMBER_SIZE);
+    }
   }
 
   public final CaStatus status() {

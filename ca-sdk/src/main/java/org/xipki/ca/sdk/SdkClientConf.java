@@ -14,9 +14,8 @@ import org.xipki.util.io.IoUtil;
 import java.io.IOException;
 
 /**
- *
+ * Sdk Client configuration.
  * @author Lijun Liao (xipki)
- * Sdk Client Conf configuration.
  */
 
 public class SdkClientConf {

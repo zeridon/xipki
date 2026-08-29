@@ -7,7 +7,7 @@ import org.xipki.ca.gateway.acme.type.AcmeError;
 import org.xipki.util.codec.Args;
 
 /**
- * ACME Protocol Exception exception type.
+ * ACME Protocol Exception type.
  *
  * @author Lijun Liao (xipki)
  */

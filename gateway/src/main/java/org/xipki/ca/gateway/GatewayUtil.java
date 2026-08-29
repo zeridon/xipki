@@ -30,6 +30,7 @@ import org.xipki.util.extra.misc.LogUtil;
 
 /**
  * Gateway Util.
+ *
  * @author Lijun Liao (xipki)
  */
 public class GatewayUtil {

@@ -47,8 +47,6 @@ public class CtLogServlet {
 
   /**
    * ECCt Log Servlet.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class ECCtLogServlet extends CtLogServlet {
     private static final String privateKey =
@@ -67,8 +65,6 @@ public class CtLogServlet {
 
   /**
    * RSACt Log Servlet.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class RSACtLogServlet extends CtLogServlet {
     private static final String privateKey =

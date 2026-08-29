@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Mem Persist Store store definition.
+ * Mem Persist Store definition.
  *
  * @author Lijun Liao (xipki)
  */

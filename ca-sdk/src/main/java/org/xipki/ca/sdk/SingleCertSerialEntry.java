@@ -10,9 +10,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 import java.math.BigInteger;
 
 /**
+ * Single Cert Serial entry.
  *
  * @author Lijun Liao (xipki)
- * Single Cert Serial Entry entry.
  */
 
 public class SingleCertSerialEntry extends SdkEncodable {

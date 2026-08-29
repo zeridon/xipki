@@ -10,6 +10,9 @@ package org.xipki.util.codec.cbor;
 
 /**
  * Cbor Constants interface.
+ *
+ * @author J.W. Janssen <j.w.janssen@lxtreme.nl>
+ * @author Lijun Liao (xipki)
  */
 public interface CborConstants {
 

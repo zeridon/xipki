@@ -8,11 +8,10 @@ import org.xipki.util.codec.json.JsonMap;
 import org.xipki.util.io.FileOrBinary;
 
 /**
- * OCSP Requestor Conf configuration.
+ * OCSP Requestor configuration.
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspRequestorConf {
 
   private String signerType;

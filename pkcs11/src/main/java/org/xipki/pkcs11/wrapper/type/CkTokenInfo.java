@@ -15,14 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.xipki.pkcs11.wrapper.PKCS11T.*;
 
 /**
- * Ck Token Info information.
+ * Ck Token information.
  * <pre>
  * typedef struct CK_TOKEN_INFO {
- *   CK_UTF8CHAR   label[32];           // blank padded
- *   CK_UTF8CHAR   manufacturerID[32];  // blank padded
- *   CK_UTF8CHAR   model[16];           // blank padded
- *   CK_CHAR       serialNumber[16];    // blank padded
- *   CK_FLAGS      flags;               // see below
+ *   CK_UTF8CHAR   label[32];             // blank padded
+ *   CK_UTF8CHAR   manufacturerID[32];    // blank padded
+ *   CK_UTF8CHAR   model[16];             // blank padded
+ *   CK_CHAR       serialNumber[16];      // blank padded
+ *   CK_FLAGS      flags;                 // see below
  *   CK_ULONG      ulMaxSessionCount;     // max open sessions
  *   CK_ULONG      ulSessionCount;        // sess. now open
  *   CK_ULONG      ulMaxRwSessionCount;   // max R/W sessions

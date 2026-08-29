@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Extensions Control control settings.
+ * Extensions Control settings.
  *
  * @author Lijun Liao (xipki)
  */

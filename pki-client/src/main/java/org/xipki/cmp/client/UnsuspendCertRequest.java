@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Unsuspend Cert Request request payload.
+ * Unsuspend Cert Request payload.
  *
  * @author Lijun Liao (xipki)
  */
@@ -21,8 +21,6 @@ public class UnsuspendCertRequest {
 
   /**
    * Entry entry.
-   *
-   * @author Lijun Liao (xipki)
    */
   public static class Entry extends IdentifiedObject {
 

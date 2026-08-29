@@ -4,7 +4,7 @@
 package org.xipki.security.pkix;
 
 /**
- * Tls Extension Type type definition.
+ * Tls Extension type definition.
  *
  * @author Lijun Liao (xipki)
  */
