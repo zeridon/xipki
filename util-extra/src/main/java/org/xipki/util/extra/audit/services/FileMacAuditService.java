@@ -33,7 +33,6 @@ import java.util.StringTokenizer;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class FileMacAuditService extends MacAuditService {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileMacAuditService.class);

@@ -5,6 +5,7 @@ package org.xipki.util.extra.http;
 
 /**
  * IPAddress Util.
+ *
  * @author Lijun Liao (xipki)
  */
 public class IPAddressUtil {

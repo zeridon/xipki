@@ -35,7 +35,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 class DigestDiff {
 
   private static final Logger LOG = LoggerFactory.getLogger(DigestDiff.class);

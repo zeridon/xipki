@@ -26,7 +26,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 class HttpRaServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(HttpRaServlet.class);

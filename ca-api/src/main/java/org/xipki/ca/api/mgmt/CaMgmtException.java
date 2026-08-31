@@ -8,7 +8,6 @@ package org.xipki.ca.api.mgmt;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaMgmtException extends Exception {
 
   public CaMgmtException(String message, Throwable cause) {

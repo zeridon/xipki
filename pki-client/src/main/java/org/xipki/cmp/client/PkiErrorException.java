@@ -12,7 +12,6 @@ import org.xipki.security.cmp.PkiStatusInfo;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PkiErrorException extends Exception {
 
   private final int status;

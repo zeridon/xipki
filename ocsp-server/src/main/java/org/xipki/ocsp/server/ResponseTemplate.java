@@ -25,7 +25,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 class ResponseTemplate {
 
   private static final Map<HashAlgo, byte[]> extnCerthashPrefixMap = new HashMap<>();

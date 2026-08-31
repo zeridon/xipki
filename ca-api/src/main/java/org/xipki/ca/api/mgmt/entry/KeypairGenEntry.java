@@ -17,7 +17,6 @@ import java.util.Collections;
  * Keypair Gen Entry.
  * @author Lijun Liao (xipki)
  */
-
 public class KeypairGenEntry extends MgmtEntry {
 
   private final String name;

@@ -1,4 +1,5 @@
 // #THIRDPARTY#
+// original license BSD.
 
 package org.xipki.util.codec;
 
@@ -6,9 +7,7 @@ import java.util.Arrays;
 
 /**
  * Base64.
- * under BSD.
  */
-
 public abstract class Base64 {
 
   private static final char[] STD_CA =

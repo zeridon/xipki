@@ -12,7 +12,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 class MonetaryValueOption {
 
   private final Iso4217CurrencyCode currency;

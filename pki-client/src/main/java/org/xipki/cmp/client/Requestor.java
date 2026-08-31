@@ -19,7 +19,6 @@ import java.security.SecureRandom;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class Requestor {
 
   private static final X500Name NULL_GENERALNAME = new X500Name(new RDN[0]);

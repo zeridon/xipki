@@ -17,7 +17,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ExtensionValues {
 
   private final Map<ASN1ObjectIdentifier, ExtensionValue> extensions = new HashMap<>();

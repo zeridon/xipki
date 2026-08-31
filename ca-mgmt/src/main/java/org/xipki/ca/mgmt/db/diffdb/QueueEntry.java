@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 interface QueueEntry {
 
   EndOfQueue END_OF_QUEUE = new EndOfQueue();

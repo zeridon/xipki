@@ -29,7 +29,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class Certprofile {
 
   protected Certprofile() {

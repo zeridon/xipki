@@ -8,7 +8,6 @@ package org.xipki.security.scep.transaction;
  *
  * @author Lijun Liao (xipki)
  */
-
 public enum Operation {
 
   GetCACaps("GetCACaps"),

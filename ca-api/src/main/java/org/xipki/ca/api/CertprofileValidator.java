@@ -36,7 +36,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertprofileValidator {
 
   private static final Validity maxCabEeValidity = new Validity(397, Unit.DAY);

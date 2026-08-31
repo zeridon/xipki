@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * OCSP Certstore store definition.
  */
-
 public class OcspCertstore implements JsonEncodable {
 
   /**

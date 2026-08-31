@@ -8,7 +8,6 @@ package org.xipki.scep.client;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepClientException extends Exception {
 
   public ScepClientException(String message, Throwable cause) {

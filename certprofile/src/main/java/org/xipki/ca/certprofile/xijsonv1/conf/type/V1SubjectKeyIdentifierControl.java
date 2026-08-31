@@ -12,7 +12,6 @@ import org.xipki.util.extra.type.SubjectKeyIdentifierControl;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1SubjectKeyIdentifierControl {
 
   private final SubjectKeyIdentifierControl.SubjectKeyIdentifierMethod method;

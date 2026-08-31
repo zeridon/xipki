@@ -8,7 +8,6 @@ package org.xipki.ocsp.client;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspRequestorException extends Exception {
 
   public OcspRequestorException(String message) {

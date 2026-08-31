@@ -19,7 +19,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class OcspStore implements Closeable {
 
   protected String name;

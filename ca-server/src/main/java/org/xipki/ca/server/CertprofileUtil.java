@@ -43,7 +43,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertprofileUtil {
 
   public static SubjectInfo getSubject(Certprofile certprofile, X500Name requestedSubject)

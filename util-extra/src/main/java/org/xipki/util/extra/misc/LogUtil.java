@@ -17,7 +17,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class LogUtil {
 
   private static boolean systemInfoLogged = false;

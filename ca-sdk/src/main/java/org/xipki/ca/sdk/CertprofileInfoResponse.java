@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertprofileInfoResponse extends SdkResponse {
 
   private final String[] requiredExtensionTypes;

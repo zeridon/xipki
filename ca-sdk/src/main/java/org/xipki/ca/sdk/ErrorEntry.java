@@ -10,9 +10,9 @@ import org.xipki.util.codec.cbor.CborEncoder;
 
 /**
  * Error entry.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class ErrorEntry extends SdkEncodable {
 
   private final int code;

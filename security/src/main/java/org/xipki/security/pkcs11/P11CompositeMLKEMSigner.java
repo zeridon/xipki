@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * TODO
  * PKCS#11 {@link Signer} for composite KEM signers.
  *
  * @author Lijun Liao (xipki)

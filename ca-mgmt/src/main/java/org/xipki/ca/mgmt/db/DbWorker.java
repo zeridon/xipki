@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class DbWorker implements Runnable {
 
   private static final Logger LOG = LoggerFactory.getLogger(DbWorker.class);

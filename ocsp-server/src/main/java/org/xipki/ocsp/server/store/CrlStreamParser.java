@@ -46,7 +46,8 @@ import java.util.Iterator;
 
 /**
  * Crl Stream Parser.
- * size of the consumed memory is linear to the size of CRL. This may cause
+ *
+ * Size of the consumed memory is linear to the size of CRL. This may cause
  * that OutOfMemory error for large CRLs.
  *
  * <p>This class implements a real stream based parser of CRL with constant

@@ -12,9 +12,9 @@ import java.math.BigInteger;
 
 /**
  * Old Cert information.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class OldCertInfo extends SdkEncodable {
 
   private static final int ALT_ISN = 1;

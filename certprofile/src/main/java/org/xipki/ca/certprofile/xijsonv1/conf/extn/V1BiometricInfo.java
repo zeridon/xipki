@@ -24,7 +24,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1BiometricInfo {
 
   private static final Logger LOG = LoggerFactory.getLogger(V1BiometricInfo.class);

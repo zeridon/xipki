@@ -21,6 +21,7 @@ import java.io.IOException;
 
 /**
  * Constant Extn Value.
+ *
  * @author Lijun Liao (xipki)
  */
 public class ConstantExtnValue implements JsonEncodable {

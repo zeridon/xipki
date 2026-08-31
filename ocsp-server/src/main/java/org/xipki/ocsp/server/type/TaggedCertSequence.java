@@ -8,7 +8,6 @@ package org.xipki.ocsp.server.type;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class TaggedCertSequence extends ASN1Type {
 
   private final byte[] encoded;

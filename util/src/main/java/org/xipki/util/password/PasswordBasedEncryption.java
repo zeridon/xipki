@@ -20,7 +20,6 @@ import java.util.Optional;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PasswordBasedEncryption {
 
   private PasswordBasedEncryption() {

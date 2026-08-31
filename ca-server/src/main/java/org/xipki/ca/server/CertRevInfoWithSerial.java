@@ -14,7 +14,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertRevInfoWithSerial implements Comparable<CertRevInfoWithSerial> {
 
   private final long id;

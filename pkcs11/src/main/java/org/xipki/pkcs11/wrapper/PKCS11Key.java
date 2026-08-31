@@ -13,7 +13,6 @@ import java.util.Objects;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PKCS11Key {
 
   protected final PKCS11KeyId id;

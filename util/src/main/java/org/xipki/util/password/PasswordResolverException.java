@@ -10,7 +10,6 @@ import java.security.GeneralSecurityException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PasswordResolverException extends GeneralSecurityException {
 
   public PasswordResolverException() {

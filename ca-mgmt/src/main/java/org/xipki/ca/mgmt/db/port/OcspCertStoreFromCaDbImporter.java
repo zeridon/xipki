@@ -48,7 +48,6 @@ import java.util.zip.ZipFile;
  *
  * @author Lijun Liao (xipki)
  */
-
 class OcspCertStoreFromCaDbImporter extends AbstractOcspCertstoreDbImporter {
 
   private static final Logger LOG = LoggerFactory.getLogger(OcspCertStoreFromCaDbImporter.class);

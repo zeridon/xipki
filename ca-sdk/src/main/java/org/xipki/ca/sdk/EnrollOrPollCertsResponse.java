@@ -15,7 +15,6 @@ import java.math.BigInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class EnrollOrPollCertsResponse extends SdkResponse {
 
   private String transactionId;

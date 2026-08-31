@@ -43,7 +43,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class KeypoolKeypairGenerator extends KeypairGenerator {
 
   private static class CipherData {

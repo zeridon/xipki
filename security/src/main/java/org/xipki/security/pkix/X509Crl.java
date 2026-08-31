@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 /**
- * X509 Crl CRL record.
+ * X509 CRL record.
  *
  * @author Lijun Liao (xipki)
  */

@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 /**
  * Ck Type definition.
+ *
  * @author Lijun Liao (xipki)
  */
 public abstract class CkType {

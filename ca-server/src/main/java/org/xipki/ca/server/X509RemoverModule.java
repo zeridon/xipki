@@ -30,7 +30,6 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509RemoverModule extends X509CaModule implements Closeable {
 
   private class ExpiredCertsRemover implements Runnable {

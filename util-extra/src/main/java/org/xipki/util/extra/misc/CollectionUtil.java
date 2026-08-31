@@ -18,7 +18,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CollectionUtil {
 
   private CollectionUtil() {

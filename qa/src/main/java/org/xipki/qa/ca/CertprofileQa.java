@@ -13,7 +13,6 @@ import org.xipki.qa.ValidationResult;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface CertprofileQa {
 
   ValidationResult checkCert(

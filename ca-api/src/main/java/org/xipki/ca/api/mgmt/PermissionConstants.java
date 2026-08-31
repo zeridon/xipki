@@ -19,7 +19,6 @@ import java.util.Map.Entry;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PermissionConstants {
 
   public static final String NAME_NONE = "none";

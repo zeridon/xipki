@@ -15,7 +15,6 @@ import org.xipki.util.codec.cbor.CborEncoder;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ErrorResponse extends SdkResponse {
 
   private final String transactionId;

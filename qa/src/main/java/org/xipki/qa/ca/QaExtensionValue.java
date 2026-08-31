@@ -12,7 +12,6 @@ import java.util.Arrays;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class QaExtensionValue {
 
   private final boolean critical;

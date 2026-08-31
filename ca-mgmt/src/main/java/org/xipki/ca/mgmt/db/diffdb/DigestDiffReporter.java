@@ -25,7 +25,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 class DigestDiffReporter implements Closeable {
 
   private static final Logger LOG = LoggerFactory.getLogger(DigestDiffReporter.class);

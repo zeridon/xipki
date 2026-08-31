@@ -13,7 +13,6 @@ import org.xipki.util.codec.TripleState;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspResponseOption {
 
   private X509Cert respIssuer;

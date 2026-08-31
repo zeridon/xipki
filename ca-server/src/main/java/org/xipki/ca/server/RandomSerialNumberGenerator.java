@@ -11,7 +11,6 @@ import java.security.SecureRandom;
  *
  * @author Lijun Liao (xipki)
  */
-
 class RandomSerialNumberGenerator {
 
   private static RandomSerialNumberGenerator instance;

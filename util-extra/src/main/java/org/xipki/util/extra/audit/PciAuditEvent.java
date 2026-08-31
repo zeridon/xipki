@@ -24,7 +24,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PciAuditEvent {
 
   private static final String UNDEFINED = "undefined";

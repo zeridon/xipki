@@ -21,7 +21,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 abstract class Responder {
 
   private final GeneralName name;

@@ -36,7 +36,6 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 class OcspCertstoreDbExporter extends DbPorter {
 
   public static final String PROCESS_LOG_FILENAME = "export.process";

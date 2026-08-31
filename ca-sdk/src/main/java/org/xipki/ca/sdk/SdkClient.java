@@ -31,7 +31,6 @@ import static org.xipki.ca.sdk.SdkConstants.*;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SdkClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(SdkClient.class);

@@ -25,7 +25,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 class X509PublisherModule extends X509CaModule {
 
   private final CertStore certstore;

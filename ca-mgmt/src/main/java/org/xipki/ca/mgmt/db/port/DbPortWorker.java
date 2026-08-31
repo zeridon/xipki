@@ -55,7 +55,6 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class DbPortWorker extends DbWorker {
 
   private static final Logger LOG = LoggerFactory.getLogger(DbPortWorker.class);

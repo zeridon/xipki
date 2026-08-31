@@ -10,7 +10,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class IdentifiedObject {
 
   private final String id;

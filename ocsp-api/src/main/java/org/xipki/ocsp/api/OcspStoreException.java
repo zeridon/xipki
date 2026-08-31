@@ -8,7 +8,6 @@ package org.xipki.ocsp.api;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspStoreException extends Exception {
 
   public OcspStoreException() {

@@ -17,7 +17,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RevokeCertsRequest extends CaIdentifierRequest {
 
   private final Entry[] entries;

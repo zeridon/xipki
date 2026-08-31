@@ -10,7 +10,6 @@ import java.math.BigInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class BigIntegerRange {
   private final BigInteger from;
   private final BigInteger to;

@@ -8,7 +8,6 @@ package org.xipki.util.password;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface PasswordCallback {
 
   /**

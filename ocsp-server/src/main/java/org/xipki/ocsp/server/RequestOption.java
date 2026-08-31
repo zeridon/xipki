@@ -25,7 +25,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RequestOption {
 
   static final Set<HashAlgo> SUPPORTED_HASH_ALGORITHMS;

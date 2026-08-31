@@ -12,7 +12,6 @@ import org.xipki.util.misc.StringUtil;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1Range {
 
   private final Integer min;

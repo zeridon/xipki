@@ -10,7 +10,6 @@ import org.xipki.security.pkix.X509Cert;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertWithDbId {
 
   private final X509Cert cert;

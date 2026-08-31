@@ -25,7 +25,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class Passwords {
 
   private static final ConcurrentLinkedQueue<PasswordResolver> resolvers =

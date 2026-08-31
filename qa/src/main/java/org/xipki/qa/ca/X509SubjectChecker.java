@@ -35,7 +35,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509SubjectChecker {
 
   private final SubjectControl subjectControl;

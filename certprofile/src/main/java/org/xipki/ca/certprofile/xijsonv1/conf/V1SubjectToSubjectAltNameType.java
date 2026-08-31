@@ -14,11 +14,9 @@ import java.util.List;
 
 /**
  * V1 Subject To Subject Alt Name Type definition.
- * extension.
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1SubjectToSubjectAltNameType {
 
   private static final List<GeneralNameTag> allowedTargets = Arrays.asList(

@@ -37,7 +37,6 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class MacAuditService implements AuditService {
 
   public static final String KEY_SHARD_ID = "shard-id";

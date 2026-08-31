@@ -19,7 +19,6 @@ import java.security.interfaces.ECPublicKey;
  *
  * @author Lijun Liao (xipki)
  */
-
 abstract class CrmfKeyWrapper {
 
   abstract AlgorithmIdentifier getAlgorithmIdentifier();

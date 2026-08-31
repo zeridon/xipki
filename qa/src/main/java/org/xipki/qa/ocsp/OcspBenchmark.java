@@ -27,7 +27,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspBenchmark extends BenchmarkExecutor {
 
   final class Tester implements Runnable {

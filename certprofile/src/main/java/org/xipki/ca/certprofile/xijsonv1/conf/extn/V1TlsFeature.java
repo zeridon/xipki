@@ -17,7 +17,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1TlsFeature {
 
   private final List<DescribableInt> features;

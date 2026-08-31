@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1ExtendedKeyUsage {
 
   private final List<Usage> usages;

@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Not Before Option options.
+ * Not Before Option.
  *
  * @author Lijun Liao (xipki)
  */

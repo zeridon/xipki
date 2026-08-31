@@ -16,7 +16,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class IssuerFilter {
 
   private final Set<String> includeSha1Fps;

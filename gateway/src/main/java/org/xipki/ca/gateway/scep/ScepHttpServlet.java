@@ -24,7 +24,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepHttpServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(ScepHttpServlet.class);

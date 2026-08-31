@@ -12,7 +12,6 @@ import org.xipki.util.misc.StringUtil;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class MgmtMessage implements JsonEncodable {
 
   public byte[] getEncoded() {

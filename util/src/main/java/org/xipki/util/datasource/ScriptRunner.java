@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
 
 /**
  * Script Runner.
+ *
  * @author Apach project iBATIS
  * @author Benoit Duffez
  * @author Lijun Liao (xipki)

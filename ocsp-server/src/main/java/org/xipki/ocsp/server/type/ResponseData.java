@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ResponseData extends ASN1Type {
 
   private final int version;

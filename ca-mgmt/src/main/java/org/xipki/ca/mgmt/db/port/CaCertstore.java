@@ -17,7 +17,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaCertstore implements JsonEncodable {
 
   private int version;

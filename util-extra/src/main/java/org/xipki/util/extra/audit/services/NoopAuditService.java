@@ -13,7 +13,6 @@ import org.xipki.util.extra.audit.PciAuditEvent;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class NoopAuditService implements AuditService {
 
   public NoopAuditService() {

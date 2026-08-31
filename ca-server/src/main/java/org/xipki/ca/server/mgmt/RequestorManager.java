@@ -23,7 +23,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class RequestorManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(RequestorManager.class);

@@ -34,7 +34,6 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaConfs {
 
   private static final String APP_DIR = "APP_DIR";

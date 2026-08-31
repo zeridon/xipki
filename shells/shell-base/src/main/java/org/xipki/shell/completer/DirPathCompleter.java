@@ -14,6 +14,7 @@ import java.util.Set;
 /**
  * Marker CompletionProvider for Directory Paths.
  * Handled natively by PicocliShell to preserve JLine Candidate trailing spaces.
+ *
  * @author Lijun Liao (xipki)
  */
 public class DirPathCompleter implements CompletionProvider {

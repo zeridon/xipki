@@ -28,7 +28,6 @@ import java.security.cert.CertificateFactory;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SslContextConf {
 
   private static final byte[] PEM_PREFIX = StringUtil.toUtf8Bytes("-----BEGIN");

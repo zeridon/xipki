@@ -72,7 +72,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class Ca2Manager {
 
   private static final Logger LOG = LoggerFactory.getLogger(Ca2Manager.class);

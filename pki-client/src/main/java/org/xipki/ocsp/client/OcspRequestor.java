@@ -15,7 +15,6 @@ import java.net.URL;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface OcspRequestor {
 
   /**

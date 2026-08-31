@@ -22,7 +22,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1Subject {
 
   private static final Logger LOG = LoggerFactory.getLogger(V1Subject.class);

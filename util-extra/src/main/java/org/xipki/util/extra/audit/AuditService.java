@@ -11,7 +11,6 @@ import org.xipki.util.conf.InvalidConfException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface AuditService {
 
   int AUDIT_EVENT = 1;

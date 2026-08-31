@@ -72,7 +72,6 @@ import java.util.Vector;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class XijsonCertprofile extends Certprofile {
 
   private static final Logger LOG = LoggerFactory.getLogger(XijsonCertprofile.class);

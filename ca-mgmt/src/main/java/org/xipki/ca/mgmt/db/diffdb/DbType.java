@@ -8,7 +8,6 @@ package org.xipki.ca.mgmt.db.diffdb;
  *
  * @author Lijun Liao (xipki)
  */
-
 enum DbType {
   XIPKI_CA_v4,
   XIPKI_CA_v5,

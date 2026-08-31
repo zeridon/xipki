@@ -44,7 +44,6 @@ import java.util.Optional;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DecodedNextCaMessage {
 
   private static final Logger LOG = LoggerFactory.getLogger(DecodedNextCaMessage.class);

@@ -16,7 +16,6 @@ import java.util.Arrays;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RequestIssuer {
 
   private final HashAlgo hashAlgo;

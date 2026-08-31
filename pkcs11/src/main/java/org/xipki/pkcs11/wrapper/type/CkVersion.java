@@ -7,6 +7,7 @@ import org.xipki.pkcs11.wrapper.PKCS11Module;
 
 /**
  * Ck Version.
+ *
  * <pre>
  * typedef struct CK_VERSION {
  *   CK_BYTE       major;  // integer portion of version number

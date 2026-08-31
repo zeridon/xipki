@@ -24,7 +24,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 class KeypairGenManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(KeypairGenManager.class);

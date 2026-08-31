@@ -11,7 +11,6 @@ import org.xipki.security.pkix.CertRevocationInfo;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertWithRevocationInfo {
 
   private CertWithDbId cert;

@@ -48,7 +48,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspServerUtil {
 
   private static final Logger LOG = LoggerFactory.getLogger(OcspServerUtil.class);

@@ -37,6 +37,7 @@ import static org.xipki.util.codec.Base64.decodeFast;
 
 /**
  * ACME Utility class
+ *
  * @author Lijun Liao (xipki)
  */
 final class AcmeUtils {

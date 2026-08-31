@@ -5,7 +5,7 @@ package org.xipki.pkcs11.wrapper;
 
 /**
  * PKCS11 Key Pair.
- * a private key and a public key.
+ * A private key and a public key.
  *
  * @author Lijun Liao (xipki)
  */

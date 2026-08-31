@@ -29,7 +29,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * CT Log.
- * certificate.
  *
  * @author Lijun Liao (xipki)
  */

@@ -27,7 +27,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RestHttpServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(RestHttpServlet.class);

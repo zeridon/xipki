@@ -15,7 +15,6 @@ import org.xipki.util.misc.StringUtil;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertprofileEntry extends MgmtEntry {
 
   private final NameId ident;

@@ -37,7 +37,6 @@ import static org.xipki.util.misc.StringUtil.startsWithIgnoreCase;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class DataSourceWrapper implements Closeable {
 
   private static class MySQL extends DataSourceWrapper {

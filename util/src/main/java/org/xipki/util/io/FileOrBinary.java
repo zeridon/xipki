@@ -20,7 +20,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class FileOrBinary implements JsonEncodable {
 
   private String file;

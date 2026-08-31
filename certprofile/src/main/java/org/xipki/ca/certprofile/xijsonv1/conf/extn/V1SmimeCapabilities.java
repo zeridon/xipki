@@ -23,7 +23,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1SmimeCapabilities {
 
   private static final Logger LOG = LoggerFactory.getLogger(V1SmimeCapabilities.class);

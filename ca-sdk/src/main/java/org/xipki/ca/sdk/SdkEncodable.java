@@ -14,7 +14,6 @@ import org.xipki.util.codec.cbor.CborEncoder;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class SdkEncodable implements CborEncodable {
 
   protected abstract void encode0(CborEncoder encoder) throws CodecException;

@@ -81,7 +81,6 @@ import static org.xipki.security.exception.ErrorCode.SYSTEM_UNAVAILABLE;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509CrlModule extends X509CaModule implements Closeable {
 
   private class CrlGenerationService implements Runnable {

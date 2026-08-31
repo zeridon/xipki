@@ -5,6 +5,7 @@ package org.xipki.security.exception;
 
 /**
  * Error Code enumeration.
+ *
  * @author Lijun Liao (xipki)
  */
 public enum ErrorCode {

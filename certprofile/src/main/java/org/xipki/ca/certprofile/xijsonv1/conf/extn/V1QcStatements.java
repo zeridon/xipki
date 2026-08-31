@@ -23,7 +23,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1QcStatements {
 
   private final List<QcStatementType> qcStatements;

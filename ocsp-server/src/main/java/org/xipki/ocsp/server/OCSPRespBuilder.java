@@ -26,7 +26,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OCSPRespBuilder {
   private static final byte[] successfulStatus = Hex.decode("0a0100");
   private static final byte[] responseTypeBasic = Hex.decode("06092b0601050507300101");

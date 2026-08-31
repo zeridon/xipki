@@ -19,7 +19,6 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ProcessLog {
 
   private static class MeasurePoint {

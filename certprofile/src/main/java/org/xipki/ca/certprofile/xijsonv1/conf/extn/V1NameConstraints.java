@@ -18,6 +18,7 @@ import java.util.List;
  * V1 Name Constraints.
  * Only for CA, at least one of permittedSubtrees and excludedSubtrees must
  * be present.
+ *
  * @author Lijun Liao (xipki)
  */
 public class V1NameConstraints {

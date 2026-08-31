@@ -14,7 +14,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public enum OID {
   ID_PKIX_OCSP_NONCE(OIDs.OCSP.id_pkix_ocsp_nonce),
   ID_PKIX_OCSP_PREFSIGALGS(OIDs.Extn.id_pkix_ocsp_prefSigAlgs),

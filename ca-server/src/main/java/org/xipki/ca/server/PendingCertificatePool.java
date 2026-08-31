@@ -23,7 +23,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class PendingCertificatePool {
 
   private static class MyEntry {

@@ -19,7 +19,7 @@ import org.xipki.security.OIDs;
 import org.xipki.util.codec.Args;
 
 /**
- * X509 CSR.
+ * X509 CSR record.
  *
  * @author Lijun Liao (xipki)
  */

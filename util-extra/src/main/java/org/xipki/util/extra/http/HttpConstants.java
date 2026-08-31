@@ -8,7 +8,6 @@ package org.xipki.util.extra.http;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class HttpConstants {
 
   public static final String HEADER_XIPKI_ERROR = "x-xipki-error";

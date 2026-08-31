@@ -8,6 +8,7 @@ import org.xipki.util.misc.StringUtil;
 
 /**
  * P11 Slot Id.
+ *
  * @author Lijun Liao (xipki)
  */
 public class P11SlotId {

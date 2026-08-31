@@ -23,7 +23,6 @@ import java.net.URLConnection;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class XiHttpClient {
 
   private final SSLSocketFactory sslSocketFactory;

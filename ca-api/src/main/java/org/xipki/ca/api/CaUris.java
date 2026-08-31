@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaUris implements JsonEncodable {
 
   public static final CaUris EMPTY_INSTANCE = new CaUris(null, null, null, null);

@@ -8,7 +8,6 @@ package org.xipki.ocsp.server.type;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class Extension extends ASN1Type {
 
 }

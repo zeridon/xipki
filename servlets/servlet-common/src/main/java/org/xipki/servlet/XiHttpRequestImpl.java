@@ -13,7 +13,6 @@ import java.security.cert.X509Certificate;
  * Xi Http Request Impl.
  * @author Lijun Liao (xipki)
  */
-
 public class XiHttpRequestImpl implements XiHttpRequest {
 
   private final HttpServletRequest req;

@@ -13,6 +13,7 @@ import java.nio.file.Path;
 
 /**
  * Json Input Stream.
+ *
  * @author Lijun Liao (xipki)
  */
 public class JsonInputStream {

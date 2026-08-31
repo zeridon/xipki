@@ -8,7 +8,6 @@ package org.xipki.ocsp.server;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspRespWithCacheInfo {
 
   /**

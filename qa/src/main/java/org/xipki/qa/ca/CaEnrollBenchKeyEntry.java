@@ -14,7 +14,6 @@ import java.security.SecureRandom;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaEnrollBenchKeyEntry {
 
   private SubjectPublicKeyInfo spki;

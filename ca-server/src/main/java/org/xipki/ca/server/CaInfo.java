@@ -44,7 +44,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaInfo {
 
   private static final Logger LOG = LoggerFactory.getLogger(CaInfo.class);

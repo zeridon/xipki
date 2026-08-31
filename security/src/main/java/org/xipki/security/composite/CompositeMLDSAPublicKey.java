@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 /**
  * Composite MLDSAPublic Key.
+ *
  * @author Lijun Liao (xipki)
  */
 public class CompositeMLDSAPublicKey implements PublicKey {

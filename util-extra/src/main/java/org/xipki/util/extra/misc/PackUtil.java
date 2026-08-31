@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 /**
  * Pack Util.
- * again.
  *
  * @author bouncycastle
  */

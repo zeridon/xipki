@@ -38,7 +38,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 class RefDigestReader implements Closeable {
 
   private static final Logger LOG = LoggerFactory.getLogger(RefDigestReader.class);

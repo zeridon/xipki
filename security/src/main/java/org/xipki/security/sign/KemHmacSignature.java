@@ -15,6 +15,7 @@ import java.util.Arrays;
  * len(id),  1 byte || id,  len(id) bytes ||
  * len(sig), 1 byte || sig, len(sig) bytes
  * </pre>
+ *
  * @author Lijun Liao (xipki)
  */
 public class KemHmacSignature {

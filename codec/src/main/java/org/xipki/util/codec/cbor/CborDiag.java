@@ -26,6 +26,7 @@ import static org.xipki.util.codec.cbor.CborConstants.*;
 
 /**
  * Cbor Diag.
+ *
  * @author Lijun Liao (xipki)
  */
 public class CborDiag {

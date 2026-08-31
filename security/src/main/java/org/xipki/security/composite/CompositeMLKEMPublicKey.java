@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 /**
  * Composite MLKEMPublic Key.
+ *
  * @author Lijun Liao (xipki)
  */
 public class CompositeMLKEMPublicKey implements PublicKey {

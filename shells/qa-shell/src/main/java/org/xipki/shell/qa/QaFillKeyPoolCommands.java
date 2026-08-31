@@ -16,7 +16,6 @@ import picocli.CommandLine.Option;
  *
  * @author Lijun Liao (xipki)
  */
-
 class QaFillKeyPoolCommands {
 
   @Command(name = "fill-keypool", description = "Fill the keypool",

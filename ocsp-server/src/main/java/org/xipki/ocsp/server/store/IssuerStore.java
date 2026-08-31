@@ -18,7 +18,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class IssuerStore {
 
   private List<IssuerEntry> issuers = new ArrayList<>();

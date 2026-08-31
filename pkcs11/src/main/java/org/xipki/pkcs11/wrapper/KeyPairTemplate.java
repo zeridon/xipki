@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /**
  * Key Pair Template.
+ *
  * @author Lijun Liao (xipki)
  */
 public class KeyPairTemplate {

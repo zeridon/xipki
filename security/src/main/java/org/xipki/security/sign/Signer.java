@@ -14,7 +14,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface Signer {
 
   default byte[] x509Sign(byte[] data) throws XiSecurityException {

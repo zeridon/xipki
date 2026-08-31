@@ -14,7 +14,6 @@ import org.xipki.util.extra.exception.InsufficientPermissionException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface RequestorInfo {
 
   String NAME_BY_CA = "by-ca";

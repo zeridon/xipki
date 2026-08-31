@@ -16,7 +16,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class IssuerAndSubject extends ASN1Object {
 
   private final X500Name issuer;

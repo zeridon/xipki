@@ -23,7 +23,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 class OcspHealthCheckServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(OcspHealthCheckServlet.class);

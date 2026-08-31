@@ -84,7 +84,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CrlControl implements JsonEncodable {
 
   public static final String KEY_FULLCRL_INTERVALS = "fullcrl.intervals";

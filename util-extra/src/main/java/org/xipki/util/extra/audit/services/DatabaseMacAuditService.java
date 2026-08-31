@@ -30,7 +30,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DatabaseMacAuditService extends MacAuditService {
 
   private static final Logger LOG = LoggerFactory.getLogger(DatabaseMacAuditService.class);

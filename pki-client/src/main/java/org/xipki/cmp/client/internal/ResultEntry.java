@@ -18,7 +18,6 @@ import java.math.BigInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 abstract class ResultEntry extends IdentifiedObject {
 
   ResultEntry(String id) {

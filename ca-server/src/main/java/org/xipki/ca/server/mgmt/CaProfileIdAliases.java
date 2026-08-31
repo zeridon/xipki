@@ -5,9 +5,9 @@ package org.xipki.ca.server.mgmt;
 
 /**
  * CA Profile Id Aliases.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class CaProfileIdAliases {
 
   private final int id;

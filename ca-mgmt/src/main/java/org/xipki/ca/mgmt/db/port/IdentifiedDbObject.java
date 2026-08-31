@@ -11,7 +11,6 @@ import org.xipki.util.codec.json.JsonMap;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class IdentifiedDbObject implements JsonEncodable {
 
   private final long id;

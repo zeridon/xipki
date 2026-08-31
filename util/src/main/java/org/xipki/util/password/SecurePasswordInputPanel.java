@@ -26,7 +26,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SecurePasswordInputPanel extends Panel {
 
   private static final String BACKSPACE = "⇦"; // double left arrow

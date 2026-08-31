@@ -28,7 +28,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CertRepublisher {
 
   private interface QueueEntry {

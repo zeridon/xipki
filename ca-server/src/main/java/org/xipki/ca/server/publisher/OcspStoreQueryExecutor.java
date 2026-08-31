@@ -39,7 +39,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 class OcspStoreQueryExecutor {
 
   private static class IssuerEntry {

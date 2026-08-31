@@ -52,7 +52,6 @@ import java.util.zip.ZipInputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaConf {
 
   private static final Logger LOG = LoggerFactory.getLogger(CaConf.class);

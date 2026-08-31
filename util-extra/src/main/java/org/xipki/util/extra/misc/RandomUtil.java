@@ -10,7 +10,6 @@ import java.security.SecureRandom;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RandomUtil {
   private static final SecureRandom random = new SecureRandom();
 

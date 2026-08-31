@@ -48,7 +48,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CaconfDbExporter extends DbPorter {
 
   CaconfDbExporter(DataSourceWrapper datasource, String destDir, AtomicBoolean stopMe)

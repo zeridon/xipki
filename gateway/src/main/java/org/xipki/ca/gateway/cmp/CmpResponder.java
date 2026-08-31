@@ -85,7 +85,6 @@ import static org.bouncycastle.asn1.cmp.PKIStatus.rejection;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CmpResponder extends BaseCmpResponder {
 
   private static final Logger LOG = LoggerFactory.getLogger(CmpResponder.class);

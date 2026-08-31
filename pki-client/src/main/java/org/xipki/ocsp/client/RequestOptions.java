@@ -15,7 +15,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RequestOptions {
 
   private boolean signRequest;

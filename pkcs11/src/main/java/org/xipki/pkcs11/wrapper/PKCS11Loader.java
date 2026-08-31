@@ -16,7 +16,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PKCS11Loader {
 
   private static final Logger LOG = LoggerFactory.getLogger(PKCS11Loader.class);

@@ -8,7 +8,6 @@ package org.xipki.ca.sdk;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SdkConstants {
 
   public static final String CMD_caname = "caname";

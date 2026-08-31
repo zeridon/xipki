@@ -55,7 +55,6 @@ import static org.xipki.ca.server.CaUtil.createFileOrValue;
  *
  * @author Lijun Liao (xipki)
  */
-
 class ConfLoader {
 
   private static final Logger LOG = LoggerFactory.getLogger(ConfLoader.class);

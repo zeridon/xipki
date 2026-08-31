@@ -18,7 +18,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X500NameType extends SdkEncodable {
 
   private static final int ALT_ENCODED = 1;

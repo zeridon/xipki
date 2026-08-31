@@ -47,7 +47,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PkiMessage {
 
   private static final Set<ASN1ObjectIdentifier> SCEP_ATTR_TYPES;

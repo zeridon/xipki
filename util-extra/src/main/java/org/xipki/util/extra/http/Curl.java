@@ -11,7 +11,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface Curl {
 
   int DEFAULT_CONNECT_TIMEOUT_MS = 10_000;

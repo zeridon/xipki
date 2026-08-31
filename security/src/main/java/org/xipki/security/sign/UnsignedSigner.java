@@ -13,7 +13,6 @@ import java.io.OutputStream;
 
 /**
  * Unsigned Signer signer definition.
- * as signature value.
  *
  * @author Lijun Liao (xipki)
  */

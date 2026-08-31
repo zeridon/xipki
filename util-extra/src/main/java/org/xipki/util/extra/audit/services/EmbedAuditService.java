@@ -36,7 +36,6 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class EmbedAuditService implements AuditService {
 
   public static final String KEY_FILE = "file";

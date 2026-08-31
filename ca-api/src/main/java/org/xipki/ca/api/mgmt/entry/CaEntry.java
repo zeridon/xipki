@@ -30,7 +30,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaEntry extends MgmtEntry {
 
   /**

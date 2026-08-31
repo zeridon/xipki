@@ -24,7 +24,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public final class EnrolmentResponse {
 
   private final PkiMessage pkcsRep;

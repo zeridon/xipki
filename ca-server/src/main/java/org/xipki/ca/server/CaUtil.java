@@ -54,7 +54,6 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaUtil {
 
   private static final String id_ce_prefix = "2.5.29.";

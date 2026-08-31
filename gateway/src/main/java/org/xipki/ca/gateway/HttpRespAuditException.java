@@ -12,7 +12,6 @@ import org.xipki.util.extra.audit.AuditStatus;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class HttpRespAuditException extends Exception {
 
   private final int httpStatus;

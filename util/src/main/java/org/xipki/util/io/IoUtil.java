@@ -36,7 +36,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class IoUtil {
 
   static final String USER_HOME = System.getProperty("user.home");

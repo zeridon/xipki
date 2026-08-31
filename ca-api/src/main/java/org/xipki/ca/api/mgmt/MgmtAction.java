@@ -8,7 +8,6 @@ package org.xipki.ca.api.mgmt;
  *
  * @author Lijun Liao (xipki)
  */
-
 public enum MgmtAction {
 
   addCa,

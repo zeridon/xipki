@@ -15,7 +15,6 @@ import java.util.HashSet;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface CertificateValidator {
 
   /**

@@ -15,7 +15,6 @@ import java.io.InputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepHttpResponse {
 
   private final String contentType;

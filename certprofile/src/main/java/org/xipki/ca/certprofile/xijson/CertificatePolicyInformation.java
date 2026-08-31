@@ -11,11 +11,9 @@ import java.util.List;
 
 /**
  * Certificate Policy Information.
- * CertificatePolicies).
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertificatePolicyInformation {
 
   private final CertificatePolicyID certPolicyId;

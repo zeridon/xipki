@@ -34,7 +34,6 @@ import static org.xipki.security.scep.transaction.CaCapability.SHA512;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaCaps {
 
   private static final Logger LOG = LoggerFactory.getLogger(CaCaps.class);

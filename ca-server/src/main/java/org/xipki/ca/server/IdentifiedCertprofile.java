@@ -48,7 +48,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class IdentifiedCertprofile {
 
   private static final Logger log = LoggerFactory.getLogger(IdentifiedCertprofile.class);

@@ -27,6 +27,7 @@ import java.security.SecureRandom;
 
 /**
  * AESGmac Content Signer definition.
+ *
  * @author Lijun Liao (xipki)
  */
 public class AESGmacContentSigner implements Signer {

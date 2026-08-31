@@ -10,7 +10,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class Extensions extends ASN1Type {
 
   private final List<Extension> extensions;

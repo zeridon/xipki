@@ -78,7 +78,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class EstResponder {
 
   private static class HttpRespAuditException extends Exception {

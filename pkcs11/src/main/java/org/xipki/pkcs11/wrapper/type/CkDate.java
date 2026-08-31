@@ -8,6 +8,7 @@ import org.xipki.util.codec.Args;
 
 /**
  * Ck Date.
+ *
  * <pre>
  * typedef struct CK_DATE{
  *   CK_CHAR       year[4];   // the year ("1900" - "9999")

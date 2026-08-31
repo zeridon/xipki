@@ -34,7 +34,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CaconfDbImporter extends DbPorter {
 
   private final CaConfType.CaSystem caconf;

@@ -20,7 +20,6 @@ import java.util.Locale;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1GeneralNameType {
 
   private static final Logger LOG = LoggerFactory.getLogger(V1GeneralNameType.class);

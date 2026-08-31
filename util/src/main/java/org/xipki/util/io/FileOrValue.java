@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class FileOrValue implements JsonEncodable {
 
   private String file;

@@ -23,7 +23,6 @@ import java.security.cert.CertificateEncodingException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SignerEntry extends MgmtEntry {
 
   private final String name;

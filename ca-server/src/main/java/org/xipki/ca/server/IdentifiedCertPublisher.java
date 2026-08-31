@@ -22,7 +22,6 @@ import java.io.Closeable;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class IdentifiedCertPublisher implements Closeable {
 
   private final PublisherEntry entry;

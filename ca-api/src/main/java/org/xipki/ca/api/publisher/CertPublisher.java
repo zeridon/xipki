@@ -18,7 +18,6 @@ import java.io.Closeable;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class CertPublisher implements Closeable {
 
   protected CertPublisher() {

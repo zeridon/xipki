@@ -42,11 +42,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Crl DB Cert Status Store definition.
- * database.
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CrlDbCertStatusStore extends DbCertStatusStore {
 
   private class CrlUpdateService implements Runnable {

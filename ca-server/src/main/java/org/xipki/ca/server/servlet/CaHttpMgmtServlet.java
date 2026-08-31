@@ -45,7 +45,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CaHttpMgmtServlet {
 
   private static final class MyException extends Exception {

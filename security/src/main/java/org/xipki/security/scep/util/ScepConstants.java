@@ -8,7 +8,6 @@ package org.xipki.security.scep.util;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepConstants {
 
   public static final String CT_X509_NEXT_CA_CERT = "application/x-x509-next-ca-cert";

@@ -8,7 +8,6 @@ package org.xipki.util.extra.exception;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertPublisherException extends Exception {
 
   public CertPublisherException(String message) {

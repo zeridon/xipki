@@ -72,7 +72,6 @@ import static org.xipki.security.exception.ErrorCode.*;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SdkResponder {
 
   private class PendingPoolCleaner implements Runnable {

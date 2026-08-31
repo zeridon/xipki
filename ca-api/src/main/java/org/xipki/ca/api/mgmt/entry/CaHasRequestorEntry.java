@@ -19,7 +19,6 @@ import java.util.List;
  * CA Has Requestor Entry.
  * @author Lijun Liao (xipki)
  */
-
 public class CaHasRequestorEntry extends MgmtEntry {
 
   private final NameId requestorIdent;

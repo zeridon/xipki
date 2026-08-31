@@ -70,7 +70,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class QaCaCommands {
 
   abstract static class QaCommand extends ShellBaseCommand {

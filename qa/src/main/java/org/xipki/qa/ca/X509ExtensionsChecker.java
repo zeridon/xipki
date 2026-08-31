@@ -45,7 +45,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509ExtensionsChecker {
 
   private static final Logger LOG = LoggerFactory.getLogger(X509ExtensionsChecker.class);

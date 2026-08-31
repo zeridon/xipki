@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface CaCertValidator {
 
   /**

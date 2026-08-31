@@ -10,7 +10,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 class SimpleIssuerEntry {
 
   private final int id;

@@ -86,7 +86,6 @@ import static org.xipki.util.extra.audit.AuditStatus.FAILED;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RestResponder {
 
   private static class HttpRespAuditException extends Exception {

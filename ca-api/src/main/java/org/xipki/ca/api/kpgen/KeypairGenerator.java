@@ -23,7 +23,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class KeypairGenerator implements Closeable {
 
   private static final Logger LOG = LoggerFactory.getLogger(KeypairGenerator.class);

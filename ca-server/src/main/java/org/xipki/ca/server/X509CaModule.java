@@ -24,7 +24,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class X509CaModule {
 
   protected final Logger LOG = LoggerFactory.getLogger(getClass());

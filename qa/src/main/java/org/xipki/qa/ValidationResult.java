@@ -12,11 +12,9 @@ import java.util.List;
 
 /**
  * Validation result.
- * issues.
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ValidationResult {
 
   private final List<ValidationIssue> validationIssues;

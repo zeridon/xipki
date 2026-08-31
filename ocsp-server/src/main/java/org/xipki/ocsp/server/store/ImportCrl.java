@@ -58,7 +58,6 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Lijun Liao (xipki)
  */
-
 class ImportCrl {
 
   private static class CertInfo {

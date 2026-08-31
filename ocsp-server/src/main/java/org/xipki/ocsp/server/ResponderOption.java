@@ -16,7 +16,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 class ResponderOption {
 
   /**

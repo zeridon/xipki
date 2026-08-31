@@ -31,7 +31,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class PublisherManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(PublisherManager.class);

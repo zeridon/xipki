@@ -11,7 +11,6 @@ import java.util.Objects;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PKCS11KeyId {
 
   private final long handle;

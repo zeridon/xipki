@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Null Params.
+ *
  * @author Lijun Liao (xipki)
  */
 public class NullParams extends CkParams {

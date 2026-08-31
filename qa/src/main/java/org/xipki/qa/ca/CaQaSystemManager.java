@@ -11,7 +11,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface CaQaSystemManager extends Closeable {
 
   boolean init();

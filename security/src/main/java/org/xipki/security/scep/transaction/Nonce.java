@@ -13,7 +13,6 @@ import java.util.Arrays;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class Nonce {
 
   private static final int NONCE_LEN = 16;

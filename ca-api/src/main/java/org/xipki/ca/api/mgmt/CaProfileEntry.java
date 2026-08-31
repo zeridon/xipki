@@ -17,7 +17,6 @@ import java.util.Locale;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaProfileEntry {
 
   private final String profileName;

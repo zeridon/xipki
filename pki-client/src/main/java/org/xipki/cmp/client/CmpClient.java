@@ -21,7 +21,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public interface CmpClient extends Closeable {
 
   /**

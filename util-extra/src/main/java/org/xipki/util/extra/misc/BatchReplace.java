@@ -25,9 +25,9 @@ import java.util.Set;
 
 /**
  * Batch Replace.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class BatchReplace {
 
   /**

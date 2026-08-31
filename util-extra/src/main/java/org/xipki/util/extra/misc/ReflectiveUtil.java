@@ -10,7 +10,6 @@ import org.xipki.util.extra.exception.ObjectCreationException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ReflectiveUtil {
 
   public static <T> T newInstance(String className) throws ObjectCreationException {

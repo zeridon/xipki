@@ -13,7 +13,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CheckerUtil {
 
   public static <T> Set<T> elementInBnotInA(Collection<T> collectionA, Collection<T> collectionB) {

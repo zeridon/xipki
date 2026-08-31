@@ -8,7 +8,6 @@ package org.xipki.cmp.client;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CmpClientException extends Exception {
 
   public CmpClientException(String message) {

@@ -19,7 +19,6 @@ import java.util.Arrays;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ExtendedExtension extends Extension {
 
   private static final Logger LOG = LoggerFactory.getLogger(ExtendedExtension.class);

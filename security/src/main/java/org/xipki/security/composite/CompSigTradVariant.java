@@ -8,6 +8,7 @@ import org.xipki.security.SignAlgo;
 /**
  * Comp Sig Trad Variant enumeration.
  * {@link CompositeSigSuite}.
+ *
  * @author Lijun Liao (xipki)
  */
 public enum CompSigTradVariant {

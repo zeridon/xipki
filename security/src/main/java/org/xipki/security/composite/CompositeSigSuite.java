@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Composite Sig Suite enumeration.
+ *
  * @author Lijun Liao (xipki)
  */
 public enum CompositeSigSuite {

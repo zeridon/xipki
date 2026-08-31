@@ -35,7 +35,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CmpHttpServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(CmpHttpServlet.class);

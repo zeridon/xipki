@@ -28,7 +28,6 @@ import java.util.Collection;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1ExtensionType {
 
   private final DescribableOid type;

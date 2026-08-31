@@ -22,7 +22,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CmpControl {
 
   private static final Duration DFLT_MESSAGE_TIME_BIAS = Duration.ofSeconds(300); // 300 seconds

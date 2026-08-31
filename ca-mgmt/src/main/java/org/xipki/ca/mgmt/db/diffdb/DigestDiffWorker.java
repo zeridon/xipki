@@ -24,7 +24,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DigestDiffWorker extends DbWorker {
 
   private final boolean revokedOnly;

@@ -18,7 +18,6 @@ import java.util.Arrays;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PublicCaInfo {
 
   private final X500Name subject;

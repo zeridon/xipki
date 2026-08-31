@@ -31,7 +31,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class MgmtResponse extends MgmtMessage {
 
   /**

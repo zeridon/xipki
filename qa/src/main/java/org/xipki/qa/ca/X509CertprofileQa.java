@@ -47,7 +47,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509CertprofileQa implements CertprofileQa {
 
   private static final Logger LOG =

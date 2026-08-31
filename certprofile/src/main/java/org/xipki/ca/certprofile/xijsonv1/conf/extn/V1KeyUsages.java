@@ -26,7 +26,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1KeyUsages {
 
   private final List<Usage> usages;

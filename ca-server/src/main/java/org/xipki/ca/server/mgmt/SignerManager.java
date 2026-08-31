@@ -27,7 +27,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 class SignerManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(SignerManager.class);

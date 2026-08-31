@@ -54,7 +54,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspQa {
 
   private final SecurityFactory securityFactory;

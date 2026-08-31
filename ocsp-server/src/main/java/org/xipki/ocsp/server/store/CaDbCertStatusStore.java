@@ -48,7 +48,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaDbCertStatusStore extends OcspStore {
 
   private class StoreUpdateService implements Runnable {

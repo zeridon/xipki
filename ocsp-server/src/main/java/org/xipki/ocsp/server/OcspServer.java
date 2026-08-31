@@ -82,7 +82,6 @@ import static org.xipki.ocsp.server.OcspServerUtil.removeExtension;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspServer implements Closeable {
 
   private static class OcspRespControl {

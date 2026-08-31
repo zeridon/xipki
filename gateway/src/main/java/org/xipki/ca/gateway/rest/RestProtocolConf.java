@@ -18,9 +18,9 @@ import java.util.List;
 
 /**
  * Rest Protocol configuration.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class RestProtocolConf extends GatewayConf.ProtocolConf {
 
   private final String authenticator;

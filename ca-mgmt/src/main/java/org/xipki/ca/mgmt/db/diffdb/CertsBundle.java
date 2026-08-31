@@ -14,7 +14,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CertsBundle {
 
   private final Map<BigInteger, DigestEntry> certs;

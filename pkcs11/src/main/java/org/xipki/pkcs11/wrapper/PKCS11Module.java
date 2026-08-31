@@ -28,7 +28,6 @@ import static org.xipki.pkcs11.wrapper.PKCS11T.CKR_GENERAL_ERROR;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PKCS11Module {
 
   private static final Logger LOG = LoggerFactory.getLogger(PKCS11Module.class);

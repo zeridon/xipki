@@ -10,7 +10,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 class IdentifiedDigestEntry {
 
   private final DigestEntry content;

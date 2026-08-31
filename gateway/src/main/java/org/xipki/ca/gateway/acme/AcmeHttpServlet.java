@@ -26,7 +26,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class AcmeHttpServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(AcmeHttpServlet.class);

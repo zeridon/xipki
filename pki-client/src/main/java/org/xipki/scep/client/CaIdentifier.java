@@ -15,9 +15,9 @@ import java.util.Objects;
 
 /**
  * CA Identifier.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class CaIdentifier {
 
   private final String url;

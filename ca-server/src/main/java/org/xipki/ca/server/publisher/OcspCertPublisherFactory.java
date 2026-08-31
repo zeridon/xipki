@@ -15,7 +15,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspCertPublisherFactory implements CertPublisherFactory {
 
   private static final String TYPE = "ocsp";

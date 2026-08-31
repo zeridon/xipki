@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * len(encryptedSecret): 2 bytes
  * encryptedSecret:      len(encryptedSecret) bytes
  * </pre>
+ *
  * @author Lijun Liao (xipki)
  */
 public class KemEncapKey {

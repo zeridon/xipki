@@ -43,7 +43,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1XijsonCertprofileType {
 
   private static final Logger LOG = LoggerFactory.getLogger(V1XijsonCertprofileType.class);

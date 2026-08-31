@@ -24,6 +24,7 @@ import static org.xipki.pkcs11.wrapper.PKCS11T.CKF_SERIAL_SESSION;
  *   CK_ULONG      ulDeviceError;  // device-dependent error code
  * } CK_SESSION_INFO;
  * </pre>
+ *
  * @author Lijun Liao (xipki)
  */
 public class CkSessionInfo extends AbstractInfo {

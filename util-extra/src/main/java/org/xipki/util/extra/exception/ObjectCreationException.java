@@ -8,7 +8,6 @@ package org.xipki.util.extra.exception;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ObjectCreationException extends Exception {
 
   public ObjectCreationException(String msg) {

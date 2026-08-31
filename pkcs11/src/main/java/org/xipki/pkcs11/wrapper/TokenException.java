@@ -5,7 +5,7 @@ package org.xipki.pkcs11.wrapper;
 
 /**
  * Token Exception type.
- * exception from a lower layer.
+ * Exception from a lower layer.
  *
  * @author Lijun Liao (xipki)
  */

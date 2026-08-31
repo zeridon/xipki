@@ -23,7 +23,6 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class BenchmarkExecutor {
 
   public static final String PROPKEY_BENCHMARK = "org.xipki.benchmark";

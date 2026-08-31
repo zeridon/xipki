@@ -11,7 +11,6 @@ import org.xipki.util.codec.json.JsonMap;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepControl {
 
   private static final long DFLT_MAX_SIGNINGTIME_BIAS = 5L * 60; // 5 minutes

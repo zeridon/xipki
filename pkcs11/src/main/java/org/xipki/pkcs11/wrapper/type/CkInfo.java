@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Ck information.
- * driver for a specific token.
+ * Driver for a specific token.
  *
  * <pre>
  * typedef struct CK_INFO {

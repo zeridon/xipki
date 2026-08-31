@@ -19,7 +19,6 @@ import java.util.Date;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DateUtil {
 
   private static final ZoneId ZONE_UTC = ZoneId.of("UTC");

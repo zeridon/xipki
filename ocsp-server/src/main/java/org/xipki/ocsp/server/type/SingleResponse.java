@@ -10,7 +10,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SingleResponse extends ASN1Type {
 
   private final CertID certId;

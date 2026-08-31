@@ -8,7 +8,6 @@ package org.xipki.util.extra.http;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class HttpRespContent {
 
   private final String contentType;

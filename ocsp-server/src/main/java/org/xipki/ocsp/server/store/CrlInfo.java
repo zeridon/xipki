@@ -19,7 +19,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CrlInfo {
 
   public static final String BASE_CRL_NUMBER = "base-crl-number";

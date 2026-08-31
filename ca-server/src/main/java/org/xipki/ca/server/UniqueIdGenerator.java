@@ -23,7 +23,6 @@ import java.util.function.IntBinaryOperator;
  * <p>Idea is borrowed from http://instagram-engineering.tumblr.com/post/10853187575/sharding-ids-at-instagram
  * @author Lijun Liao (xipki)
  */
-
 public class UniqueIdGenerator {
 
   private static class OffsetIncrement implements IntBinaryOperator {

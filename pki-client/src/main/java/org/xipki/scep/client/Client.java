@@ -54,7 +54,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class Client {
 
   public static final String REQ_CONTENT_TYPE = "application/octet-stream";

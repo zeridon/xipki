@@ -38,7 +38,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DefaultCurl implements Curl {
 
   private static final class HostConf {

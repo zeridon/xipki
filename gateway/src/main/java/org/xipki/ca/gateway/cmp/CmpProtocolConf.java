@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CmpProtocolConf extends GatewayConf.ProtocolConf {
 
   private final CmpControlConf cmp;

@@ -34,7 +34,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 class TargetDigestReader implements Closeable {
 
   private class Retriever implements Runnable {

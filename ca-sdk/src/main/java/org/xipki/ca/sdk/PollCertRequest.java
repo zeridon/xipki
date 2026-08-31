@@ -15,7 +15,6 @@ import java.math.BigInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class PollCertRequest extends CaIdentifierRequest {
 
   private final String transactionId;

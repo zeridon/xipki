@@ -20,7 +20,6 @@ import java.security.cert.CertificateException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RequestorEntry extends MgmtEntry {
 
   /**

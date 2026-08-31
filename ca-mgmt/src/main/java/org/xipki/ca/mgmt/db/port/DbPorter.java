@@ -31,7 +31,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DbPorter extends DbToolBase {
 
   /**

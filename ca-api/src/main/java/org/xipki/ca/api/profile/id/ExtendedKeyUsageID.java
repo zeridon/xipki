@@ -20,7 +20,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 // Please reflect changes here to
 // org.xipki.shell.Completers.ExtKeyusageCompleter
 public class ExtendedKeyUsageID extends AbstractID {

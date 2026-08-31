@@ -49,7 +49,6 @@ import java.util.Optional;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SelfSignedCertBuilder {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelfSignedCertBuilder.class);

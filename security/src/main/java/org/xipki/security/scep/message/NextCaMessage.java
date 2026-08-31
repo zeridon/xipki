@@ -34,7 +34,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class NextCaMessage {
 
   private X509Cert caCert;

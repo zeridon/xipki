@@ -17,7 +17,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class SslContextConfWrapper {
 
   private boolean useSslConf = true;

@@ -13,7 +13,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaIdNameMap {
 
   private final Map<Integer, NameId> idCertprofileMap = new HashMap<>();

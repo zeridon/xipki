@@ -20,7 +20,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1CertificatePolicies {
 
   private static class CertificatePolicyInformationType {

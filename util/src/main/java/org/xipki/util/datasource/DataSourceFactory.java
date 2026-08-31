@@ -24,7 +24,6 @@ import java.util.Optional;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DataSourceFactory {
 
   public DataSourceWrapper createDataSource(String name, FileOrValue conf)

@@ -10,7 +10,6 @@ import java.util.Arrays;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CompareUtil {
 
   private CompareUtil() {

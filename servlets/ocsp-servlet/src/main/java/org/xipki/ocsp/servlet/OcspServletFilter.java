@@ -13,7 +13,6 @@ import org.xipki.util.extra.http.XiHttpFilter;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspServletFilter extends ServletFilter {
 
   @Override

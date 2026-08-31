@@ -10,7 +10,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class AuditEventData {
 
   private final String name;

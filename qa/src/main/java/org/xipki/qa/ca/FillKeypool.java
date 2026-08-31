@@ -47,7 +47,6 @@ import java.util.StringTokenizer;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class FillKeypool implements AutoCloseable {
 
   private static final int ENCALG_AES128GCM = 1;

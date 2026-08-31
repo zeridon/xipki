@@ -8,7 +8,6 @@ package org.xipki.util.password;
  *
  * @author Lijun Liao (xipki)
  */
-
 public enum PBEAlgo {
 
   PBEWithHmacSHA256AndAES_256(1, "PBEWithHmacSHA256AndAES_256");

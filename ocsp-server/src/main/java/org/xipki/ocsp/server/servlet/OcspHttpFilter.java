@@ -23,7 +23,6 @@ import java.io.IOException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspHttpFilter implements XiHttpFilter {
 
   private static final Logger LOG = LoggerFactory.getLogger(OcspHttpFilter.class);

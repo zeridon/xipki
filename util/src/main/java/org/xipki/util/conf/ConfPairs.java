@@ -16,7 +16,6 @@ import java.util.Map.Entry;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ConfPairs implements JsonEncodable {
 
   private static final char BACKSLASH = '\\';

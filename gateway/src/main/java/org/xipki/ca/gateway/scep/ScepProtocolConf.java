@@ -21,7 +21,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepProtocolConf extends GatewayConf.ProtocolConf {
 
   private final ScepControl scep;

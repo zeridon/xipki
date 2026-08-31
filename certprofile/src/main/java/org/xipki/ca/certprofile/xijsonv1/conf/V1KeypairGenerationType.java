@@ -20,7 +20,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class V1KeypairGenerationType {
 
   public static final String PARAM_keysize = "keysize";

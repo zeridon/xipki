@@ -58,7 +58,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DecodedPkiMessage extends PkiMessage {
 
   private static final Logger LOG = LoggerFactory.getLogger(DecodedPkiMessage.class);

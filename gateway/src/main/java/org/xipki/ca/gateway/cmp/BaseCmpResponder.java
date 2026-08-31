@@ -116,7 +116,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class BaseCmpResponder {
 
   private static final int cmp2000 = 2;

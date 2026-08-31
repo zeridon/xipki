@@ -20,7 +20,6 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertprofileFactoryRegister {
 
   private static final Logger LOG = LoggerFactory.getLogger(CertprofileFactoryRegister.class);

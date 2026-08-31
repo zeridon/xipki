@@ -17,7 +17,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertListInfo implements JsonEncodable {
 
   private final BigInteger serialNumber;

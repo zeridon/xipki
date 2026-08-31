@@ -12,7 +12,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 class QcStatementOption {
 
   private final QCStatement statement;

@@ -13,7 +13,6 @@ import org.xipki.util.codec.cbor.CborEncoder;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CrlInfoResponse extends SdkResponse {
 
   private final byte[] crlInfo;

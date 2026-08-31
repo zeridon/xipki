@@ -11,7 +11,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ExtensionValue {
 
   private final boolean critical;

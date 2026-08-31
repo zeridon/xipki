@@ -8,7 +8,6 @@ package org.xipki.ocsp.server.type;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class WritableOnlyExtension extends Extension {
 
   private final byte[] encoded;

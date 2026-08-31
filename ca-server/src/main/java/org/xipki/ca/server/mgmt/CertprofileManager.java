@@ -37,7 +37,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CertprofileManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(CertprofileManager.class);

@@ -33,7 +33,6 @@ import java.util.Map;
  *
  * @author Lijun Liao (xipki)
  */
-
 class HttpOcspServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(HttpOcspServlet.class);

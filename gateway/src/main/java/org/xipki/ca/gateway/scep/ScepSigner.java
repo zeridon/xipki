@@ -12,11 +12,10 @@ import java.security.PrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
 /**
- * SCEP Signer signer definition.
+ * SCEP Signer definition.
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepSigner {
 
   private final PrivateKey key;

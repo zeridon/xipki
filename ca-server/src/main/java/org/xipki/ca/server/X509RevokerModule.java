@@ -46,7 +46,6 @@ import static org.xipki.ca.sdk.CaAuditConstants.TYPE_unsuspend_ca;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509RevokerModule extends X509CaModule implements Closeable {
 
   private class SuspendedCertsRevoker implements Runnable {

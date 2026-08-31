@@ -56,7 +56,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DbCertStatusStore extends OcspStore {
 
   private class StoreUpdateService implements Runnable {

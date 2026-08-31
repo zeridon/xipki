@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Encode List.
+ *
  * @author Lijun Liao (xipki)
  */
 public class EncodeList {

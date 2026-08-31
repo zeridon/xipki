@@ -88,7 +88,6 @@ import java.util.Random;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CmpAgent {
 
   private static final Logger LOG = LoggerFactory.getLogger(CmpAgent.class);

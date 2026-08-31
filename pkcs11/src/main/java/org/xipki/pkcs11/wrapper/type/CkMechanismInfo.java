@@ -23,6 +23,7 @@ import static org.xipki.pkcs11.wrapper.PKCS11T.*;
  *     CK_FLAGS    flags;
  * } CK_MECHANISM_INFO;
  * </pre>
+ *
  * @author Lijun Liao (xipki)
  */
 public class CkMechanismInfo extends AbstractInfo {

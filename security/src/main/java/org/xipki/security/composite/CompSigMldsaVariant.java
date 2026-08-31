@@ -9,6 +9,7 @@ import org.xipki.security.SignAlgo;
 
 /**
  * Comp Sig MLDSA Variant enumeration.
+ *
  * @author Lijun Liao (xipki)
  */
 public enum CompSigMldsaVariant {

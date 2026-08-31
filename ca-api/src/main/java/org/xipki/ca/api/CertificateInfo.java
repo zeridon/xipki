@@ -14,7 +14,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertificateInfo {
 
   private final CertWithDbId cert;

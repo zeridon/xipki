@@ -15,9 +15,9 @@ import java.io.IOException;
 
 /**
  * Sdk Client configuration.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public class SdkClientConf {
 
   private final String serverUrl;

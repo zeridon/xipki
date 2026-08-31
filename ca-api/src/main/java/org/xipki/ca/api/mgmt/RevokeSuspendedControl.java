@@ -25,7 +25,6 @@ import org.xipki.util.misc.StringUtil;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class RevokeSuspendedControl implements JsonEncodable {
 
   public static final String KEY_ENABLED = "enabled";

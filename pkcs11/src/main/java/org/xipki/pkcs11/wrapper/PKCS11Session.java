@@ -17,7 +17,7 @@ import java.util.Random;
 import static org.xipki.pkcs11.wrapper.PKCS11T.*;
 
 /**
- * XiPKI component.
+ * PKCS#11 Session.
  *
  * @author Lijun Liao (xipki)
  */

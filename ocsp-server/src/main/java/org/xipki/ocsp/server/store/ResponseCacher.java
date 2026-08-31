@@ -44,7 +44,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ResponseCacher implements Closeable {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResponseCacher.class);

@@ -24,7 +24,6 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaEnrollBenchmark extends BenchmarkExecutor {
 
   class Tester implements Runnable {

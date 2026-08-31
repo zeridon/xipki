@@ -14,7 +14,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 class EnrollCertResponse {
 
   private List<CMPCertificate> caCertificates;

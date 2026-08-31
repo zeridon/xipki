@@ -22,7 +22,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class FileBigIntegerIterator implements Iterator<BigInteger>, Closeable {
 
   private final boolean hex;

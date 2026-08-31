@@ -7,6 +7,7 @@ import org.xipki.util.codec.Args;
 
 /**
  * System Event.
+ *
  * @author Lijun Liao (xipki)
  */
 public class SystemEvent {

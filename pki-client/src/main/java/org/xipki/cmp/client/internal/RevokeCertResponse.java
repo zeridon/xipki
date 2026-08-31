@@ -13,7 +13,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 class RevokeCertResponse {
 
   private List<ResultEntry> resultEntries;

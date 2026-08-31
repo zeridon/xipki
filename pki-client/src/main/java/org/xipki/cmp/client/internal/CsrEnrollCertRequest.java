@@ -12,7 +12,6 @@ import org.xipki.util.codec.Args;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CsrEnrollCertRequest extends IdentifiedObject {
 
   private final String certprofile;

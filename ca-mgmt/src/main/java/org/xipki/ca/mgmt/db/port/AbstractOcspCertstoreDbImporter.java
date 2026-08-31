@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 abstract class AbstractOcspCertstoreDbImporter extends DbPorter {
 
   protected static final String MSG_CERTS_FINISHED = "certs.finished";

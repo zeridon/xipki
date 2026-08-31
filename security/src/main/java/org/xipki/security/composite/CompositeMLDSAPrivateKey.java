@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 /**
  * Composite MLDSAPrivate Key.
+ *
  * @author Lijun Liao (xipki)
  */
 public class CompositeMLDSAPrivateKey implements PrivateKey {

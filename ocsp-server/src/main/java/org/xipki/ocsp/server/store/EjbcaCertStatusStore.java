@@ -59,7 +59,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class EjbcaCertStatusStore extends OcspStore {
 
   private class StoreUpdateService implements Runnable {

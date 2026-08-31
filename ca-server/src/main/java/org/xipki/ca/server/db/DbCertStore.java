@@ -81,7 +81,6 @@ import static org.xipki.security.exception.ErrorCode.SYSTEM_FAILURE;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DbCertStore extends QueryExecutor implements CertStore {
 
   private static final Logger LOG = LoggerFactory.getLogger(DbCertStore.class);

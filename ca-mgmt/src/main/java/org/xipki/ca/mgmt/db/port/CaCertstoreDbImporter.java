@@ -49,7 +49,6 @@ import java.util.zip.ZipFile;
  *
  * @author Lijun Liao (xipki)
  */
-
 class CaCertstoreDbImporter extends DbPorter {
 
   private static final Logger LOG = LoggerFactory.getLogger(CaCertstoreDbImporter.class);

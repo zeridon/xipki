@@ -38,7 +38,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ScepUtil {
 
   private ScepUtil() {

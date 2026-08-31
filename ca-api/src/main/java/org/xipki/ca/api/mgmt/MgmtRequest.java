@@ -26,7 +26,6 @@ import java.util.List;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class MgmtRequest extends MgmtMessage {
 
   /**

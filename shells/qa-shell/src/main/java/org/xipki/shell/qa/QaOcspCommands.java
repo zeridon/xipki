@@ -63,7 +63,6 @@ import java.util.StringTokenizer;
  *
  * @author Lijun Liao (xipki)
  */
-
 class QaOcspCommands {
 
   @Command(name = "batch-ocsp-status",

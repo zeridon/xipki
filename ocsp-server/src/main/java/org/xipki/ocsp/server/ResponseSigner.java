@@ -29,7 +29,6 @@ import java.util.Map.Entry;
  *
  * @author Lijun Liao (xipki)
  */
-
 class ResponseSigner {
 
   private final Map<SignAlgo, ConcurrentSigner> algoSignerMap;

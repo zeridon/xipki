@@ -48,6 +48,7 @@ import static org.xipki.qa.CheckerUtil.addViolation;
 
 /**
  * Extension checker.
+ *
  * @author Lijun Liao (xipki)
  */
 class X509ExtensionChecker {

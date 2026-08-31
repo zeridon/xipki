@@ -16,7 +16,6 @@ import java.time.Instant;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CertTemplateData {
 
   private final X500Name subject;

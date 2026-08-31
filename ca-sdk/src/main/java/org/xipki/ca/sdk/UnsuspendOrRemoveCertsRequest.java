@@ -15,7 +15,6 @@ import java.math.BigInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class UnsuspendOrRemoveCertsRequest extends CaIdentifierRequest {
 
   private final BigInteger[] entries;

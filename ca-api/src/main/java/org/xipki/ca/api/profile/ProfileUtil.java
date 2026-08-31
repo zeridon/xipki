@@ -40,7 +40,6 @@ import java.util.Set;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ProfileUtil {
 
   public static SubjectInfo getSubject(X500Name requestedSubject, SubjectControl scontrol)

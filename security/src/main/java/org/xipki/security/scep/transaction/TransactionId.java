@@ -17,7 +17,6 @@ import java.security.spec.InvalidKeySpecException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class TransactionId {
 
   private final String id;

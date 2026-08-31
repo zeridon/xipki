@@ -35,7 +35,6 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class DbToolBase implements Closeable {
 
   private static final Logger LOG = LoggerFactory.getLogger(DbToolBase.class);

@@ -76,7 +76,6 @@ import static org.xipki.security.exception.ErrorCode.UNKNOWN_CERT_PROFILE;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class X509Ca extends X509CaModule implements Closeable {
 
   static class GrantedCertTemplate {

@@ -29,7 +29,6 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class OcspCertPublisher extends CertPublisher {
 
   private static final Logger LOG = LoggerFactory.getLogger(OcspCertPublisher.class);

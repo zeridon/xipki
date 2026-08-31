@@ -8,7 +8,6 @@ package org.xipki.qa.ocsp;
  *
  * @author Lijun Liao (xipki)
  */
-
 public enum OcspCertStatus {
 
   issuerUnknown,

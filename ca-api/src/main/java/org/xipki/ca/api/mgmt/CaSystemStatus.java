@@ -5,9 +5,9 @@ package org.xipki.ca.api.mgmt;
 
 /**
  * CA System Status enumeration.
+ *
  * @author Lijun Liao (xipki)
  */
-
 public enum CaSystemStatus {
 
   STARTED_AS_MASTER,

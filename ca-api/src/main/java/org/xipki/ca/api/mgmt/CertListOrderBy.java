@@ -10,7 +10,6 @@ import org.xipki.util.misc.StringUtil;
  *
  * @author Lijun Liao (xipki)
  */
-
 public enum CertListOrderBy {
 
   NOT_BEFORE("notBefore"),

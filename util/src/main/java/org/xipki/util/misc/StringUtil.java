@@ -25,7 +25,6 @@ import java.util.jar.Manifest;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class StringUtil {
 
   private StringUtil() {

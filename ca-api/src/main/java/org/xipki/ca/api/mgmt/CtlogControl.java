@@ -15,7 +15,6 @@ import java.util.List;
 
 /**
  * Ctlog Control settings.
- * Need to be implemented in a later version.
  *
  * @author Lijun Liao (xipki)
  */

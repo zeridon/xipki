@@ -4,7 +4,6 @@
 package org.xipki.pkcs11.wrapper;
 
 /**
- * PKCS11 Exception type.
  * PKCS11Exception indicates that a function call to the underlying
  * PKCS#11 module returned a value not equal to CKR_OK. The application can get
  * the returned value by calling getErrorCode(). A return value not equal to

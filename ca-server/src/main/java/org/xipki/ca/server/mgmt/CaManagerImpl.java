@@ -74,7 +74,6 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class CaManagerImpl implements CaManager, Closeable {
 
   private static class MyDataSourceMap implements DataSourceMap {

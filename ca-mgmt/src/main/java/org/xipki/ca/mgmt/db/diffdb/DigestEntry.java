@@ -17,7 +17,6 @@ import java.util.Objects;
  *
  * @author Lijun Liao (xipki)
  */
-
 class DigestEntry {
 
   private final BigInteger serialNumber;

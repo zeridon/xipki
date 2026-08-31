@@ -15,7 +15,6 @@ import java.math.BigInteger;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class ConfirmCertsRequest extends SdkRequest {
 
   private final String transactionId;

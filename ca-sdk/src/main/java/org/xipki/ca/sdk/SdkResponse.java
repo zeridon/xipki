@@ -8,7 +8,6 @@ package org.xipki.ca.sdk;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class SdkResponse extends SdkEncodable {
 
 }

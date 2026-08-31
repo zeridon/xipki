@@ -64,7 +64,6 @@ import java.util.*;
  *
  * @author Lijun Liao (xipki)
  */
-
 public class XijsonExtensions {
 
   private final List<ASN1ObjectIdentifier> extensionIDs;

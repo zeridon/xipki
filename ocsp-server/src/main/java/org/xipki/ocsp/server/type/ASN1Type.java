@@ -12,7 +12,6 @@ import java.time.ZoneOffset;
  *
  * @author Lijun Liao (xipki)
  */
-
 public abstract class ASN1Type {
 
   public abstract int encodedLength();
